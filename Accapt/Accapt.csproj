@@ -1,0 +1,109 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="CutomerDocument.docx" />
+    <None Remove="GifResurce\LodingGif.gif" />
+    <None Remove="ImageResurce\AccINC.png" />
+    <None Remove="ImageResurce\add_icon.png" />
+    <None Remove="ImageResurce\AppINC.png" />
+    <None Remove="ImageResurce\Assets.png" />
+    <None Remove="ImageResurce\BankChek.png" />
+    <None Remove="ImageResurce\Billan.png" />
+    <None Remove="ImageResurce\CartBank.png" />
+    <None Remove="ImageResurce\Customer.jpg" />
+    <None Remove="ImageResurce\DEBCEB.png" />
+    <None Remove="ImageResurce\deletIcon.png" />
+    <None Remove="ImageResurce\DetailsIcons.png" />
+    <None Remove="ImageResurce\EditeIcon.png" />
+    <None Remove="ImageResurce\hmic.png" />
+    <None Remove="ImageResurce\Home.png" />
+    <None Remove="ImageResurce\Invoice.png" />
+    <None Remove="ImageResurce\LoginIcon.png" />
+    <None Remove="ImageResurce\Login_and_Register_Icon.png" />
+    <None Remove="ImageResurce\p1.jpg" />
+    <None Remove="ImageResurce\Paid.png" />
+    <None Remove="ImageResurce\Print.png" />
+    <None Remove="ImageResurce\Profile.jpg" />
+    <None Remove="ImageResurce\refreshIcon.png" />
+    <None Remove="ImageResurce\Salary.png" />
+    <None Remove="ImageResurce\sell.png" />
+    <None Remove="ImageResurce\Setting.png" />
+    <None Remove="ImageResurce\Store.png" />
+    <None Remove="ImageResurce\T.png" />
+    <None Remove="ImageResurce\VisualStudio.png" />
+    <None Remove="ImageResurce\VSCode.png" />
+    <None Remove="Invoices.docx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="CutomerDocument.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Invoices.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ApiRequest.Net" Version="1.1.5" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="DocX" Version="3.0.1" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.1" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.20" />
+    <PackageReference Include="Mohsen.PersianDateControls" Version="1.0.1" />
+    <PackageReference Include="System.Data.Odbc" Version="8.0.0" />
+    <PackageReference Include="System.Data.OleDb" Version="8.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Accapt.Api\Accapt.Api.csproj" />
+    <ProjectReference Include="..\Accapt.Core\Accapt.Core.csproj" />
+    <ProjectReference Include="..\Accapt.DataLayer\Accapt.DataLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="GifResurce\LodingGif.gif" />
+    <Resource Include="ImageResurce\AccINC.png" />
+    <Resource Include="ImageResurce\add_icon.png" />
+    <Resource Include="ImageResurce\AppINC.png" />
+    <Resource Include="ImageResurce\Assets.png" />
+    <Resource Include="ImageResurce\BankChek.png" />
+    <Resource Include="ImageResurce\Billan.png" />
+    <Resource Include="ImageResurce\CartBank.png" />
+    <Resource Include="ImageResurce\Customer.jpg" />
+    <Resource Include="ImageResurce\DEBCEB.png" />
+    <Resource Include="ImageResurce\DetailsIcons.png" />
+    <Resource Include="ImageResurce\EditeIcon.png" />
+    <Resource Include="ImageResurce\hmic.png" />
+    <Resource Include="ImageResurce\deletIcon.png" />
+    <Resource Include="ImageResurce\Home.png" />
+    <Resource Include="ImageResurce\Invoice.png" />
+    <Resource Include="ImageResurce\LoginIcon.png" />
+    <Resource Include="ImageResurce\Login_and_Register_Icon.png" />
+    <Resource Include="ImageResurce\p1.jpg" />
+    <Resource Include="ImageResurce\Paid.png" />
+    <Resource Include="ImageResurce\Print.png" />
+    <Resource Include="ImageResurce\Profile.jpg" />
+    <Resource Include="ImageResurce\refreshIcon.png" />
+    <Resource Include="ImageResurce\Salary.png" />
+    <Resource Include="ImageResurce\sell.png" />
+    <Resource Include="ImageResurce\Setting.png" />
+    <Resource Include="ImageResurce\Store.png" />
+    <Resource Include="ImageResurce\T.png" />
+    <Resource Include="ImageResurce\VisualStudio.png" />
+    <Resource Include="ImageResurce\VSCode.png" />
+  </ItemGroup>
+
+</Project>

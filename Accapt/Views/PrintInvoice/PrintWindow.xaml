@@ -1,0 +1,124 @@
+﻿<Window x:Class="Accapt.Views.PrintInvoice.PrintWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Accapt.Views.PrintInvoice"
+        mc:Ignorable="d"
+        Title="PrintWindow" Height="800" Width="700" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Border x:Name="myBorder" BorderThickness="1" BorderBrush="Black">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel>
+                <TextBlock Text="فروشگاه آبتین" Style="{StaticResource LRTexBlock}" HorizontalAlignment="Center" FontSize="50" FontWeight="Bold"/>
+                
+                <TextBlock Text="نمایندگی رسمی محصولات آکواجوی کانادا" Style="{StaticResource LRTexBlock}" HorizontalAlignment="Center" FontSize="25" FontWeight="Bold" Margin="0 20 0 0"/>
+
+                <TextBlock Text="فروش و خدمات پس از فروش کلیه دستگاه های تصفیه آب و تصفیه هوا" Style="{StaticResource LRTexBlock}" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Margin=" 0 15 0 0"/>
+
+                <TextBlock Text="پردیس, فاز یک, میدان عدالت, تجاری ولیعصر, طبقه ,۲ پلاک 143" Style="{StaticResource LRTexBlock}" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Margin=" 0 8 0 0"/>
+
+                <TextBlock Text="تلفن : ۷۶۴۹۲۸۱۵              همراه : ۰۹۱۲۰۲۵۶۰۶۸" Style="{StaticResource LRTexBlock}" HorizontalAlignment="Center" FontSize="15" FontWeight="Bold" Margin=" 0 8 0 0"/>
+
+                <Border BorderBrush="Black" BorderThickness="2"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="1">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 10 0">
+                    <TextBlock x:Name="lblCustomerCode" Style="{StaticResource LRTexBlock}" Text=": کد اشتراک" FontSize="15" Margin="0 0 20 0" Width="99"/>
+                    
+                    <TextBlock Style="{StaticResource LRTexBlock}" Text=": کد اشتراک" FontSize="15" Margin="0 0 120 0"/>
+
+                    <TextBlock x:Name="lblCustomerName" Style="{StaticResource LRTexBlock}" Text=": نام مشتری" FontSize="15" Margin="0 0 20 0"/>
+
+                    <TextBlock Style="{StaticResource LRTexBlock}" Text=": نام مشتری" FontSize="15" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 20 10 0">
+                    <TextBlock x:Name="lblAddress" Style="{StaticResource LRTexBlock}" Text=": آدرس" FontSize="15" Margin="0 0 20 0"/>
+                    <TextBlock Style="{StaticResource LRTexBlock}" Text=": آدرس" FontSize="15" Margin="0 0 0 0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 20 10 0">
+
+                    <TextBlock x:Name="lblExperName" Style="{StaticResource LRTexBlock}" Text="صادقی" FontSize="15" Margin="0 0 20 0"/>
+
+                    <TextBlock Style="{StaticResource LRTexBlock}" Text=": نام کارشناس" FontSize="15" Margin="0 0 200 0"/>
+
+                    <TextBlock x:Name="lblPhone" Style="{StaticResource LRTexBlock}" Text=": تلفن" FontSize="15" Margin="0 0 20 0"/>
+                    
+                    <TextBlock  Style="{StaticResource LRTexBlock}" Text=": تلفن" FontSize="15" Margin="0 0 0 0"/>
+                    
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 20 10 0">
+
+                    <TextBlock x:Name="lblDuDate" Style="{StaticResource LRTexBlock}" Text="تاریخ" FontSize="15" Margin="0 0 20 0"/>
+
+                    <TextBlock Style="{StaticResource LRTexBlock}" Text=": تاریخ مراجعه بعدی" FontSize="15" Margin="0 0 80 0"/>
+
+                    <TextBlock x:Name="lblCurrentDate" Style="{StaticResource LRTexBlock}" Text=": تاریخ" FontSize="15" Margin="0 0 20 0"/>
+
+                    <TextBlock Style="{StaticResource LRTexBlock}" Text=": تاریخ مراجعه" FontSize="15" Margin="0 0 0 0"/>
+
+                </StackPanel>
+
+
+                <!--#region datagrid -->
+
+                <DataGrid x:Name="invoicesDataGrid" Style="{DynamicResource DataGridStyle1}" Grid.Row="1" Margin="20" MinHeight="240" MaxHeight="300" Width="664" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" GridLinesVisibility="All">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding ProductTotalPrice}" Header="جمع کل" IsReadOnly="True" CanUserResize="False" Width="190"/>
+
+                        <DataGridTextColumn Binding="{Binding ProductPrice}" Header="قیمت واحد" IsReadOnly="True"  Width="150"/>
+
+                        <DataGridTextColumn Binding="{Binding ProductCount}" Header="تعداد" IsReadOnly="True"  Width="100"/>
+
+                        <DataGridTextColumn Binding="{Binding ProductName}" Header="شرح کالا" IsReadOnly="True"  Width="150"/>
+
+                        <DataGridTextColumn Binding="{Binding InvoiceDetailsId}" Header="ردیف" IsReadOnly="True" Width="70"/>
+                    </DataGrid.Columns>
+                    <DataGrid.Resources>
+                        <Style x:Key="DataGridCellStyleWithBorder" TargetType="DataGridCell">
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Padding" Value="5"/>
+                        </Style>
+                        <Style x:Key="DataGridRowStyleWithBorder" TargetType="DataGridRow">
+                            <Setter Property="BorderBrush" Value="Black"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                        </Style>
+                    </DataGrid.Resources>
+
+
+
+                </DataGrid>
+                <!--#endregion-->
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 10 0">
+                    <TextBlock x:Name="AmountPaide" Style="{StaticResource LRTexBlock}" Text=": مبلغ کل" FontSize="15" Margin="0 0 10 0" Width="112"/>
+
+                    <TextBlock Style="{StaticResource LRTexBlock}" Text=": مبلغ پیش پرداخت" FontSize="15" Margin="0 0 120 0"/>
+
+                    <TextBlock x:Name="TotalPrice" Style="{StaticResource LRTexBlock}" Text=": مبلغ کل" FontSize="15" Margin="0 0 10 0" Width="101"/>
+
+                    <TextBlock Style="{StaticResource LRTexBlock}" Text=": مبلغ کل" FontSize="15" Margin="0 0 10 0"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 20 0 0" VerticalAlignment="Bottom">
+
+                    <TextBlock Style="{StaticResource LRTexBlock}" Text=": مهر و امضاء فروشنده" FontSize="15" Margin="0 0 220 0"/>
+
+                    <TextBlock Style="{StaticResource LRTexBlock}" Text=": امضا خریدار" FontSize="15" Margin="0 0 10 0"/>
+                </StackPanel>
+
+            </StackPanel>
+
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,46 @@
+﻿<Window x:Class="Accapt.Views.Invoices.ShowInvoiceDetailsForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Accapt.Views.Invoices"
+        mc:Ignorable="d"
+        Title="ShowInvoiceDetailsForm" Height="450" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="White">
+    <Border Background="White">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Background="#6491DE">
+                
+            </Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="btnPrint" Background="#073d7f" Foreground="#f1f1f1" Click="btnPrint_Click" Style="{StaticResource EDIT}" Content="Word خروجی" Margin="10"/>
+            </StackPanel>
+            
+            <!--#region datagrid -->
+
+            <DataGrid x:Name="invoicesDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20">
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Binding="{Binding InvoiceDetailsId}" Header="#" IsReadOnly="True" CanUserResize="False" Width="auto"/>
+
+                    <DataGridTextColumn Binding="{Binding ProductName}" Header="نام محصول" IsReadOnly="True"  Width="*"/>
+
+                    <DataGridTextColumn Binding="{Binding ProductPrice}" Header="قیمت محصول" IsReadOnly="True"  Width="*"/>
+
+                    <DataGridTextColumn Binding="{Binding ProductCount}" Header="تعداد محصول" IsReadOnly="True"  Width="*"/>
+
+                    <DataGridTextColumn Binding="{Binding Discount}" Header="تخفیف" IsReadOnly="True"  Width="*"/>
+
+                    <DataGridTextColumn Binding="{Binding ProductTotalPrice}" Header="مبلغ نهایی" IsReadOnly="True"  Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <!--#endregion-->
+
+        </Grid>
+    </Border>
+</Window>

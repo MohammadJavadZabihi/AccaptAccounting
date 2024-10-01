@@ -1,0 +1,92 @@
+﻿<Page x:Class="Accapt.Views.DebtOrCreditor.DebtOrCreditorShowPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Accapt.Views.DebtOrCreditor"
+      mc:Ignorable="d" 
+      d:DesignHeight="730" d:DesignWidth="1080"
+      Title="DebtOrCreditorShowPage" Loaded="Page_Loaded">
+
+    <Border Background="#f1f1f1" CornerRadius="20">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+
+            <!--#region datagrid -->
+
+            <DataGrid x:Name="debtOrCreditorDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn CanUserReorder="False" Width="auto">
+                    </DataGridCheckBoxColumn>
+
+                    <DataGridTextColumn Binding="{Binding DebtorCreditorID}" Header="#" IsReadOnly="True" CanUserResize="False" Width="auto"/>
+
+                    <DataGridTextColumn Binding="{Binding CustomerName}" Header="نام" IsReadOnly="True"  Width="*"/>
+
+                    <DataGridTextColumn Binding="{Binding PriceOfDebtorCreditor}" Header="مبلغ" IsReadOnly="True"  Width="*"/>
+
+                    <DataGridTextColumn Binding="{Binding Statuce}" Header="وضعیت" IsReadOnly="True"  Width="*"/>
+
+                    <DataGridTextColumn Binding="{Binding DateOfPurchaseForShow}" Header="تاریخ ثبت" IsReadOnly="True"  Width="*"/>
+
+                    <DataGridTextColumn Binding="{Binding Desctiptions}" Header="توضیحات" IsReadOnly="True"  Width="*"/>
+
+                    <DataGridTemplateColumn Header="عملیات" Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="btnDelet" Background="#B13939" Style="{StaticResource btnDeletandEditeSHoProduct}" Margin="0 0 10 0" Click="btnDelet_Click">
+                                        <Button.Content>
+                                            <Image Source="/ImageResurce/deletIcon.png"/>
+                                        </Button.Content>
+                                    </Button>
+                                    <Button x:Name="btnEdite" Background="#00719A" Style="{StaticResource btnDeletandEditeSHoProduct}" Click="btnEdite_Click">
+                                        <Button.Content>
+                                            <Image Source="/ImageResurce/EditeIcon.png"/>
+                                        </Button.Content>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                </DataGrid.Columns>
+            </DataGrid>
+            <!--#endregion-->
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
+
+                    <TextBox x:Name="txtSearch" TextChanged="txtSearch_TextChanged" Style="{StaticResource LRTextBox}" Margin="0 0 10 0" Template="{StaticResource LRUserTextBox}" Width="300" />
+
+                    <TextBlock Text=": جست و جو" Style="{StaticResource LRTexBlock}" VerticalAlignment="Center" Margin="0 0 35 0" FontSize="25"/>
+
+
+                    <Button x:Name="btnBefor" Grid.Row="0" Content="قبلی" Style="{StaticResource btnNextAndBeforShowProduct}" VerticalAlignment="Center" FontSize="15" Margin="0 0 10 0" Background="#4E2526" Click="btnBefor_Click"/>
+
+                    <Button x:Name="btnNext" Grid.Row="0" Content="بعدی" FontSize="15"  Style="{StaticResource btnNextAndBeforShowProduct}" VerticalAlignment="Center" Margin="0 0 20 0" Background="#254E45" Click="btnNext_Click"/>
+
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="btnAddDebtOrCreditor" Style="{StaticResource EditeButtonProducPage}" Content="افزودن بدهکار بستانکار" Width="150" HorizontalAlignment="Right" Background="#27503E" Foreground="White" Margin="20 0 0 0" Click="btnAddDebtOrCreditor_Click" FontSize="14"/>
+
+                    <Button x:Name="RefreshPage" Style="{StaticResource refeshButton}" Background="Transparent" HorizontalAlignment="Left" Foreground="White" Margin="20 0 0 0" Click="RefreshPage_Click">
+                        <Image Source="/ImageResurce/refreshIcon.png" Height="35"/>
+                    </Button>
+                </StackPanel>
+
+            </Grid>
+
+        </Grid>
+    </Border>
+</Page>

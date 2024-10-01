@@ -1,0 +1,13 @@
+﻿<Window x:Class="Accapt.Views.Loading.LoadingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        xmlns:local="clr-namespace:Accapt.Views.Loading"
+        mc:Ignorable="d"
+        Title="LoadingWindow" Height="150" Width="150" Background="Transparent" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" AllowsTransparency="True" ShowInTaskbar="False" Topmost="True">
+    <Border Background="#80000000" CornerRadius="10">
+        <Image gif:ImageBehavior.AnimatedSource="/GifResurce/LodingGif.gif" Width="100" Height="100"/>
+    </Border>
+</Window>
