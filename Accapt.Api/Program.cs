@@ -77,6 +77,7 @@ builder.Services.AddTransient<IAddChekServies, AddChekServies>();
 builder.Services.AddTransient<IDebtorCreditorsService, DebtorCreditorsService>();
 builder.Services.AddTransient<IEmployeeServies, EmployeeServies>();
 builder.Services.AddTransient<ISallaryAndCostsServiec, SallaryAndCostsServiec>();
+builder.Services.AddTransient<IProviderService, ProviderService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 #endregion

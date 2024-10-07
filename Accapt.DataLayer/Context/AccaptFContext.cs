@@ -71,5 +71,12 @@ namespace Accapt.DataLayer.Context
         public DbSet<SallaryAndCosts> SallaryAndCosts { get; set; }
 
         #endregion
+
+        #region Provider Service
+
+        public DbSet<ProviderServiceList> ProviderServiceLists { get; set; }
+        public DbSet<ServiceProvider> ServiceProviders { get; set; }
+
+        #endregion
     }
 }

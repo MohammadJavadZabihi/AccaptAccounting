@@ -69,6 +69,8 @@ namespace Accapt.DataLayer.Entities
         public IEnumerable<Epmloyee> Employees { get; set; }
         public IEnumerable<EmployeeDeatails> EmployeeDeatails { get; set; }
         public IEnumerable<SallaryAndCosts> SallaryAndCosts { get; set; }
+        public IEnumerable<ProviderServiceList> ProviderServiceLists { get; set; }
+        public IEnumerable<ServiceProvider> ServiceProviders { get; set; }
 
         #endregion
     }
