@@ -71,6 +71,7 @@ namespace Accapt.DataLayer.Entities
         public IEnumerable<SallaryAndCosts> SallaryAndCosts { get; set; }
         public IEnumerable<ProviderServiceList> ProviderServiceLists { get; set; }
         public IEnumerable<ServiceProvider> ServiceProviders { get; set; }
+        public IEnumerable<VisibleService> VisibleServices { get; set; }
 
         #endregion
     }

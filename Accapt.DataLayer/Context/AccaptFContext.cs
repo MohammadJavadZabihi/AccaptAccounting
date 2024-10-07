@@ -76,6 +76,7 @@ namespace Accapt.DataLayer.Context
 
         public DbSet<ProviderServiceList> ProviderServiceLists { get; set; }
         public DbSet<ServiceProvider> ServiceProviders { get; set; }
+        public DbSet<VisibleService> VisibleServices { get; set; }
 
         #endregion
     }

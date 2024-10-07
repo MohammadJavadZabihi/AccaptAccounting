@@ -27,8 +27,8 @@ namespace Accapt.DataLayer.Entities
         public string ProviderName { get; set; }
 
         [Required]
-        [MaxLength(250)]
-        public string ServiceName { get; set; }
+        [MaxLength(800)]
+        public string Address { get; set; }
 
         [Required]
         public double TotalAmount { get; set; }
@@ -38,7 +38,8 @@ namespace Accapt.DataLayer.Entities
         public string CustomerName { get; set; }
 
         [Required]
-        public bool IsDone { get; set; }
+        [MaxLength(150)]
+        public string IsDone { get; set; }
 
         [Required]
         public DateTime DateOfService { get; set; }
@@ -55,6 +56,7 @@ namespace Accapt.DataLayer.Entities
 
         public Users User { get; set; }
         public ServiceProvider ServiceProvider { get; set; }
+        public IEnumerable<VisibleService> VisibleServices { get; set; }    
 
         #endregion
     }

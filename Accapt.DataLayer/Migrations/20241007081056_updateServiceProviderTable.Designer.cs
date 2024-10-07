@@ -4,6 +4,7 @@ using Accapt.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Accapt.DataLayer.Migrations
 {
     [DbContext(typeof(AccaptFContext))]
-    partial class AccaptFContextModelSnapshot : ModelSnapshot
+    [Migration("20241007081056_updateServiceProviderTable")]
+    partial class updateServiceProviderTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -659,63 +662,6 @@ namespace Accapt.DataLayer.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Accapt.DataLayer.Entities.VisibleService", b =>
-                {
-                    b.Property<int>("VisibleServiceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VisibleServiceId"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(800)
-                        .HasColumnType("nvarchar(800)");
-
-                    b.Property<string>("DateOfService")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Descriptions")
-                        .IsRequired()
-                        .HasMaxLength(800)
-                        .HasColumnType("nvarchar(800)");
-
-                    b.Property<string>("Id")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<int>("ProviderWorkId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SrviceName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Statuce")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("VisibleServiceId");
-
-                    b.HasIndex("ProviderWorkId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("VisibleService");
-                });
-
             modelBuilder.Entity("Accapt.DataLayer.Entities.BankT", b =>
                 {
                     b.HasOne("Accapt.DataLayer.Entities.Users", "User")
@@ -879,23 +825,6 @@ namespace Accapt.DataLayer.Migrations
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("Accapt.DataLayer.Entities.VisibleService", b =>
-                {
-                    b.HasOne("Accapt.DataLayer.Entities.ProviderServiceList", "ProviderServiceList")
-                        .WithMany("VisibleServices")
-                        .HasForeignKey("ProviderWorkId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Accapt.DataLayer.Entities.Users", "User")
-                        .WithMany("VisibleServices")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("ProviderServiceList");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Accapt.DataLayer.Entities.BankT", b =>
                 {
                     b.Navigation("Cheks");
@@ -909,11 +838,6 @@ namespace Accapt.DataLayer.Migrations
             modelBuilder.Entity("Accapt.DataLayer.Entities.Invoice", b =>
                 {
                     b.Navigation("InvoiceDetails");
-                });
-
-            modelBuilder.Entity("Accapt.DataLayer.Entities.ProviderServiceList", b =>
-                {
-                    b.Navigation("VisibleServices");
                 });
 
             modelBuilder.Entity("Accapt.DataLayer.Entities.ServiceProvider", b =>
@@ -948,8 +872,6 @@ namespace Accapt.DataLayer.Migrations
                     b.Navigation("SallaryAndCosts");
 
                     b.Navigation("ServiceProviders");
-
-                    b.Navigation("VisibleServices");
                 });
 #pragma warning restore 612, 618
         }
