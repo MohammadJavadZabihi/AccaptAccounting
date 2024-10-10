@@ -78,6 +78,28 @@ namespace Accapt.Core.Servies
 
         }
 
+        public async Task<ReturniStatuceDTO> Login(LoginProviderServiceDTO loginProviderServiceDTO)
+        {
+            var provider = await _context.ServiceProviders.FirstOrDefaultAsync(p => p.ProviderName == loginProviderServiceDTO.UserName
+            && p.ProviderPassword == PasswordHelper.EncodePasswordMd5(loginProviderServiceDTO.Password));
+
+            if(provider == null)
+                return new ReturniStatuceDTO
+                {
+                    Data = null,
+                    ISuucess = false,
+                    Message = "unSuccessfully"
+                };
+
+            return new ReturniStatuceDTO
+            {
+                Data = provider,
+                ISuucess = true,
+                Message = "Successfully"
+            };
+
+        }
+
         public async Task<bool> Remove(int providerId, string userId)
         {
             var user = await _userServies.FindUserById(userId);

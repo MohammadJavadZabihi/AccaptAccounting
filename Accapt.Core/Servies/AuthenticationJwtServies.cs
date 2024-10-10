@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,30 @@ namespace Accapt.Core.Servies
                 .WriteToken(jwtSecurityToke);
 
             return tokenToReturn;
+        }
+
+        public async Task<string> AuthenticatJwtTokenForMobileApp(LoginProviderServiceDTO loginProviderServiceDTO)
+        {
+            var security = new SymmetricSecurityKey(
+                Encoding.ASCII.GetBytes(_configuration["Authentication:SecretForKey"]));
+
+            var singingCredentials = new SigningCredentials(security, SecurityAlgorithms.HmacSha256);
+            var clamsForToken = new List<Claim>();
+            clamsForToken.Add(new Claim("UserName", loginProviderServiceDTO.UserName));
+            clamsForToken.Add(new Claim("UserId", loginProviderServiceDTO.UserId.ToString()));
+
+            var jwtSevurityToken = new JwtSecurityToken(
+               _configuration["Authentication:Issuer"],
+               _configuration["Authentication:Audience"],
+               clamsForToken,
+               DateTime.Now,
+               DateTime.Now.AddDays(1),
+               singingCredentials);
+
+            var tokenReturn = new JwtSecurityTokenHandler()
+                .WriteToken(jwtSevurityToken);
+
+            return tokenReturn;
         }
     }
 }

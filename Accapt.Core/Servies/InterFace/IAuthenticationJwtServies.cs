@@ -10,5 +10,6 @@ namespace Accapt.Core.Servies.InterFace
     public interface IAuthenticationJwtServies
     {
         Task<string> AuthenticatJwtToken(LoginUserDTO userLogin);
+        Task<string> AuthenticatJwtTokenForMobileApp(LoginProviderServiceDTO loginProviderServiceDTO);
     }
 }

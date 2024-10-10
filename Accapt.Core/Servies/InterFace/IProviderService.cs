@@ -11,6 +11,7 @@ namespace Accapt.Core.Servies.InterFace
     public interface IProviderService
     {
         Task<bool> Add(AddServiceProviderDTO addServiceProviderDTO);
+        Task<ReturniStatuceDTO> Login(LoginProviderServiceDTO loginProviderServiceDTO);
         Task<bool> Remove(int providerId, string userId);
         Task<bool> Update(int providerId, string userId, string currentPassword, string newPassword);
         Task<IEnumerable<ServiceProvider?>> GetAll(int pageNumber = 1, int pageSize = 0,
