@@ -13,7 +13,7 @@ namespace Accapt.Core.Servies.InterFace
         Task<bool> Add(AddProviderServiceListDTO addProviderServiceListDTO);
         Task<bool> Remove(int ProviderWorkId, string userId);
         Task<bool> Update(UpdateProviderServiceListDTO updateProviderServiceListDTO);
-        Task<IEnumerable<ProviderServiceListS?>> GetAll(int pageNumber = 1, int pageSize = 0,
+        Task<IEnumerable<ProviderServiceList?>> GetAll(int pageNumber = 1, int pageSize = 0,
             string filter = "", string userId = "");
     }
 }

@@ -56,6 +56,7 @@ namespace Accapt.Core.Servies
                 pageSize = 8;
 
             IQueryable<ServiceProvider?> result = _context.ServiceProviders.AsNoTracking();
+            result = result.Where(p => p.Id == userId);
 
             if(!string.IsNullOrEmpty(filter))
             {
