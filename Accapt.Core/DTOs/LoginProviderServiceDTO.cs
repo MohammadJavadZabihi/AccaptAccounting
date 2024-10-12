@@ -8,7 +8,8 @@ namespace Accapt.Core.DTOs
 {
     public class LoginProviderServiceDTO
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
+        public int ServiceProviderId { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
     }

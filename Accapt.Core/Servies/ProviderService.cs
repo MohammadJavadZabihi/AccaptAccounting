@@ -81,7 +81,7 @@ namespace Accapt.Core.Servies
         public async Task<ReturniStatuceDTO> Login(LoginProviderServiceDTO loginProviderServiceDTO)
         {
             var provider = await _context.ServiceProviders.FirstOrDefaultAsync(p => p.ProviderName == loginProviderServiceDTO.UserName
-            && p.ProviderPassword == PasswordHelper.EncodePasswordMd5(loginProviderServiceDTO.Password));
+            && p.ProviderPassword == PasswordHelper.EncodePasswordMd5(loginProviderServiceDTO.Password) && p.Id == loginProviderServiceDTO.UserId);
 
             if(provider == null)
                 return new ReturniStatuceDTO
@@ -90,6 +90,8 @@ namespace Accapt.Core.Servies
                     ISuucess = false,
                     Message = "unSuccessfully"
                 };
+
+            loginProviderServiceDTO.ServiceProviderId = provider.ServiceProviderId;
 
             return new ReturniStatuceDTO
             {

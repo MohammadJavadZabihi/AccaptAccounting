@@ -12,9 +12,12 @@ namespace Accapt.Api.Controllers
     public class ServiceProviderController : ControllerBase
     {
         private readonly IProviderService _providerService;
-        public ServiceProviderController(IProviderService providerService)
+        private readonly IAuthenticationJwtServies _authenticationJwtServies;
+        public ServiceProviderController(IProviderService providerService, 
+            IAuthenticationJwtServies authenticationJwtServies)
         {
             _providerService = providerService ?? throw new ArgumentException(nameof(providerService));
+            _authenticationJwtServies = authenticationJwtServies;
         }
 
         #region Register Provider
@@ -85,6 +88,30 @@ namespace Accapt.Api.Controllers
                 return NotFound();
 
             return Ok(updatePassword);
+        }
+
+        #endregion
+
+        #region Login Provider
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginProviderServiceDTO login)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var loginStatuce = await _providerService.Login(login);
+
+            if(loginStatuce.ISuucess == false)
+                return NotFound();
+
+            var token = await _authenticationJwtServies.AuthenticatJwtTokenForMobileApp(login);
+
+            return Ok(new
+            {
+                token = token,
+                loginStatuce = loginStatuce,
+            });
         }
 
         #endregion

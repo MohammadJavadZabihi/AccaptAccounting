@@ -55,7 +55,8 @@ namespace Accapt.Core.Servies
             var singingCredentials = new SigningCredentials(security, SecurityAlgorithms.HmacSha256);
             var clamsForToken = new List<Claim>();
             clamsForToken.Add(new Claim("UserName", loginProviderServiceDTO.UserName));
-            clamsForToken.Add(new Claim("UserId", loginProviderServiceDTO.UserId.ToString()));
+            clamsForToken.Add(new Claim("UserId", loginProviderServiceDTO.UserId));
+            clamsForToken.Add(new Claim("UserId", loginProviderServiceDTO.ServiceProviderId.ToString()));
 
             var jwtSevurityToken = new JwtSecurityToken(
                _configuration["Authentication:Issuer"],
