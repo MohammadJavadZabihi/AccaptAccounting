@@ -77,4 +77,14 @@
 	  </Compile>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="MauiSerice\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Views\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

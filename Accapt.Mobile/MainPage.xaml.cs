@@ -2,13 +2,13 @@
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Accapt.Mobile.Views;
 
 namespace Accapt.Mobile
 {
     public partial class MainPage : ContentPage
     {
         private readonly HttpClient _httpClient;
-
         public MainPage()
         {
             InitializeComponent();
@@ -17,38 +17,46 @@ namespace Accapt.Mobile
 
         private async void btnLogin_Clicked(object sender, EventArgs e)
         {
-            // اطلاعاتی که می‌خواهید به API ارسال کنید
-            var data = new
+
+            if (string.IsNullOrEmpty(txtUserName.Text) || string.IsNullOrEmpty(txtPassword.Text))
             {
-                Username = txtUserName.Text,
-                Password = txtPassword.Text
-            };
-
-            // تبدیل اطلاعات به فرمت JSON
-            var json = JsonConvert.SerializeObject(data);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            try
-            {
-                // درخواست POST به API
-                var response = await _httpClient.PostAsync("https://localhost:7146/api/ProviderMnager/Login", content);
-
-                // بررسی موفقیت‌آمیز بودن درخواست
-                if (response.IsSuccessStatusCode)
-                {
-                    // دریافت نتیجه در صورت موفقیت
-                    var result = await response.Content.ReadAsStringAsync();
-                    await DisplayAlert("Success", "عالی بود!", "OK");
-                }
-                else
-                {
-                    await DisplayAlert("Failed", "ریدی", "OK");
-                }
+                await DisplayAlert("خطا", "لطفا نام کاربری و کلمه عبور خود را وارد نمایید", "باشه");
             }
-            catch (Exception ex)
+            else
             {
-                // مدیریت خطا
-                await DisplayAlert("Error", $"خطا: {ex.Message}", "OK");
+                var data = new
+                {
+                    Username = txtUserName.Text,
+                    Password = txtPassword.Text,
+                    UserId = "ee28b85504c24ad08df08226645eb710"
+                };
+
+                var json = JsonConvert.SerializeObject(data);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                try
+                {
+                    var response = await _httpClient.PostAsync("https://localhost:7146/api/ProviderMnager/Login", content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var result = await response.Content.ReadAsStringAsync();
+                        await DisplayAlert("موفق", "خوش آمدید", "باشه");
+                    }
+                    else if(response.IsSuccessStatusCode == null)
+                    {
+                        await DisplayAlert("خطا", "از اتصال خود به اینترنت مطمئن شوید", "باشه");
+                        App.Current.MainPage = new NavigationPage(new HomePage());
+                    }
+                    else
+                    {
+                        await DisplayAlert("خطا", "لطفا در ارسال اطلاعات دقت فرمایید", "باشه");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Error", $"خطا: {ex.Message}", "OK");
+                }
             }
         }
     }
