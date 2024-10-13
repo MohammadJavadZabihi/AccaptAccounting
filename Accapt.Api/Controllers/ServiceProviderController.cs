@@ -8,7 +8,7 @@ namespace Accapt.Api.Controllers
 {
     [Route("api/ProviderMnager")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ServiceProviderController : ControllerBase
     {
         private readonly IProviderService _providerService;
@@ -40,7 +40,7 @@ namespace Accapt.Api.Controllers
 
         #region Remove Provider
 
-        [HttpPost("Delet")]
+        [HttpDelete("Delet")]
         public async Task<IActionResult> Remove([FromQuery]int providerId, [FromQuery]string userId)
         {
             if(providerId == 0 || userId == null)

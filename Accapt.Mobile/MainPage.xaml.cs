@@ -8,15 +8,23 @@ namespace Accapt.Mobile
 {
     public partial class MainPage : ContentPage
     {
+        IEnumerable<ConnectionProfile> profiles = Connectivity.Current.ConnectionProfiles;
         private readonly HttpClient _httpClient;
+
         public MainPage()
         {
             InitializeComponent();
             _httpClient = new HttpClient();
+
+
         }
 
         private async void btnLogin_Clicked(object sender, EventArgs e)
         {
+            if (Connectivity.NetworkAccess != NetworkAccess.Internet)
+            {
+                await DisplayAlert("haaa", "haaaaaa", "Ok");
+            }
 
             if (string.IsNullOrEmpty(txtUserName.Text) || string.IsNullOrEmpty(txtPassword.Text))
             {
@@ -36,14 +44,14 @@ namespace Accapt.Mobile
 
                 try
                 {
-                    var response = await _httpClient.PostAsync("https://localhost:7146/api/ProviderMnager/Login", content);
+                    var response = await _httpClient.PostAsync("http://127.0.0.1:7146/api/ProviderMnager/Login", content);
 
                     if (response.IsSuccessStatusCode)
                     {
                         var result = await response.Content.ReadAsStringAsync();
                         await DisplayAlert("موفق", "خوش آمدید", "باشه");
                     }
-                    else if(response.IsSuccessStatusCode == null)
+                    else if (response.IsSuccessStatusCode == null)
                     {
                         await DisplayAlert("خطا", "از اتصال خود به اینترنت مطمئن شوید", "باشه");
                         App.Current.MainPage = new NavigationPage(new HomePage());
@@ -57,6 +65,7 @@ namespace Accapt.Mobile
                 {
                     await DisplayAlert("Error", $"خطا: {ex.Message}", "OK");
                 }
+
             }
         }
     }
