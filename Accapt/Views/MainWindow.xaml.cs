@@ -5,6 +5,7 @@ using Accapt.Views.Billan;
 using Accapt.Views.DebtOrCreditor;
 using Accapt.Views.Pepole;
 using Accapt.Views.Products;
+using Accapt.Views.ProviderManager;
 using Accapt.Views.SalaryandCosts;
 using AccaptFullyVersion.App.Views;
 using System.Windows;
@@ -217,6 +218,26 @@ namespace AccaptFullyVersion.App
 
             SalaryAndCostsPage salaryAndCostsPage = new SalaryAndCostsPage();
             fContainer.Navigate(salaryAndCostsPage);
+        }
+
+        private void btnProviderManager_Click(object sender, RoutedEventArgs e)
+        {
+            if (_selectedButton != null)
+            {
+                _selectedButton.Background = new SolidColorBrush(Colors.Transparent);
+                _selectedButton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f1f1f1"));
+            }
+
+            _selectedButton = sender as Button;
+
+            if (_selectedButton != null)
+            {
+                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8988f2"));
+                _selectedButton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f1f1f1"));
+            }
+
+            ProvidermanagerShow providermanagerShow = new ProvidermanagerShow();
+            fContainer.Navigate(providermanagerShow);
         }
     }
 }

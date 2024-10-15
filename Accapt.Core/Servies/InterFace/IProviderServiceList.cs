@@ -15,5 +15,7 @@ namespace Accapt.Core.Servies.InterFace
         Task<bool> Update(UpdateProviderServiceListDTO updateProviderServiceListDTO);
         Task<IEnumerable<ProviderServiceList?>> GetAll(int pageNumber = 1, int pageSize = 0,
             string filter = "", string userId = "");
+        Task<IEnumerable<VisibleService?>> GetAllServiceForMobile(int pageNumber = 1, int pageSize = 0, string filter = "", 
+            string userId = "", string providerName = "");
     }
 }

@@ -3,6 +3,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Accapt.Mobile.Views;
+using Accapt.Core.DTOs;
+using Accapt.Mobile.MauiService;
 
 namespace Accapt.Mobile
 {
@@ -44,17 +46,25 @@ namespace Accapt.Mobile
 
                 try
                 {
-                    var response = await _httpClient.PostAsync("http://127.0.0.1:7146/api/ProviderMnager/Login", content);
+                    var response = await _httpClient.PostAsync("https://accaptacounting.ir/api/ProviderMnager/Login", content);
 
                     if (response.IsSuccessStatusCode)
                     {
                         var result = await response.Content.ReadAsStringAsync();
+
+                        var loginResponse = JsonConvert.DeserializeObject<ProviderServiceLoginReturn>(result);
+                        var token = loginResponse.Token;
+                        if (token != null)
+                        {
+                            ProviderSesstions.Instance.PtoviderName = txtUserName.Text;
+                        }
+
                         await DisplayAlert("موفق", "خوش آمدید", "باشه");
+                        App.Current.MainPage = new NavigationPage(new HomePage());
                     }
                     else if (response.IsSuccessStatusCode == null)
                     {
                         await DisplayAlert("خطا", "از اتصال خود به اینترنت مطمئن شوید", "باشه");
-                        App.Current.MainPage = new NavigationPage(new HomePage());
                     }
                     else
                     {

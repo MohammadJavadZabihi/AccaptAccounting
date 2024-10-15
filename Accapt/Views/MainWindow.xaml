@@ -69,6 +69,13 @@
                                 </DockPanel>
                             </Button>
 
+                            <Button x:Name="btnProviderManager" Style="{StaticResource MenuButton}" Click="btnProviderManager_Click">
+                                <DockPanel>
+                                    <Image Source="/ImageResurce/Invoice.png" Width="35" DockPanel.Dock="Right" Margin="10 0 0 0"/>
+                                    <TextBlock Text="سرویس کارها" VerticalAlignment="Center" Margin="13,0,0,0"/>
+                                </DockPanel>
+                            </Button>
+
                             <Button x:Name="btnAccountDetails" Style="{StaticResource MenuButton}" Click="btnAccountDetails_Click">
                                 <DockPanel>
                                     <Image Source="/ImageResurce/Setting.png" Width="35" DockPanel.Dock="Right" Margin="10 0 0 0"/>

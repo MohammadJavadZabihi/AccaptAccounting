@@ -17,6 +17,7 @@ namespace Accapt.WpfServies
     {
         private readonly CallApi _callApi;
         private string? url = ConfigurationManager.AppSettings["ApiURL"];
+        private string? _localUrl = ConfigurationManager.AppSettings["LocalHost"];
         public LoadGetApisServies()
         {
             _callApi = new CallApi();
@@ -415,7 +416,7 @@ namespace Accapt.WpfServies
         {
             try
             {
-                var responseMessage = await _callApi.SendGetRequest<ShowDebtorCreditorsDTO?>($"{url}/api/DebtorCreditorManager/GetDebtorCreditors?pageNumber={pageNumber}&pageSize={_pageSize}&filter={filter}&userId={UserSession.Instance.UserId}", jwt: UserSession.Instance.JwtToken);
+                var responseMessage = await _callApi.SendGetRequest<ShowDebtorCreditorsDTO?>($"{_localUrl}/api/DebtorCreditorManager/GetDebtorCreditors?pageNumber={pageNumber}&pageSize={_pageSize}&filter={filter}&userId={UserSession.Instance.UserId}", jwt: UserSession.Instance.JwtToken);
                 if (responseMessage.IsSuccess)
                 {
                     var data = responseMessage.Data;
@@ -515,5 +516,38 @@ namespace Accapt.WpfServies
         }
 
         #endregion
+
+        #region LoadedProviderSerice
+
+        public async Task<bool> LoadProviderSerice(int pageNumber, DataGrid dataGrid, string filter, int _pageSize)
+        {
+            try
+            {
+                var responseMessage = await _callApi.SendGetRequest<ShowProviderDTO?>($"{url}/api/ProviderMnager/GetAll?pageNumber={pageNumber}&pageSize={_pageSize}&filter={filter}&userId={UserSession.Instance.UserId}", jwt: UserSession.Instance.JwtToken);
+                if (responseMessage.Data.Providers == null)
+                {
+                    return false;
+                }
+                if (responseMessage.IsSuccess)
+                {
+                    var data = responseMessage.Data;
+                    int iCount = data.Providers.Count();
+                    if (iCount > 0)
+                    {
+                        dataGrid.ItemsSource = data.Providers;
+                        return true;
+                    }
+                    return false;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }
+        }
+
+        #endregion
+
     }
 }

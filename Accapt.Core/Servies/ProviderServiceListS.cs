@@ -78,8 +78,8 @@ namespace Accapt.Core.Servies
 
             if(!string.IsNullOrEmpty(filter))
             {
-                result = result.Where(p => p.CustomerName == filter || p.Address == filter || 
-                p.DateOfServiceForShow == filter || p.Descriptions == filter);
+                result = result.Where(p => p.CustomerName.Contains(filter) || p.Address.Contains(filter) || 
+                p.DateOfServiceForShow.Contains(filter) || p.Descriptions.Contains(filter));
 
                 if(result.Count() < 0)
                 {
@@ -92,6 +92,39 @@ namespace Accapt.Core.Servies
             }
 
             var skip = (pageNumber - 1 ) * pageSize;
+
+            return await result.Skip(skip).Take(pageSize).ToListAsync();
+        }
+
+        public async Task<IEnumerable<VisibleService?>> GetAllServiceForMobile(int pageNumber = 1, int pageSize = 0, string filter = "", string userId = "", string providerName = "")
+        {
+            var user = await _findUserServies.FindUserById(userId);
+
+            if (user == null)
+                return null;
+
+            if(pageSize <= 0) 
+                pageSize = 8;
+
+            IQueryable<VisibleService> result = _context.VisibleServices.AsNoTracking();
+            result = result.Where(v => v.Id == userId);
+
+            if(!string.IsNullOrEmpty(filter))
+            {
+                result = result.Where(v => v.Statuce.Contains(filter) || v.PhoneNumber.Contains(filter) || v.SrviceName.Contains(filter) || 
+                v.DateOfService.Contains(filter) || v.Descriptions.Contains(filter));
+
+                if(result.Count() > 0)
+                {
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            var skip = (pageNumber - 1) * pageSize;
 
             return await result.Skip(skip).Take(pageSize).ToListAsync();
         }
