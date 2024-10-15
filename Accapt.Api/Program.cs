@@ -1,6 +1,7 @@
 using Accapt.Core.Servies;
 using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
+using Accapt.DataLayer.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -78,6 +79,7 @@ builder.Services.AddTransient<IDebtorCreditorsService, DebtorCreditorsService>()
 builder.Services.AddTransient<IEmployeeServies, EmployeeServies>();
 builder.Services.AddTransient<ISallaryAndCostsServiec, SallaryAndCostsServiec>();
 builder.Services.AddTransient<IProviderService, ProviderService>();
+builder.Services.AddTransient<IProviderServiceListS, ProviderServiceListS>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 #endregion

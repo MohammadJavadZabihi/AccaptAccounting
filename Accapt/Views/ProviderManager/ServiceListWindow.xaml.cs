@@ -1,47 +1,62 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Accapt.Views.Loading;
+using Accapt.WpfServies;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Accapt.Views.ProviderManager
 {
-    /// <summary>
-    /// Interaction logic for ServiceListWindow.xaml
-    /// </summary>
     public partial class ServiceListWindow : Window
     {
+        private LoadGetApisServies _loadGetApisServies;
+        private int _pageNumber = 1;
+        private int _pageSize = 10;
         public ServiceListWindow()
         {
             InitializeComponent();
+            _loadGetApisServies = new LoadGetApisServies();
         }
 
         private void btnAddService_Click(object sender, RoutedEventArgs e)
         {
-
+            AddServiceWindow addServiceWindow = new AddServiceWindow();
+            addServiceWindow.ShowDialog();
         }
 
-        private void RefreshPage_Click(object sender, RoutedEventArgs e)
+        private async void RefreshPage_Click(object sender, RoutedEventArgs e)
         {
+            LoadingWindow loadingWindow = new LoadingWindow();
+            loadingWindow.Show();
 
+            await _loadGetApisServies.LoadProviderSericeList(_pageNumber, serviceListDataGrid, txtSearch.Text, _pageSize);
+
+            loadingWindow.Close();
         }
 
-        private void btnNext_Click(object sender, RoutedEventArgs e)
+        private async void btnNext_Click(object sender, RoutedEventArgs e)
         {
+            _pageNumber++;
 
+            LoadingWindow loadingWindow = new LoadingWindow();
+            loadingWindow.Show();
+
+            var statuce = await _loadGetApisServies.LoadProviderSericeList(_pageNumber, serviceListDataGrid, txtSearch.Text, _pageSize);
+
+            if(!statuce)
+            {
+                _pageNumber--;
+                await _loadGetApisServies.LoadProviderSericeList(_pageNumber, serviceListDataGrid, txtSearch.Text, _pageSize);
+            }
+
+            loadingWindow.Close();
         }
 
-        private void btnBefor_Click(object sender, RoutedEventArgs e)
+        private async void btnBefor_Click(object sender, RoutedEventArgs e)
         {
-
+            if(_pageNumber >= 0)
+            {
+                _pageNumber--;
+                await _loadGetApisServies.LoadProviderSericeList(_pageNumber, serviceListDataGrid, txtSearch.Text, _pageSize);
+            }
         }
 
         private void btnDelet_Click(object sender, RoutedEventArgs e)
@@ -49,9 +64,19 @@ namespace Accapt.Views.ProviderManager
 
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            LoadingWindow loadingWindow = new LoadingWindow();
+            loadingWindow.Show();
 
+            await _loadGetApisServies.LoadProviderSericeList(_pageNumber, serviceListDataGrid, txtSearch.Text, _pageSize);
+
+            loadingWindow.Close();
+        }
+
+        private async void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            await _loadGetApisServies.LoadProviderSericeList(_pageNumber, serviceListDataGrid, txtSearch.Text, _pageSize);
         }
     }
 }

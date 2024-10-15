@@ -59,12 +59,12 @@
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
 
-                    <TextBox x:Name="txtSearch" Style="{StaticResource LRTextBox}" Margin="0 0 10 0" Template="{StaticResource LRUserTextBox}" Width="300" TextChanged="txtSearch_TextChanged"/>
+                    <TextBox x:Name="txtSearch" Style="{StaticResource LRTextBox}" Margin="0 0 10 0" Template="{StaticResource LRUserTextBox}" Width="235" TextChanged="txtSearch_TextChanged"/>
 
                     <TextBlock Text=": جست و جو" Style="{StaticResource LRTexBlock}" VerticalAlignment="Center" Margin="0 0 35 0" FontSize="25"/>
 
@@ -78,7 +78,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="btnAddProvider" Style="{StaticResource EditeButtonProducPage}" Content="افزودن سرویس کار" Width="150" HorizontalAlignment="Right" Background="#27503E" Foreground="White" Margin="20 0 0 0" Click="btnAddProvider_Click"/>
 
-                    <Button x:Name="btnAddService" Style="{StaticResource EditeButtonProducPage}" Content="سرویس ها" Width="150" HorizontalAlignment="Right" Background="#27503E" Foreground="White" Margin="20 0 0 0" Click="btnAddService_Click"/>
+                    <Button x:Name="btnAddService" Style="{StaticResource EditeButtonProducPage}" Content="سرویس ها" Width="150" Background="#073d7f" Foreground="White" Margin="20 0 0 0" Click="btnAddService_Click"/>
 
                     <Button x:Name="RefreshPage" Style="{StaticResource refeshButton}" Foreground="White" Margin="20 0 0 0" Click="RefreshPage_Click" Background="Transparent">
                         <Image Source="/ImageResurce/refreshIcon.png" Height="35"/>

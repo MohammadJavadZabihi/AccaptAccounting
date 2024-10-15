@@ -102,7 +102,8 @@ namespace Accapt.Views.ProviderManager
 
         private void btnAddService_Click(object sender, RoutedEventArgs e)
         {
-
+            ServiceListWindow serviceListWindow = new ServiceListWindow();
+            serviceListWindow.ShowDialog();
         }
     }
 }

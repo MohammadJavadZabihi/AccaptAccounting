@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Accapt.Core.Servies
 {
-    internal class ProviderServiceListS : IProviderServiceList
+    public class ProviderServiceListS : IProviderServiceListS
     {
         private readonly IFindUserServies _findUserServies;
         private readonly AccaptFContext _context;

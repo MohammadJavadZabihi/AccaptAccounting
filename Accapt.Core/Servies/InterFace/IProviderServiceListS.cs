@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Accapt.Core.Servies.InterFace
 {
-    public interface IProviderServiceList
+    public interface IProviderServiceListS
     {
         Task<bool> Add(AddProviderServiceListDTO addProviderServiceListDTO);
         Task<bool> Remove(int ProviderWorkId, string userId);
