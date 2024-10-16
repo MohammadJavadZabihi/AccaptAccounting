@@ -53,5 +53,9 @@ namespace Accapt.Views.ProviderManager
         {
 
         }
+        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
