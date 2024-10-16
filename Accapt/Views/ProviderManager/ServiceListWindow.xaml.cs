@@ -78,9 +78,5 @@ namespace Accapt.Views.ProviderManager
         {
             await _loadGetApisServies.LoadProviderSericeList(_pageNumber, serviceListDataGrid, txtSearch.Text, _pageSize);
         }
-        private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }

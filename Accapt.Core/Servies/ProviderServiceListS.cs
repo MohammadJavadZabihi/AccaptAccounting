@@ -29,6 +29,11 @@ namespace Accapt.Core.Servies
             if(user == null)
                 return false;
 
+            var provider = await _context.ServiceProviders.FirstOrDefaultAsync(p => p.ProviderName == addProviderServiceListDTO.ProviderName);
+
+            if(provider == null)
+                return false;
+
             ProviderServiceList providerServiceList = new ProviderServiceList
             {
                 Address = addProviderServiceListDTO.Address,
@@ -39,7 +44,9 @@ namespace Accapt.Core.Servies
                 Id = addProviderServiceListDTO.UserId,
                 IsDone = addProviderServiceListDTO.IsDone,
                 ProviderName = addProviderServiceListDTO.ProviderName,
-                TotalAmount = addProviderServiceListDTO.TotalAmount
+                TotalAmount = addProviderServiceListDTO.TotalAmount,
+                ServiceProvider = provider,
+                ServiceProviderId = provider.ServiceProviderId,
             };
 
             await _context.ProviderServiceLists.AddAsync(providerServiceList);

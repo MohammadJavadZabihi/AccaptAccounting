@@ -23,6 +23,10 @@ namespace Accapt.DataLayer.Entities
         public string Id { get; set; }
 
         [Required]
+        [ForeignKey("ServiceProvider")]
+        public int ServiceProviderId { get; set; }
+
+        [Required]
         [MaxLength(250)]
         public string ProviderName { get; set; }
 

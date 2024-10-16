@@ -5,8 +5,63 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Accapt.Views.ProviderManager"
         mc:Ignorable="d"
-        Title="AddServiceWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
-    <Grid>
-        
-    </Grid>
+        Title="AddServiceWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+    <Border CornerRadius="10">
+        <Grid Background="#6491DE">
+            <TextBlock Text="ثبت سرویس جدید" Style="{StaticResource LRTexBlock}" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Margin="0 20 20 0" FontSize="40"/>
+            <Border Background="White" Margin="0,99,0,0" CornerRadius="60 60 0 0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text=": نام سرویس کار" Style="{StaticResource LRTexBlock}" FontSize="18" Margin="0 20 20 0"/>
+
+
+                            <ComboBox x:Name="txtProviderName" Style="{StaticResource ComboBoxStyle}" Margin="0 5 5 0" IsEditable="True" KeyUp="txtProviderName_KeyUp" Width="350"/>
+
+                            <TextBlock Text=": نام مشتری" Style="{StaticResource LRTexBlock}" FontSize="18" Margin="0 20 20 0"/>
+
+                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Background="White" Foreground="Black" Margin="0 10 0 0" x:Name="txtCustomerName"/>
+
+                            <TextBlock Text=": تاریخ" Style="{StaticResource LRTexBlock}" FontSize="18" Margin="0 20 20 0"/>
+
+                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Background="White" Foreground="Black" Margin="0 10 0 0" x:Name="txtDate"/>
+
+                            <TextBlock Text=": وضعیت" Style="{StaticResource LRTexBlock}" FontSize="18" Margin="0 20 20 0"/>
+
+                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Background="White" Foreground="Black" Margin="0 10 0 0" x:Name="txtStatuce"/>
+
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text=": تلفن" Style="{StaticResource LRTexBlock}" FontSize="18" Margin="0 20 20 0"/>
+
+                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Background="White" Foreground="Black" Margin="0 10 0 0" x:Name="txtPhoneNumber"/>
+
+                            <TextBlock Text=": آدرس" Style="{StaticResource LRTexBlock}" FontSize="18" Margin="0 20 20 0"/>
+
+                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="64" Template="{StaticResource LRUserTextBox}" Background="White" Foreground="Black" Margin="0 10 0 0" x:Name="txtAddress"/>
+
+                            <TextBlock Text=": توضیحات کالا" Style="{StaticResource LRTexBlock}" FontSize="18" Margin="0 20 20 0"/>
+
+                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="79" Template="{StaticResource LRUserTextBox}" Background="White" Foreground="Black" Margin="0 10 0 0" x:Name="txtDescriptions"/>
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Button x:Name="btnSubmit" Grid.Row="1" Content="ثبت سرویس" Style="{StaticResource SubmitChek}" Margin="0 0 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnSubmit_Click" Background="#073d7f" Foreground="White"/>
+
+                </Grid>
+            </Border>
+        </Grid>
+    </Border>
 </Window>
