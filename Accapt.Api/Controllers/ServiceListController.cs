@@ -11,10 +11,10 @@ namespace Accapt.Api.Controllers
     [ApiController]
     public class ServiceListController : ControllerBase
     {
-        private IProviderServiceList _providerServiceList;
-        public ServiceListController(IProviderServiceList providerServiceList)
+        private IProviderServiceListS _providerServiceList;
+        public ServiceListController(IProviderServiceListS providerServiceList)
         {
-            _providerServiceList = providerServiceList;
+            _providerServiceList = providerServiceList ?? throw new ArgumentException(nameof(providerServiceList));
         }
 
         #region AddService 

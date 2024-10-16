@@ -35,6 +35,7 @@
     <None Remove="ImageResurce\refreshIcon.png" />
     <None Remove="ImageResurce\Salary.png" />
     <None Remove="ImageResurce\sell.png" />
+    <None Remove="ImageResurce\ServiceProviderIcon.png" />
     <None Remove="ImageResurce\Setting.png" />
     <None Remove="ImageResurce\Store.png" />
     <None Remove="ImageResurce\T.png" />
@@ -99,6 +100,7 @@
     <Resource Include="ImageResurce\refreshIcon.png" />
     <Resource Include="ImageResurce\Salary.png" />
     <Resource Include="ImageResurce\sell.png" />
+    <Resource Include="ImageResurce\ServiceProviderIcon.png" />
     <Resource Include="ImageResurce\Setting.png" />
     <Resource Include="ImageResurce\Store.png" />
     <Resource Include="ImageResurce\T.png" />

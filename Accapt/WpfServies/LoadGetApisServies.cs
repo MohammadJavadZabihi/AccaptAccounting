@@ -549,5 +549,37 @@ namespace Accapt.WpfServies
 
         #endregion
 
+        #region LoadedProviderSericeList
+
+        public async Task<bool> LoadProviderSericeList(int pageNumber, DataGrid dataGrid, string filter, int _pageSize)
+        {
+            try
+            {
+                var responseMessage = await _callApi.SendGetRequest<ShowProviderServiceList?>($"{_localUrl}/api/ServiceListManager/GetAll?pageNumber={pageNumber}&pageSize={_pageSize}&filter={filter}&userId={UserSession.Instance.UserId}", jwt: UserSession.Instance.JwtToken);
+                if (responseMessage.Data == null)
+                {
+                    return false;
+                }
+                if (responseMessage.IsSuccess)
+                {
+                    var data = responseMessage.Data;
+                    int iCount = data.ProvidersList.Count();
+                    if (iCount > 0)
+                    {
+                        dataGrid.ItemsSource = data.ProvidersList;
+                        return true;
+                    }
+                    return false;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        #endregion
+
     }
 }

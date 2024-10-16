@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Accapt.Views.ProviderManager"
         mc:Ignorable="d"
-        Title="ServiceListWindow" Height="730" Width="1080" Loaded="Window_Loaded">
+        Title="ServiceListWindow" Height="730" Width="1080" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
     <Border Background="#f1f1f1">
         <Grid>
             <Grid.RowDefinitions>
@@ -15,7 +15,7 @@
 
             <!--#region datagrid -->
 
-            <DataGrid x:Name="chekDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20">
+            <DataGrid x:Name="serviceListDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn CanUserReorder="False" Width="auto">
                     </DataGridCheckBoxColumn>
