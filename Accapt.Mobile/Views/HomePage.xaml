@@ -2,11 +2,12 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Accapt.Mobile.Views.HomePage"
-             Title="HomePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
-</ContentPage>
+             Title="HomePage" Loaded="ContentPage_Loaded">
+    <ScrollView>
+        <StackLayout x:Name="CardContainer" Padding="10">
+            <!-- کارت‌ها به صورت داینامیک اضافه می‌شوند -->
+            <Entry x:Name="txtSearch"/>
+            <Button x:Name="btnLoad" Text="loaddata" Clicked="btnLoad_Clicked"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>  
