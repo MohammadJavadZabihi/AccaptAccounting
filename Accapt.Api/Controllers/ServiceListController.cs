@@ -58,7 +58,7 @@ namespace Accapt.Api.Controllers
         #region Update 
 
         [HttpPut("Update")]
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Update(UpdateProviderServiceListDTO updateProviderServiceListDTO)
         {
             if (!ModelState.IsValid)

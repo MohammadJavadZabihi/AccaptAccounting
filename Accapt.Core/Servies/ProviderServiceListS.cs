@@ -62,6 +62,7 @@ namespace Accapt.Core.Servies
                 SrviceName = addProviderServiceListDTO.CustomerName,
                 Statuce = addProviderServiceListDTO.IsDone,
                 ProviderWorkId = providerServiceList.ProviderWorkId,
+                ProviderName = addProviderServiceListDTO.ProviderName
             };
 
             await _context.VisibleServices.AddAsync(visibleService);
@@ -110,11 +111,16 @@ namespace Accapt.Core.Servies
             if (user == null)
                 return null;
 
+            var provideExixst = await _context.ServiceProviders.AnyAsync(p => p.ProviderName == providerName);
+
+            if (!provideExixst)
+                return null;
+
             if(pageSize <= 0) 
                 pageSize = 8;
 
             IQueryable<VisibleService> result = _context.VisibleServices.AsNoTracking();
-            result = result.Where(v => v.Id == userId);
+            result = result.Where(v => v.Id == userId && v.ProviderName == providerName);
 
             if(!string.IsNullOrEmpty(filter))
             {
@@ -176,6 +182,14 @@ namespace Accapt.Core.Servies
             providerList.DateOfService = Convert.ToDateTime(updateProviderServiceListDTO.Date);
 
             _context.ProviderServiceLists.Update(providerList);
+            await _context.SaveChangesAsync();
+
+            var visibleService = await _context.VisibleServices.FirstOrDefaultAsync(v => v.Id == updateProviderServiceListDTO.UserId && v.ProviderWorkId == providerList.ProviderWorkId);
+
+            if (visibleService == null)
+                return false;
+
+            _context.VisibleServices.Remove(visibleService);
             await _context.SaveChangesAsync();
 
             return true;

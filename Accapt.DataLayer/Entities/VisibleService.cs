@@ -27,6 +27,9 @@ namespace Accapt.DataLayer.Entities
         public int ProviderWorkId { get; set; }
 
         [Required]
+        public string ProviderName { get; set; }
+
+        [Required]
         [MaxLength(200)]
         public string SrviceName { get; set; }
 

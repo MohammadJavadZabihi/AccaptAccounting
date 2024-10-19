@@ -5,9 +5,12 @@
              Title="HomePage" Loaded="ContentPage_Loaded">
     <ScrollView>
         <StackLayout x:Name="CardContainer" Padding="10">
-            <!-- کارت‌ها به صورت داینامیک اضافه می‌شوند -->
-            <Entry x:Name="txtSearch"/>
-            <Button x:Name="btnLoad" Text="loaddata" Clicked="btnLoad_Clicked"/>
+            <!-- کادر جستجو با فونت فارسی -->
+            <Entry x:Name="txtSearch" FontFamily="VazirFont" Placeholder="جستجو..." />
+
+            <!-- دکمه بارگذاری داده‌ها با فونت فارسی -->
+            <Button x:Name="btnLoad" Text="بارگذاری اطلاعات" Clicked="btnLoad_Clicked" FontFamily="VazirFont"/>
         </StackLayout>
     </ScrollView>
-</ContentPage>  
+</ContentPage>
+    

@@ -57,8 +57,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Fonts\Vazir-Bold-FD-WOL.ttf" />
-	  <None Remove="Resources\Images\Login_and_Register_Icon.png" />
+		<None Remove="Resources\Fonts\Vazir-Bold-FD-WOL.ttf" />
+		<None Remove="Resources\Images\Login_and_Register_Icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -69,22 +69,29 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Platforms\iOS\CustomEntryMapper.cs">
-	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-	  </Compile>
-	  <Compile Update="Platforms\MacCatalyst\CustomEntryMapper.cs">
-	    <ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
-	  </Compile>
+		<Compile Update="Platforms\iOS\CustomEntryMapper.cs">
+			<ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+		</Compile>
+		<Compile Update="Platforms\MacCatalyst\CustomEntryMapper.cs">
+			<ExcludeFromCurrentConfiguration>false</ExcludeFromCurrentConfiguration>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="MauiSerice\" />
+		<Folder Include="MauiSerice\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\HomePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="Views\HomePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
+		<AndroidSigningKeyStore>../ServiceProvider.keystore</AndroidSigningKeyStore>
+		<AndroidSigningKeyAlias>AccaptService</AndroidSigningKeyAlias>
+		<AndroidSigningKeyPass>123456</AndroidSigningKeyPass>
+		<AndroidSigningStorePass>123456</AndroidSigningStorePass>
+	</PropertyGroup>
 
 </Project>
