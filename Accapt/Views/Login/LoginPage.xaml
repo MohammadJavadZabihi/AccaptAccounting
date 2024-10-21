@@ -26,7 +26,7 @@ WindowStyle="None" Background="Transparent" AllowsTransparency="True">
                     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 30 0">
                         <TextBlock Text="...خوش آمدید" Style="{StaticResource LRTexBlock}" Width="273"/>
 
-                        <TextBox x:Name="txtUserName" Margin="0 14 0 0" Style="{StaticResource LRTextBox}"  Template="{StaticResource LRUserTextBox}" Text="نام کاربری"/>
+                        <TextBox x:Name="txtUserName" Margin="0 14 0 0" Style="{StaticResource LRTextBox}"  Template="{StaticResource LRUserTextBox}" Text="نام کاربری" />
 
                         <PasswordBox x:Name="txtPassword" Margin="0 30 0 0" Style="{StaticResource LRPasswordBox}" Template="{StaticResource passwordbox}"/>
 

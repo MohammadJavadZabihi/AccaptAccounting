@@ -57,6 +57,11 @@ namespace Accapt.Mobile
                         if (token != null)
                         {
                             ProviderSesstions.Instance.PtoviderName = txtUserName.Text;
+                            ProviderSesstions.Instance.Token = token;
+                        }
+                        else
+                        {
+                            await DisplayAlert($"Error{response.RequestMessage.ToString()}", "خطا", "باشه");
                         }
 
                         await DisplayAlert("موفق", "خوش آمدید", "باشه");
