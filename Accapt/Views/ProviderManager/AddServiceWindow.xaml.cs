@@ -24,7 +24,7 @@ namespace Accapt.Views.ProviderManager
     public partial class AddServiceWindow : Window
     {
         private CallApi _callAPi;
-        private string _url = ConfigurationManager.AppSettings["LocalHost"];
+        private string _url = ConfigurationManager.AppSettings["ApiURL"];
         public AddServiceWindow()
         {
             InitializeComponent();

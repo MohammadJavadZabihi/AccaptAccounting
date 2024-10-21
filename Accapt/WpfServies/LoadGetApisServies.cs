@@ -555,7 +555,7 @@ namespace Accapt.WpfServies
         {
             try
             {
-                var responseMessage = await _callApi.SendGetRequest<ShowProviderServiceList?>($"{_localUrl}/api/ServiceListManager/GetAll?pageNumber={pageNumber}&pageSize={_pageSize}&filter={filter}&userId={UserSession.Instance.UserId}", jwt: UserSession.Instance.JwtToken);
+                var responseMessage = await _callApi.SendGetRequest<ShowProviderServiceList?>($"{url}/api/ServiceListManager/GetAll?pageNumber={pageNumber}&pageSize={_pageSize}&filter={filter}&userId={UserSession.Instance.UserId}", jwt: UserSession.Instance.JwtToken);
                 if (responseMessage.Data == null)
                 {
                     return false;
