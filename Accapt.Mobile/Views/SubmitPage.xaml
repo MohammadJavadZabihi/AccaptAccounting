@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Accapt.Mobile.Views.SubmitPage"
+             xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+             xmlns:Contlores="clr-namespace:Accapt.Mobile.Controls"
+             Title="SubmitPage" Background="White">
+    <VerticalStackLayout>
+
+        <Contlores:CustomeEntry Grid.Column="1" x:Name="txtProductName" BackgroundColor="#D9D9D9"
+            TextColor="#404040"
+            VerticalOptions="Center" 
+            Keyboard="Text" FontFamily="VazirFont" FlowDirection="LeftToRight" Placeholder="نام محصول" Margin="10,20,10,10"></Contlores:CustomeEntry>
+
+        <Contlores:CustomeEntry Grid.Column="1" x:Name="txtProductCount" BackgroundColor="#D9D9D9"
+            TextColor="#404040"
+            VerticalOptions="Center" 
+            Keyboard="Numeric" FontFamily="VazirFont" FlowDirection="LeftToRight" Placeholder="تعداد محصول" Margin="10,20,10,10"></Contlores:CustomeEntry>
+
+        <Contlores:CustomeEntry Grid.Column="1" x:Name="txtProductPrice" BackgroundColor="#D9D9D9"
+            TextColor="#404040"
+            VerticalOptions="Center" 
+            Keyboard="Numeric" FontFamily="VazirFont" FlowDirection="LeftToRight" Placeholder="قیمت محصول" Margin="10,20,10,10"></Contlores:CustomeEntry>
+
+        <Button x:Name="btnAddProduct" Text="اضافه کردن محصول" Margin="10,30,10,10" FontAttributes="Bold" FontFamily="VazirFont"
+            FontSize="Medium" Clicked="btnAddProduct_Clicked">
+            <Button.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.5">
+                    <GradientStop Color="#0B5E00" Offset="0"/>
+                    <GradientStop Color="#00DE43" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <Contlores:CustomeEntry Grid.Column="1" x:Name="txtServiceAmount" BackgroundColor="#D9D9D9"
+         TextColor="#404040"
+        VerticalOptions="Center" 
+        Keyboard="Numeric" FontFamily="VazirFont" FlowDirection="LeftToRight" Placeholder="هزینه سرویس - هزینه نصب - اجرت سرویس" Margin="10,20,10,10"></Contlores:CustomeEntry>
+
+        <Contlores:CustomeEntry Grid.Column="1" x:Name="txtAyab" BackgroundColor="#D9D9D9"
+        TextColor="#404040"
+        VerticalOptions="Center" 
+        Keyboard="Numeric" FontFamily="VazirFont" FlowDirection="LeftToRight" Margin="10,35,10,10" Placeholder="هزینه ایاب ذهاب"/>
+
+        <Button x:Name="btnLogin" Text="ثبت  سرویس" Margin="10,30,10,10" FontAttributes="Bold" FontFamily="VazirFont"
+        FontSize="Medium" Clicked="btnLogin_Clicked">
+            <Button.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.5">
+                    <GradientStop Color="#0B5E00" Offset="0"/>
+                    <GradientStop Color="#00DE43" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+    </VerticalStackLayout>
+</ContentPage>

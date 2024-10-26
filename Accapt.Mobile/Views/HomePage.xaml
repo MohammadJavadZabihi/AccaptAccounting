@@ -2,14 +2,14 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Accapt.Mobile.Views.HomePage"
-             Title="HomePage" Loaded="ContentPage_Loaded">
+             Title="HomePage" Loaded="ContentPage_Loaded" Background="White">
     <ScrollView>
         <StackLayout x:Name="CardContainer" Padding="10">
             <!-- کادر جستجو با فونت فارسی -->
-            <Entry x:Name="txtSearch" FontFamily="VazirFont" Placeholder="جستجو..." />
+            <Entry x:Name="txtSearch" Placeholder="جستجو..." Background="WhiteSmoke"/>
 
             <!-- دکمه بارگذاری داده‌ها با فونت فارسی -->
-            <Button x:Name="btnLoad" Text="بارگذاری اطلاعات" Clicked="btnLoad_Clicked" FontFamily="VazirFont"/>
+            <Button x:Name="btnLoad" Text="بارگذاری اطلاعات" Clicked="btnLoad_Clicked"/>
         </StackLayout>
     </ScrollView>
 </ContentPage>
