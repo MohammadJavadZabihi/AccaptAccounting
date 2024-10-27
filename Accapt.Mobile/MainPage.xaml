@@ -11,12 +11,12 @@
 
             <Label Text="خوش آمدید" HorizontalOptions="Center" Margin="0,0,0,30" FontSize="30" FontFamily="VazirFont"/>
 
-            <Contlores:CustomeEntry Grid.Column="1" x:Name="txtUserName" Text="نام کاربری" BackgroundColor="#D9D9D9"
+            <Contlores:CustomeEntry Grid.Column="1" x:Name="txtUserName" Placeholder="نام کاربری" BackgroundColor="#D9D9D9"
             TextColor="#404040"
        VerticalOptions="Center" 
        Keyboard="Text" FontFamily="VazirFont" FlowDirection="RightToLeft"></Contlores:CustomeEntry>
 
-            <Contlores:CustomeEntry Grid.Column="1" x:Name="txtPassword" BackgroundColor="#D9D9D9"
+            <Contlores:CustomeEntry Grid.Column="1" x:Name="txtPassword" BackgroundColor="#D9D9D9" Placeholder="کلمه عبور"
            TextColor="#404040"
       VerticalOptions="Center" 
       Keyboard="Text" FontFamily="VazirFont" FlowDirection="RightToLeft" IsPassword="True" Margin="0,35,0,0"/>

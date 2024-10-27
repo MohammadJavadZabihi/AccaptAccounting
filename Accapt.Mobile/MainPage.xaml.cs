@@ -3,7 +3,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Accapt.Mobile.Views;
-using Accapt.Core.DTOs;
 using Accapt.Mobile.MauiService;
 
 namespace Accapt.Mobile

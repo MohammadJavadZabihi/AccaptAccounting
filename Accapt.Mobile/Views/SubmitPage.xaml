@@ -4,13 +4,15 @@
              x:Class="Accapt.Mobile.Views.SubmitPage"
              xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
              xmlns:Contlores="clr-namespace:Accapt.Mobile.Controls"
-             Title="SubmitPage" Background="White">
+             Title="SubmitPage" Background="White" Loaded="ContentPage_Loaded">
     <VerticalStackLayout>
 
-        <Contlores:CustomeEntry Grid.Column="1" x:Name="txtProductName" BackgroundColor="#D9D9D9"
-            TextColor="#404040"
-            VerticalOptions="Center" 
-            Keyboard="Text" FontFamily="VazirFont" FlowDirection="LeftToRight" Placeholder="نام محصول" Margin="10,20,10,10"></Contlores:CustomeEntry>
+        <VerticalStackLayout>
+            <Contlores:CustomeEntry x:Name="searchEntry" Placeholder="جستجو کنید"
+           TextChanged="OnSearchTextChanged" BackgroundColor="#D9D9D9" TextColor="#404040"/>
+
+            <Picker x:Name="productPicker" Title="محصول مورد نظر خود را انتخاب کنید"/>
+        </VerticalStackLayout>
 
         <Contlores:CustomeEntry Grid.Column="1" x:Name="txtProductCount" BackgroundColor="#D9D9D9"
             TextColor="#404040"
@@ -26,8 +28,8 @@
             FontSize="Medium" Clicked="btnAddProduct_Clicked">
             <Button.Background>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.5">
-                    <GradientStop Color="#0B5E00" Offset="0"/>
-                    <GradientStop Color="#00DE43" Offset="1"/>
+                    <GradientStop Color="#073d7f" Offset="0"/>
+                    <GradientStop Color="#6491DE" Offset="1"/>
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
@@ -41,6 +43,12 @@
         TextColor="#404040"
         VerticalOptions="Center" 
         Keyboard="Numeric" FontFamily="VazirFont" FlowDirection="LeftToRight" Margin="10,35,10,10" Placeholder="هزینه ایاب ذهاب"/>
+
+
+        <Contlores:CustomeEntry Grid.Column="1" x:Name="txtAmountpaid" BackgroundColor="#D9D9D9"
+        TextColor="#404040"
+        VerticalOptions="Center" 
+        Keyboard="Numeric" FontFamily="VazirFont" FlowDirection="LeftToRight" Margin="10,35,10,10" Placeholder="مبلغ پرداخت شده"/>
 
         <Button x:Name="btnLogin" Text="ثبت  سرویس" Margin="10,30,10,10" FontAttributes="Bold" FontFamily="VazirFont"
         FontSize="Medium" Clicked="btnLogin_Clicked">

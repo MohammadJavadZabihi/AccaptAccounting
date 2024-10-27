@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace Accapt.Mobile
+namespace Accapt.Mobile.MauiService
 {
     public class VisibleService
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Accapt.Core.DTOs
+namespace Accapt.Mobile.MauiService
 {
     public class ReturniStatuceDTO
     {
