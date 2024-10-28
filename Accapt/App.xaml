@@ -128,7 +128,7 @@
         <Style x:Key="DataGridColumnHeaderStyle1" TargetType="{x:Type DataGridColumnHeader}">
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#3A3A3A"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
             <Setter Property="Margin" Value="15 0 15 10"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -145,7 +145,7 @@
             </Setter>
         </Style>
         <Style x:Key="DataGridRowStyle1" TargetType="{x:Type DataGridRow}">
-            <Setter Property="Background" Value="White"/>
+            <Setter Property="Background" Value="#151515"/>
             <Setter Property="Margin" Value="0 4 0 0"/>
             <Setter Property="SnapsToDevicePixels" Value="true"/>
             <Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
@@ -179,12 +179,12 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#009A9A"/>
-                    <Setter Property="Foreground" Value="#3A3A3A"/>
+                    <Setter Property="Background" Value="#191C1F"/>
+                    <Setter Property="Foreground" Value="#AD07F5"/>
                 </Trigger>
 
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#003541"/>
+                    <Setter Property="Background" Value="#AD07F5"/>
                     <Setter Property="Foreground" Value="White"/>
                 </Trigger>
 
@@ -200,6 +200,29 @@
         <!--#endregion-->
 
         <!--#region Buttons-->
+
+        <Style x:Key="TopMenuButton" TargetType="Button">
+            <Setter Property="Background" Value="#0A0A0A"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Vazir-FD-WOL"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="7">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1A1A1A"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
         <Style x:Key="MenuButton" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
@@ -221,7 +244,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#8988f2"/>
+                    <Setter Property="Background" Value="#AD07F5"/>
                     <Setter Property="Foreground" Value="#f1f1f1"/>
                 </Trigger>
             </Style.Triggers>
@@ -317,7 +340,7 @@
             <Setter Property="Height" Value="35"/>
             <Setter Property="FontSize" Value="15"/>
             <Setter Property="FontFamily" Value="Vazir"/>
-            <Setter Property="Foreground" Value="#404040"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
             <Setter Property="FontWeight" Value="Normal"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="Padding" Value="5 0 0 0"/>
@@ -336,7 +359,7 @@
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="Foreground" Value="Black"/>
+                    <Setter Property="Foreground" Value="#1A1A1A"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -347,12 +370,12 @@
             <Setter Property="Height" Value="40"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontFamily" Value="Vazir"/>
-            <Setter Property="Foreground" Value="#404040"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
             <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="15" BorderBrush="#A3A3A3" BorderThickness="2">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="15" BorderBrush="WhiteSmoke" BorderThickness="2">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -378,8 +401,8 @@
                         </BeginStoryboard>
                     </Trigger.ExitActions>
 
-                    <Setter Property="Background" Value="#ffffff"/>
-                    <Setter Property="Foreground" Value="#313131"/>
+                    <Setter Property="Background" Value="#1A1A1A"/>
+                    <Setter Property="Foreground" Value="WhiteSmoke"/>
 
                 </Trigger>
             </Style.Triggers>
@@ -467,7 +490,7 @@
 
         <Style x:Key="EDIT" TargetType="Button">
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#3A3A3A"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
             <Setter Property="FontFamily" Value="Vazir-FD-WOL"/>
             <Setter Property="FontSize" Value="10"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
@@ -477,7 +500,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="10" BorderThickness=".5" BorderBrush="#3A3A3A">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10" BorderThickness=".5" BorderBrush="WhiteSmoke">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -843,7 +866,7 @@
         <!--#endregion-->
         
         <Style x:Key="LRTexBlock" TargetType="TextBlock">
-            <Setter Property="Foreground" Value="#404040"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
             <Setter Property="FontSize" Value="28"/>
             <Setter Property="FontFamily" Value="Vazir"/>
             <Setter Property="FontWeight" Value="Medium"/>
@@ -853,8 +876,8 @@
         <Style x:Key="LRTextBox" TargetType="TextBox">
             <Setter Property="Width" Value="300"/>
             <Setter Property="Height" Value="35"/>
-            <Setter Property="Background" Value="#f1f1f1"/>
-            <Setter Property="Foreground" Value="#404040"/>
+            <Setter Property="Background" Value="#191C1F"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
             <Setter Property="FontFamily" Value="Vazir"/>
             <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="FontSize" Value="16"/>
@@ -866,8 +889,8 @@
         <Style x:Key="LRPasswordBox" TargetType="PasswordBox">
             <Setter Property="Width" Value="300"/>
             <Setter Property="Height" Value="35"/>
-            <Setter Property="Background" Value="#f1f1f1"/>
-            <Setter Property="Foreground" Value="#404040"/>
+            <Setter Property="Background" Value="#191C1F"/>
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
             <Setter Property="FontFamily" Value="Vazir"/>
             <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="FontSize" Value="16"/>

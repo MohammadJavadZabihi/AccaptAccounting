@@ -8,14 +8,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1080" Visibility="Hidden" WindowStartupLocation="CenterScreen" Background="Transparent" MinHeight="600" MinWidth="800" Loaded="Window_Loaded">
     <Grid>
-        <Border Background="#6491DE">
+        <Border Background="#191C1F">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="1" Background="#4966cf" CornerRadius="10 0 0 10">
+                <TextBlock x:Name="txtPage" Style="{StaticResource LRTexBlock}" Foreground="WhiteSmoke"  Text="صفحه اصلی" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 30 60 0"/>
+
+                <Border Grid.Column="1" Background="#171717" CornerRadius="10 0 0 10">
                     <Grid x:Name="GridNav" Width="65">
 
                         <StackPanel Grid.Row="1" Margin="10 -5 0 0">
@@ -86,14 +88,12 @@
                     </Grid>
                 </Border>
 
-
-
                 <Grid Grid.Column="0" Panel.ZIndex="-1000">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="70"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <ToggleButton Margin="0 0 -8 0" x:Name="Tg_Btn" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Style="{StaticResource MenuTopButton}" >
+                    <ToggleButton Margin="0 0 -8 0" x:Name="Tg_Btn" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right" Style="{StaticResource MenuTopButton}" Background="#171717">
                         <icon:PackIconMaterial Kind="ArrowLeft" VerticalAlignment="Center"/>
                         <ToggleButton.Triggers>
                             <EventTrigger RoutedEvent="ToggleButton.Unchecked">

@@ -2,34 +2,34 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Accapt.Mobile.MainPage"
-             xmlns:Contlores="clr-namespace:Accapt.Mobile.Controls" Background="White">
-    
-    <Grid Margin="15">
+             xmlns:Contlores="clr-namespace:Accapt.Mobile.Controls">
+
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#073d7f" Offset="0.1"/>
+            <GradientStop Color="#6491DE" Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid Margin="15" VerticalOptions="Center">
         <StackLayout>
 
-            <Image Source="login_and_register_icon.png" Margin="0,20,0,20"/>
+            <Label Text="تصفیه آب آبتین" HorizontalOptions="Center" Margin="0,0,0,130" FontSize="35" FontFamily="VazirFont" TextColor="White"/>
 
-            <Label Text="خوش آمدید" HorizontalOptions="Center" Margin="0,0,0,30" FontSize="30" FontFamily="VazirFont"/>
-
-            <Contlores:CustomeEntry Grid.Column="1" x:Name="txtUserName" Placeholder="نام کاربری" BackgroundColor="#D9D9D9"
-            TextColor="#404040"
+            <Contlores:CustomeEntry Grid.Column="1" x:Name="txtUserName" Placeholder="نام کاربری" BackgroundColor="Transparent"
+            TextColor="WhiteSmoke"
        VerticalOptions="Center" 
-       Keyboard="Text" FontFamily="VazirFont" FlowDirection="RightToLeft"></Contlores:CustomeEntry>
+       Keyboard="Text" FontFamily="VazirFont" FlowDirection="RightToLeft"/>
+            <BoxView HeightRequest="1" BackgroundColor="WhiteSmoke" />
 
-            <Contlores:CustomeEntry Grid.Column="1" x:Name="txtPassword" BackgroundColor="#D9D9D9" Placeholder="کلمه عبور"
-           TextColor="#404040"
-      VerticalOptions="Center" 
-      Keyboard="Text" FontFamily="VazirFont" FlowDirection="RightToLeft" IsPassword="True" Margin="0,35,0,0"/>
+            <Contlores:CustomeEntry Grid.Column="1" x:Name="txtPassword" BackgroundColor="Transparent" Placeholder="کلمه عبور"
+            TextColor="WhiteSmoke"
+            VerticalOptions="Center" 
+            Keyboard="Text" FontFamily="VazirFont" FlowDirection="RightToLeft" IsPassword="True" Margin="0,35,0,0"/>
+            <BoxView HeightRequest="1" BackgroundColor="WhiteSmoke" />
 
-            <Button x:Name="btnLogin" Text="ورود" Margin="0,30,0,0" FontAttributes="Bold" FontFamily="VazirFont"
-                    FontSize="Medium" Clicked="btnLogin_Clicked">
-                <Button.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.5">
-                        <GradientStop Color="#073d7f" Offset="0"/>
-                        <GradientStop Color="#6491DE" Offset="1"/>
-                    </LinearGradientBrush>
-                </Button.Background>
-            </Button>
+            <Button x:Name="btnLogin" Text="ورود" Margin="0,80,0,0" FontAttributes="Bold" FontFamily="VazirFont"
+                    FontSize="Medium" Clicked="btnLogin_Clicked" Background="#00cc99" CornerRadius="20" TextColor="WhiteSmoke"/>
         </StackLayout>
     </Grid>
 </ContentPage>

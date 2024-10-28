@@ -41,12 +41,14 @@ namespace AccaptFullyVersion.App
 
             if (_selectedButton != null)
             {
-                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8988f2"));
+                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#AD07F5"));
                 _selectedButton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f1f1f1"));
             }
 
             UserMangeAccount manageAccountPage = new UserMangeAccount();
             fContainer.Navigate(manageAccountPage);
+
+            txtPage.Text = "تنظیمات";
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -70,11 +72,11 @@ namespace AccaptFullyVersion.App
 
             if (_selectedButton != null)
             {
-                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8988f2"));
+                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#AD07F5"));
                 _selectedButton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f1f1f1"));
             }
 
-
+            txtPage.Text = "تنظیمات";
         }
 
         private void btnStore_Click(object sender, RoutedEventArgs e)
@@ -89,12 +91,14 @@ namespace AccaptFullyVersion.App
 
             if (_selectedButton != null)
             {
-                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8988f2"));
+                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#AD07F5"));
                 _selectedButton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f1f1f1"));
             }
 
             ShowProductPage showProductPage = new ShowProductPage();
             fContainer.Navigate(showProductPage);
+
+            txtPage.Text = "انبار";
         }
 
         private void btnInvoices_Click(object sender, RoutedEventArgs e)
@@ -110,12 +114,14 @@ namespace AccaptFullyVersion.App
 
             if (_selectedButton != null)
             {
-                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8988f2"));
+                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#AD07F5"));
                 _selectedButton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f1f1f1"));
             }
 
             Invoices invoices = new Invoices();
             fContainer.Navigate(invoices);
+
+            txtPage.Text = "فاکتورها";
         }
 
         private void btnPepole_Click(object sender, RoutedEventArgs e)
@@ -130,12 +136,14 @@ namespace AccaptFullyVersion.App
 
             if (_selectedButton != null)
             {
-                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8988f2"));
+                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#AD07F5"));
                 _selectedButton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f1f1f1"));
             }
 
             ShowPepolPage showPepolPage = new ShowPepolPage();
             fContainer.Navigate(showPepolPage);
+
+            txtPage.Text = "اشخاص";
         }
 
         private void btnBankAccount_Click(object sender, RoutedEventArgs e)
@@ -151,12 +159,14 @@ namespace AccaptFullyVersion.App
 
             if (_selectedButton != null)
             {
-                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8988f2"));
+                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#AD07F5"));
                 _selectedButton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f1f1f1"));
             }
 
             BanckAccountShowPage banckAccountShowPage = new BanckAccountShowPage();
             fContainer.Navigate(banckAccountShowPage);
+
+            txtPage.Text = "حساب های بانکی";
         }
 
         private void btnDebtOrCreditor_Click(object sender, RoutedEventArgs e)
@@ -171,12 +181,14 @@ namespace AccaptFullyVersion.App
 
             if (_selectedButton != null)
             {
-                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8988f2"));
+                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#AD07F5"));
                 _selectedButton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f1f1f1"));
             }
 
             DebtOrCreditorShowPage debtOrCreditorShowPage = new DebtOrCreditorShowPage();
             fContainer.Navigate(debtOrCreditorShowPage);
+
+            txtPage.Text = "یدهکار بستانکار";
         }
 
         private void btnBillan_Click(object sender, RoutedEventArgs e)
@@ -191,12 +203,14 @@ namespace AccaptFullyVersion.App
 
             if (_selectedButton != null)
             {
-                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8988f2"));
+                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#AD07F5"));
                 _selectedButton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f1f1f1"));
             }
 
             BillanShow billanShow = new BillanShow();
             fContainer.Navigate(billanShow);
+
+            txtPage.Text = "بیلان";
         }
 
         private void btnSalaryCosts_Click(object sender, RoutedEventArgs e)
@@ -212,12 +226,14 @@ namespace AccaptFullyVersion.App
 
             if (_selectedButton != null)
             {
-                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8988f2"));
+                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#AD07F5"));
                 _selectedButton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f1f1f1"));
             }
 
             SalaryAndCostsPage salaryAndCostsPage = new SalaryAndCostsPage();
             fContainer.Navigate(salaryAndCostsPage);
+
+            txtPage.Text = "هزینه ها";
         }
 
         private void btnProviderManager_Click(object sender, RoutedEventArgs e)
@@ -232,12 +248,14 @@ namespace AccaptFullyVersion.App
 
             if (_selectedButton != null)
             {
-                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#8988f2"));
+                _selectedButton.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#AD07F5"));
                 _selectedButton.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#f1f1f1"));
             }
 
             ProvidermanagerShow providermanagerShow = new ProvidermanagerShow();
             fContainer.Navigate(providermanagerShow);
+
+            txtPage.Text = "سرویس کارها";
         }
     }
 }

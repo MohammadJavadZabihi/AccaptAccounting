@@ -19,7 +19,7 @@ public partial class HomePage : ContentPage
         try
         {
             HttpClient client = new HttpClient();
-            var responseMessage = await client.GetAsync($"https://accaptacounting.ir/api/ServiceListManager/GetAll/Mobile?pageNumber=1&&pageSize=0&&filtser={txtSearch.Text}&&userId=ee28b85504c24ad08df08226645eb710&&providerName={ProviderSesstions.Instance.PtoviderName}");
+            var responseMessage = await client.GetAsync($"https://accaptacounting.ir/api/ServiceListManager/GetAll/Mobile?pageNumber=1&&pageSize=0&&userId=ee28b85504c24ad08df08226645eb710&&providerName={ProviderSesstions.Instance.PtoviderName}");
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -45,23 +45,24 @@ public partial class HomePage : ContentPage
     {
         var frame = new Frame
         {
-            BorderColor = Colors.Gray,
+            BorderColor = Colors.White,
             CornerRadius = 10,
             Padding = 10,
-            Margin = new Thickness(0, 10)
+            Margin = new Thickness(10, 40, 10, 10),
+            BackgroundColor = Colors.Transparent
         };
 
         var stackLayout = new StackLayout();
 
-        var nameLabel = new Label { Text = visibleService.SrviceName, FontSize = 20, FontFamily = "VazirFont" };
-        var phoneLabel = new Label { Text = visibleService.PhoneNumber, FontFamily = "VazirFont" };
-        var addressLabel = new Label { Text = visibleService.Address, FontFamily = "VazirFont" };
-        var statuce = new Label { Text = visibleService.Statuce, FontFamily = "VazirFont" };
+        var nameLabel = new Label { Text = visibleService.SrviceName, FontSize = 20, FontFamily = "VazirFont", TextColor=Colors.WhiteSmoke };
+        var phoneLabel = new Label { Text = visibleService.PhoneNumber, FontFamily = "VazirFont", TextColor = Colors.WhiteSmoke };
+        var addressLabel = new Label { Text = visibleService.Address, FontFamily = "VazirFont", TextColor = Colors.WhiteSmoke };
+        var statuce = new Label { Text = visibleService.Statuce, FontFamily = "VazirFont", TextColor = Colors.WhiteSmoke };
 
         var completeButton = new Button
         {
-            Text = "Done",
-            BackgroundColor = Colors.Green,
+            Text = "اتمام سرویس",
+            BackgroundColor = Color.FromArgb("#00cc99"),
             TextColor = Colors.White,
             FontFamily = "VazirFont" 
         };
