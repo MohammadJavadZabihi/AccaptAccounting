@@ -5,10 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AccaptFullyVersion.App.Views"
         mc:Ignorable="d"
-        Height="650" Width="800" WindowStartupLocation="CenterScreen"
+        Height="700" Width="800" WindowStartupLocation="CenterScreen"
         WindowStyle="None" Background="Transparent" AllowsTransparency="True">
     <Grid>
-        <Border CornerRadius="22" Background="#ffffff">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border CornerRadius="22 22 0 0" Background="#191C1F">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnExit" Style="{StaticResource TopMenuButton}" Content="X" Foreground="#FF0000" Margin="15 0 10 0"/>
+                <Button x:Name="btnFullScreen" Style="{StaticResource TopMenuButton}" Margin="0 0 10 0">
+                    <Button.Content>
+                        <Image Source="/ImageResurce/FullScreenIcon.png"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="btnMinimize" Style="{StaticResource TopMenuButton}" Margin="0 0 10 0" Content="-" Foreground="WhiteSmoke"/>
+            </StackPanel>
+        </Border>
+
+        <Border CornerRadius="0 0 22 22" Background="#151515" Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -36,8 +52,8 @@
                             <Button.Background>
                                 <LinearGradientBrush>
                                     <LinearGradientBrush.GradientStops>
-                                        <GradientStop Offset="0.0" Color="#073d7f" />
-                                        <GradientStop Offset="1.0" Color="#6491DE" />
+                                        <GradientStop Offset="0.0" Color="#C93EA2" />
+                                        <GradientStop Offset="1.0" Color="#7035FF" />
                                     </LinearGradientBrush.GradientStops>
                                 </LinearGradientBrush>
                             </Button.Background>

@@ -2,6 +2,7 @@
 using Accapt.Mobile.Platforms;
 using Accapt.Mobile.Platforms.Android;
 using Microsoft.Extensions.Logging;
+using Syncfusion.Maui.Core.Hosting;
 
 namespace Accapt.Mobile
 {
@@ -30,6 +31,8 @@ namespace Accapt.Mobile
                     CustomEntryMapper.Map(handler, view);
                 }
             });
+
+            builder.ConfigureSyncfusionCore();
 
             return builder.Build();
         }

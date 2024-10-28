@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Accapt.Mobile.Views.SubmitPage"
+             xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+             xmlns:Contlores="clr-namespace:Accapt.Mobile.Controls"
+             Title="ثبت فاکتور" Loaded="ContentPage_Loaded">
+    
+    <ContentPage.Background>
+        <LinearGradientBrush>
+            <GradientStop Color="#073d7f" Offset="0.1"/>
+            <GradientStop Color="#6491DE" Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    
+    <VerticalStackLayout>
+
+        <VerticalStackLayout>
+            
+            <Contlores:CustomeEntry x:Name="searchEntry" Placeholder="جستجو کنید"
+           TextChanged="OnSearchTextChanged" BackgroundColor="Transparent" TextColor="WhiteSmoke" Margin="10,10,0,0" FlowDirection="RightToLeft"/>
+            <BoxView HeightRequest="1" Margin="10,10,10,0" BackgroundColor="WhiteSmoke"/>
+            
+            <Picker x:Name="productPicker" Title="محصول مورد نظر خود را انتخاب کنید" Background="Transparent" TextColor="WhiteSmoke" FlowDirection="RightToLeft" Margin="10"/>
+            
+        </VerticalStackLayout>
+
+        <Contlores:CustomeEntry Grid.Column="1" x:Name="txtProductCount" BackgroundColor="Transparent" TextColor="WhiteSmoke"
+            VerticalOptions="Center" 
+            Keyboard="Numeric" FontFamily="VazirFont" FlowDirection="RightToLeft" Placeholder="تعداد محصول" Margin="10,20,10,0"></Contlores:CustomeEntry>
+        <BoxView HeightRequest="1" Margin="10,10,10,0" BackgroundColor="WhiteSmoke"/>
+
+        <Contlores:CustomeEntry Grid.Column="1" x:Name="txtProductPrice" BackgroundColor="Transparent" TextColor="WhiteSmoke"
+            VerticalOptions="Center" 
+            Keyboard="Numeric" FontFamily="VazirFont" FlowDirection="RightToLeft" Placeholder="قیمت محصول" Margin="10,20,10,0"></Contlores:CustomeEntry>
+        <BoxView HeightRequest="1" Margin="10,10,10,0" BackgroundColor="WhiteSmoke"/>
+
+        <Button x:Name="btnAddProduct" Text="اضافه کردن محصول" Margin="10,30,10,0" FontAttributes="Bold" FontFamily="VazirFont"
+            FontSize="Medium" Clicked="btnAddProduct_Clicked" Background="#00cc99"/>
+
+        <Contlores:CustomeEntry Grid.Column="1" x:Name="txtServiceAmount" BackgroundColor="Transparent" TextColor="WhiteSmoke"
+        VerticalOptions="Center" 
+        Keyboard="Numeric" FontFamily="VazirFont" FlowDirection="RightToLeft" Placeholder="هزینه سرویس - هزینه نصب - اجرت سرویس" Margin="10,20,10,0"></Contlores:CustomeEntry>
+        <BoxView HeightRequest="1" Margin="10,10,10,0" BackgroundColor="WhiteSmoke"/>
+
+        <Contlores:CustomeEntry Grid.Column="1" x:Name="txtAyab" BackgroundColor="Transparent" TextColor="WhiteSmoke"
+        VerticalOptions="Center" 
+        Keyboard="Numeric" FontFamily="VazirFont" FlowDirection="RightToLeft" Margin="10,35,10,0" Placeholder="هزینه ایاب ذهاب"/>
+        <BoxView HeightRequest="1" Margin="10,10,10,0" BackgroundColor="WhiteSmoke"/>
+
+        <Contlores:CustomeEntry Grid.Column="1" x:Name="txtAmountpaid" BackgroundColor="Transparent" TextColor="WhiteSmoke"
+        VerticalOptions="Center" 
+        Keyboard="Numeric" FontFamily="VazirFont" FlowDirection="RightToLeft" Margin="10,35,10,0" Placeholder="مبلغ پرداخت شده"/>
+        <BoxView HeightRequest="1" Margin="10,10,10,0" BackgroundColor="WhiteSmoke"/>
+
+        <Button x:Name="btnLogin" Text="ثبت  سرویس" Margin="10,30,10,0" FontAttributes="Bold" FontFamily="VazirFont"
+        FontSize="Medium" Clicked="btnLogin_Clicked" Background="#2c8769"/>
+
+    </VerticalStackLayout>
+</ContentPage>

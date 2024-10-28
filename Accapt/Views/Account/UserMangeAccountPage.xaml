@@ -8,7 +8,7 @@
       d:DesignHeight="650" d:DesignWidth="1010"
       Title="UserMangeAccount" x:Name="frmUserManegAcc" Loaded="frmUserManegAcc_Loaded">
 
-    <Border Background="#f1f1f1" CornerRadius="20">
+    <Border Background="#151515" CornerRadius="20">
         <Grid>
 
             <Grid Grid.Column="1" HorizontalAlignment="Center">

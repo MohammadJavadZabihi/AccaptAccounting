@@ -23,6 +23,7 @@
     <None Remove="ImageResurce\deletIcon.png" />
     <None Remove="ImageResurce\DetailsIcons.png" />
     <None Remove="ImageResurce\EditeIcon.png" />
+    <None Remove="ImageResurce\FullScreenIcon.png" />
     <None Remove="ImageResurce\hmic.png" />
     <None Remove="ImageResurce\Home.png" />
     <None Remove="ImageResurce\Invoice.png" />
@@ -87,6 +88,7 @@
     <Resource Include="ImageResurce\DEBCEB.png" />
     <Resource Include="ImageResurce\DetailsIcons.png" />
     <Resource Include="ImageResurce\EditeIcon.png" />
+    <Resource Include="ImageResurce\FullScreenIcon.png" />
     <Resource Include="ImageResurce\hmic.png" />
     <Resource Include="ImageResurce\deletIcon.png" />
     <Resource Include="ImageResurce\Home.png" />
