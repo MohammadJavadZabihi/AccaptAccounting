@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="730" d:DesignWidth="1080"
       Title="ShowPepolPage" Loaded="Page_Loaded" Background="Transparent">
-    <Border Background="#f1f1f1" CornerRadius="20">
+    <Border Background="#151515" CornerRadius="20">
         
         <Grid>
             <Grid.RowDefinitions>
@@ -17,7 +17,7 @@
 
             <!--#region datagrid -->
 
-            <DataGrid x:Name="pepoleDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20">
+            <DataGrid x:Name="pepoleDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20" Foreground="WhiteSmoke" Background="Transparent">
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Binding="{Binding PepoName}" Header="نام شخص" IsReadOnly="True"  Width="*"/>
@@ -37,12 +37,12 @@
                                             <Image Source="/ImageResurce/deletIcon.png"/>
                                         </Button.Content>
                                     </Button>
-                                    <Button x:Name="btnEdite" Background="#00719A" Style="{StaticResource btnDeletandEditeSHoProduct}" Click="btnEdite_Click">
+                                    <Button x:Name="btnEdite" Background="#176886" Style="{StaticResource btnDeletandEditeSHoProduct}" Click="btnEdite_Click">
                                         <Button.Content>
                                             <Image Source="/ImageResurce/EditeIcon.png"/>
                                         </Button.Content>
                                     </Button>
-                                    <Button x:Name="btnPrint" Background="#00719A" Style="{StaticResource btnDeletandEditeSHoProduct}" Click="btnPrint_Click">
+                                    <Button x:Name="btnPrint" Background="#886c94" Style="{StaticResource btnDeletandEditeSHoProduct}" Click="btnPrint_Click" Margin="10 0 0 0">
                                         <Button.Content>
                                             <Image Source="/ImageResurce/Print.png"/>
                                         </Button.Content>
@@ -77,7 +77,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btnAddPepole" Style="{StaticResource EditeButtonProducPage}" Content="افزودن شخص" Width="150" HorizontalAlignment="Right" Background="#27503E" Foreground="White" Margin="20 0 0 0" Click="btnAddPepole_Click"/>
+                    <Button x:Name="btnAddPepole" Style="{StaticResource EditeButtonProducPage}" Content="افزودن شخص" Width="150" HorizontalAlignment="Right" Background="#7A5AF8" Foreground="White" Margin="20 0 0 0" Click="btnAddPepole_Click"/>
 
                     <Button x:Name="RefreshPage" Style="{StaticResource refeshButton}" Foreground="White" Margin="20 0 0 0" Click="RefreshPage_Click" Background="Transparent">
                         <Image Source="/ImageResurce/refreshIcon.png" Height="35"/>

@@ -12,11 +12,13 @@
     <None Remove="CutomerDocument.docx" />
     <None Remove="GifResurce\LodingGif.gif" />
     <None Remove="ImageResurce\AccINC.png" />
+    <None Remove="ImageResurce\AddProductBTN.png" />
     <None Remove="ImageResurce\add_icon.png" />
     <None Remove="ImageResurce\AppINC.png" />
     <None Remove="ImageResurce\Assets.png" />
     <None Remove="ImageResurce\BankChek.png" />
     <None Remove="ImageResurce\Billan.png" />
+    <None Remove="ImageResurce\btnadd.jpg" />
     <None Remove="ImageResurce\CartBank.png" />
     <None Remove="ImageResurce\Customer.jpg" />
     <None Remove="ImageResurce\DEBCEB.png" />
@@ -77,12 +79,15 @@
 
   <ItemGroup>
     <Resource Include="GifResurce\LodingGif.gif" />
+    <Resource Include="ImageResurce\refreshIcon.png" />
     <Resource Include="ImageResurce\AccINC.png" />
+    <Resource Include="ImageResurce\AddProductBTN.png" />
     <Resource Include="ImageResurce\add_icon.png" />
     <Resource Include="ImageResurce\AppINC.png" />
     <Resource Include="ImageResurce\Assets.png" />
     <Resource Include="ImageResurce\BankChek.png" />
     <Resource Include="ImageResurce\Billan.png" />
+    <Resource Include="ImageResurce\btnadd.jpg" />
     <Resource Include="ImageResurce\CartBank.png" />
     <Resource Include="ImageResurce\Customer.jpg" />
     <Resource Include="ImageResurce\DEBCEB.png" />
@@ -99,7 +104,6 @@
     <Resource Include="ImageResurce\Paid.png" />
     <Resource Include="ImageResurce\Print.png" />
     <Resource Include="ImageResurce\Profile.jpg" />
-    <Resource Include="ImageResurce\refreshIcon.png" />
     <Resource Include="ImageResurce\Salary.png" />
     <Resource Include="ImageResurce\sell.png" />
     <Resource Include="ImageResurce\ServiceProviderIcon.png" />

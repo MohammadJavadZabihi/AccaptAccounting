@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="AddOrEditeProducts" Height="450" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Border CornerRadius="10">
-        <Grid Background="#6491DE">
+        <Grid Background="#191C1F">
             <TextBlock Text="ثبت کالا" Style="{StaticResource LRTexBlock}" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Margin="0 20 20 0" FontSize="40"/>
-            <Border Background="White" Margin="0,99,0,0" CornerRadius="60 60 0 0">
+            <Border Background="#151515" Margin="0,99,0,0" CornerRadius="60 60 0 0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="3*"/>
@@ -25,26 +25,26 @@
                         <StackPanel Grid.Column="1">
                             <TextBlock Text=": نام کالا" Style="{StaticResource LRTexBlock}" FontSize="18" Margin="0 20 20 0"/>
 
-                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Background="White" Foreground="Black" Margin="0 10 0 0" x:Name="txtProductName"/>
+                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Foreground="WhiteSmoke" Margin="0 10 0 0" x:Name="txtProductName"/>
 
                             <TextBlock Text=": تعداد کالا" Style="{StaticResource LRTexBlock}" FontSize="18" Margin="0 20 20 0"/>
 
-                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Background="White" Foreground="Black" Margin="0 10 0 0" x:Name="txtProductCount"/>
+                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Foreground="WhiteSmoke" Margin="0 10 0 0" x:Name="txtProductCount"/>
                         </StackPanel>
 
                         <StackPanel Grid.Column="0">
                             <TextBlock Text=": قیمت کالا" Style="{StaticResource LRTexBlock}" FontSize="18" Margin="0 20 20 0"/>
 
-                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Background="White" Foreground="Black" Margin="0 10 0 0" x:Name="txtproductPrice"/>
+                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Foreground="WhiteSmoke" Margin="0 10 0 0" x:Name="txtproductPrice"/>
 
                             <TextBlock Text=": توضیحات کالا" Style="{StaticResource LRTexBlock}" FontSize="18" Margin="0 20 20 0"/>
 
-                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="79" Template="{StaticResource LRUserTextBox}" Background="White" Foreground="Black" Margin="0 10 0 0" x:Name="txtDescriptions"/>
+                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="79" Template="{StaticResource LRUserTextBox}" Foreground="WhiteSmoke" Margin="0 10 0 0" x:Name="txtDescriptions"/>
                         </StackPanel>
 
                     </Grid>
 
-                    <Button x:Name="btnSubmit" Grid.Row="1" Content="ثبت کالا" Style="{StaticResource SubmitChek}" Margin="0 0 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnSubmit_Click" Background="#073d7f" Foreground="White"/>
+                    <Button x:Name="btnSubmit" Grid.Row="1" Content="ثبت کالا" Style="{StaticResource SubmitChek}" Margin="0 0 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnSubmit_Click" Background="#7A5AF8" Foreground="White"/>
 
                 </Grid>
             </Border>

@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Accapt.Views.Products"
       mc:Ignorable="d" 
       d:DesignHeight="730" d:DesignWidth="1080"
-      Title="ShowProductPage" Loaded="Page_Loaded" Background="#151515">
+      Title="انبار" Loaded="Page_Loaded" Background="#151515">
 
     <Border Background="#151515" CornerRadius="20">
         <Grid>
@@ -19,14 +19,6 @@
 
             <DataGrid x:Name="productDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20" Background="Transparent" Foreground="WhiteSmoke">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn CanUserReorder="False" Width="auto">
-                        <DataGridCheckBoxColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <CheckBox/>
-                            </DataTemplate>
-                        </DataGridCheckBoxColumn.HeaderTemplate>
-                    </DataGridCheckBoxColumn>
-
                     <DataGridTextColumn Binding="{Binding ProductId}" Header="#" IsReadOnly="True" CanUserResize="False" Width="auto"/>
 
                     <DataGridTextColumn Binding="{Binding ProductName}" Header="نام محصول" IsReadOnly="True"  Width="*"/>
@@ -43,7 +35,7 @@
                                             <Image Source="/ImageResurce/deletIcon.png"/>
                                         </Button.Content>
                                     </Button>
-                                    <Button x:Name="btnEdite" Background="#00719A" Style="{StaticResource btnDeletandEditeSHoProduct}" Click="btnEdite_Click">
+                                    <Button x:Name="btnEdite" Background="#176886" Style="{StaticResource btnDeletandEditeSHoProduct}" Click="btnEdite_Click">
                                         <Button.Content>
                                             <Image Source="/ImageResurce/EditeIcon.png"/>
                                         </Button.Content>
@@ -78,7 +70,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btnAddProduct" Style="{StaticResource EditeButtonProducPage}" Content="افزودن کالا" Width="150" HorizontalAlignment="Right" Background="#27503E" Foreground="White" Click="btnAddProduct_Click" Margin="20 0 0 0"/>
+                    <Button x:Name="btnAddProduct" Style="{StaticResource EditeButtonProducPage}" Content="افزودن کالا" Width="150" HorizontalAlignment="Right" Background="#7A5AF8" Foreground="White" Click="btnAddProduct_Click" Margin="20 0 0 0"/>
 
                     <Button x:Name="RefreshPage" Style="{StaticResource refeshButton}" HorizontalAlignment="Left" Foreground="White" Click="RefreshPage_Click" Margin="20 0 0 0" Background="Transparent">
                         <Image Source="/ImageResurce/refreshIcon.png"  Height="35"/>

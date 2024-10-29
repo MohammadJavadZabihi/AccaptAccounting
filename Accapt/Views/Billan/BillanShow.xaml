@@ -8,7 +8,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="730" d:DesignWidth="1080"
       Title="BillanShow">
-    <Border Background="#f1f1f1" CornerRadius="20" Loaded="Border_Loaded">
+    <Border Background="#151515" CornerRadius="20" Loaded="Border_Loaded">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -17,29 +17,35 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 15 20 0" VerticalAlignment="Bottom">
 
-                <Button x:Name="btnBillan" Style="{StaticResource EditeButtonProducPage}" Margin="0 0 020 0" Content="بیلان گیری" Background="#27503E" Foreground="White" Click="btnBillan_Click"/>
+                <Button x:Name="btnBillan" Style="{StaticResource EditeButtonProducPage}" Margin="0 0 020 0" Content="بیلان گیری" Background="#7A5AF8" Foreground="White" Click="btnBillan_Click"/>
 
-                <Button Style="{StaticResource EditeButtonProducPage}" Margin="0 0 40 0" Content="اعمال فیلتر تاریخ" Background="#27503E" Foreground="White" Click="Button_Click"/>
+                <Button Style="{StaticResource EditeButtonProducPage}" Margin="0 0 40 0" Content="اعمال فیلتر تاریخ" Background="#7A5AF8" Foreground="White" Click="Button_Click"/>
 
-                <TextBox Style="{StaticResource LRTextBox}" Background="White" Template="{StaticResource LRUserTextBox}" Width="169" x:Name="txtEndDate"/>
+                <TextBox Style="{StaticResource LRTextBox}" Template="{StaticResource LRUserTextBox}" Width="169" x:Name="txtEndDate"/>
 
                 <TextBlock Text=": تاریخ پایان" Style="{StaticResource LRTexBlock}" Margin="10 0 20 0"/>
                 
-                <TextBox Style="{StaticResource LRTextBox}" Background="White" Template="{StaticResource LRUserTextBox}" Width="169" x:Name="txtStartDate"/>
+                <TextBox Style="{StaticResource LRTextBox}" Template="{StaticResource LRUserTextBox}" Width="169" x:Name="txtStartDate"/>
 
                 <TextBlock Text=": تاریخ شروع" Style="{StaticResource LRTexBlock}" Margin="10 0 0 0"/>
             </StackPanel>
-            
-            <Border Background="#6491DE" CornerRadius="20" Margin="40" Grid.Row="1">
-                <lvc:CartesianChart LegendLocation="Right" Margin="30,24,25,25" x:Name="billanChart" Background="White">
+
+            <Border Background="#191C1F" CornerRadius="20" Margin="40" Grid.Row="1">
+                <lvc:CartesianChart LegendLocation="Right" Margin="30,24,25,25" x:Name="billanChart" Background="#151515">
                     <lvc:CartesianChart.AxisX>
                         <lvc:Axis Title="تاریخ" MinValue="0" Labels="{Binding Labels2}" />
                     </lvc:CartesianChart.AxisX>
-                    <lvc:CartesianChart.AxisY >
-                        <lvc:Axis Title="تومان" MinValue="0" MaxValue="100000000" FontFamily="Vazir-FD-WOL"/>
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="تومان" MinValue="0" MaxValue="100000000" FontFamily="Vazir-FD-WOL" Foreground="WhiteSmoke"/>
                     </lvc:CartesianChart.AxisY>
                     <lvc:CartesianChart.Series>
-                        <lvc:LineSeries Foreground="White" Title="( درآمد ماه ( تومان" Stroke="White" FontFamily="Vazir-FD-WOL" FontWeight="Bold"/>
+                        <lvc:LineSeries 
+                Title="( درآمد ماه ( تومان" 
+                Stroke="#AD07F5"
+                            Fill="Transparent"
+                            StrokeThickness="3"
+                            FontFamily="Vazir-FD-WOL" 
+                FontWeight="Bold"/>
                     </lvc:CartesianChart.Series>
                 </lvc:CartesianChart>
             </Border>

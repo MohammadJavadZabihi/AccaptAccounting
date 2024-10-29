@@ -11,6 +11,7 @@ using ApiRequest.Net.CallApi;
 using Accapt.Core.DTOs;
 using System.Configuration;
 using System.Net;
+using System.Windows.Media;
 
 namespace Accapt.Views.Billan
 {
@@ -48,6 +49,7 @@ namespace Accapt.Views.Billan
 
             string currenDate = "";
             string endDate = "";
+
             if (string.IsNullOrEmpty(txtEndDate.Text) && string.IsNullOrEmpty(txtStartDate.Text))
             {
                 currenDate = DateConvertor.ConvertToShamsi(DateTime.UtcNow.AddDays(-10));
@@ -69,25 +71,21 @@ namespace Accapt.Views.Billan
             foreach (var date in allDates)
             {
                 var data = incoming.FirstOrDefault(x => x.DateOfSubmit == date);
-                if (data != null)
-                {
-                    price.Add(data.InvoicePrice);
-                }
-                else
-                {
-                    price.Add(0);
-                }
+                price.Add(data != null ? data.InvoicePrice : 0);
                 labels.Add(date);
             }
 
-            billanChart.Series = new SeriesCollection
+            billanChart.Series.Clear(); 
+
+            var lineSeries = new LineSeries
             {
-                new LineSeries
-                {
-                    Title = "مبلغ تومان",
-                    Values = new ChartValues<double>(price)
-                }
+                Title = "مبلغ تومان",
+                Values = new ChartValues<double>(price),
+                Stroke = (Brush)new BrushConverter().ConvertFrom("#AD07F5"),
+                StrokeThickness = 3 
             };
+
+            billanChart.Series.Add(lineSeries);
 
             Labels2 = labels.ToArray();
             OnPropertyChanged(nameof(Labels2));
@@ -157,7 +155,10 @@ namespace Accapt.Views.Billan
                 new LineSeries
                 {
                     Title = "مبلغ تومان",
-                    Values = new ChartValues<double>(price)
+                    Values = new ChartValues<double>(price),
+                    Stroke = (Brush)new BrushConverter().ConvertFrom("#AD07F5"),
+                    StrokeThickness = 3,
+
                 }
             };
 
