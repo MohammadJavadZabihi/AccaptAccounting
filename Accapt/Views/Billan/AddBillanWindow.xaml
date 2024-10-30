@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="AddBillanWindow" Height="500" Width="800" WindowStartupLocation="CenterScreen">
     <Border CornerRadius="10" Loaded="Border_Loaded">
-        <Grid Background="#6491DE">
+        <Grid Background="#191C1F">
             <TextBlock Text="خلاصه بیلان گیری" Style="{StaticResource LRTexBlock}" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Margin="0 20 20 0" FontSize="40"/>
-            <Border Background="White" Margin="0,99,0,0" CornerRadius="60 60 0 0">
+            <Border Background="#151515" Margin="0,99,0,0" CornerRadius="60 60 0 0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="4*"/>
@@ -36,7 +36,7 @@
               ScrollViewer.CanContentScroll="True" 
               ScrollViewer.VerticalScrollBarVisibility="Auto" 
               ScrollViewer.HorizontalScrollBarVisibility="Auto"
-              Height="244">
+              Height="244" Foreground="WhiteSmoke">
                                 <DataGrid.Columns>
 
                                     <DataGridTextColumn Binding="{Binding Name}" Header="نام" IsReadOnly="True"  Width="*"/>
@@ -63,7 +63,7 @@
               ScrollViewer.CanContentScroll="True" 
               ScrollViewer.VerticalScrollBarVisibility="Auto" 
               ScrollViewer.HorizontalScrollBarVisibility="Auto"
-              Height="249">
+              Height="249" Foreground="WhiteSmoke">
                                 <DataGrid.Columns>
 
                                     <DataGridTextColumn Binding="{Binding Name}" Header="نام" IsReadOnly="True"  Width="*"/>

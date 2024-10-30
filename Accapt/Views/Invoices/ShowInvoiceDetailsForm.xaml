@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Accapt.Views.Invoices"
         mc:Ignorable="d"
         Title="ShowInvoiceDetailsForm" Height="450" Width="800" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="White">
-    <Border Background="White">
+    <Border Background="#151515">
 
         <Grid>
             <Grid.RowDefinitions>
@@ -14,16 +14,16 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" Background="#6491DE">
+            <Grid Grid.Row="0" Background="#191C1F">
                 
             </Grid>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button x:Name="btnPrint" Background="#073d7f" Foreground="#f1f1f1" Click="btnPrint_Click" Style="{StaticResource EDIT}" Content="Word خروجی" Margin="10"/>
+                <Button x:Name="btnPrint" Background="#7A5AF8" Foreground="#f1f1f1" Click="btnPrint_Click" Style="{StaticResource EDIT}" Content="Word خروجی" Margin="10"/>
             </StackPanel>
             
             <!--#region datagrid -->
 
-            <DataGrid x:Name="invoicesDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20">
+            <DataGrid x:Name="invoicesDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" Foreground="WhiteSmoke" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20">
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Binding="{Binding InvoiceDetailsId}" Header="#" IsReadOnly="True" CanUserResize="False" Width="auto"/>

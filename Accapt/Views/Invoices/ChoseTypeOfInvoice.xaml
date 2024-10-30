@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Accapt.Views.Invoices"
         mc:Ignorable="d"
         Title="ChoseTypeOfInvoice" Height="400" Width="400" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-    <Grid>
+    <Grid Background="#191C1F">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -14,7 +14,7 @@
 
         <StackPanel>
 
-            <Button x:Name="btnSell" Width="180" Style="{StaticResource ChoseButton}" Height="200" Background="Transparent" BorderBrush="Black" Margin="0 80 0 0" Click="btnSell_Click">
+            <Button x:Name="btnSell" Width="180" Style="{StaticResource ChoseButton}" Height="200" Background="Transparent" BorderBrush="WhiteSmoke" Margin="0 80 0 0" Click="btnSell_Click">
                 <Image Source="/ImageResurce/sell.png"/>
             </Button>
 
@@ -22,7 +22,7 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1">
-            <Button x:Name="btnBuye" Click="btnBuye_Click" Width="180" Height="200" Background="Transparent" BorderBrush="Black" Margin="0 80 0 0" Style="{StaticResource ChoseButton}">
+            <Button x:Name="btnBuye" Click="btnBuye_Click" Width="180" Height="200" Background="Transparent" BorderBrush="WhiteSmoke" Margin="0 80 0 0" Style="{StaticResource ChoseButton}">
                 <Image Source="/ImageResurce/Paid.png"/>
             </Button>
 

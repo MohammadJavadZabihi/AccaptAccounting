@@ -8,7 +8,7 @@
       d:DesignHeight="730" d:DesignWidth="1080"
       Title="BanckAccountShowPage" Loaded="Page_Loaded">
 
-    <Border Background="#f1f1f1" CornerRadius="20">
+    <Border Background="#151515" CornerRadius="20">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -17,7 +17,7 @@
 
             <!--#region datagrid -->
 
-            <DataGrid x:Name="bankAccountDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20">
+            <DataGrid x:Name="bankAccountDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20" Foreground="WhiteSmoke">
                 <DataGrid.Columns>
                     
                     <DataGridTextColumn Binding="{Binding BankId}" Header="#" IsReadOnly="True" CanUserResize="False" Width="auto"/>
@@ -68,7 +68,7 @@
 
                     <TextBox x:Name="txtSearch" TextChanged="txtSearch_TextChanged" Style="{StaticResource LRTextBox}" Margin="0 0 10 0" Template="{StaticResource LRUserTextBox}" Width="300" />
 
-                    <TextBlock Text=": جست و جو" Style="{StaticResource LRTexBlock}" VerticalAlignment="Center" Margin="0 0 35 0" FontSize="25" Foreground="Black"/>
+                    <TextBlock Text=": جست و جو" Style="{StaticResource LRTexBlock}" VerticalAlignment="Center" Margin="0 0 35 0" FontSize="25" />
 
 
                     <Button x:Name="btnBefor" Grid.Row="0" Content="قبلی" Style="{StaticResource btnNextAndBeforShowProduct}" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" Margin="0 0 10 0" Background="#4E2526" Click="btnBefor_Click" FontSize="15"/>
@@ -80,7 +80,7 @@
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="btnAddInoice" Style="{StaticResource EditeButtonProducPage}" Content="افزودن حساب" Width="150" HorizontalAlignment="Right" Background="#21616a" Foreground="White" Margin="20 0 0 0" Click="btnAddInoice_Click_1"/>
 
-                    <Button x:Name="btnShowChek" Style="{StaticResource EditeButtonProducPage}" Content="چک ها" Width="150" HorizontalAlignment="Right" Background="#073d7f" Foreground="#f1f1f1" Margin="20 0 0 0" Click="btnAddInoice_Click"/>
+                    <Button x:Name="btnShowChek" Style="{StaticResource EditeButtonProducPage}" Content="چک ها" Width="150" HorizontalAlignment="Right" Background="#7A5AF8" Foreground="#f1f1f1" Margin="20 0 0 0" Click="btnAddInoice_Click"/>
 
                     <Button x:Name="RefreshPage" Background="Transparent" Style="{StaticResource refeshButton}" Width="55" Foreground="White" Margin="20 0 0 0" Click="RefreshPage_Click">
                         <Image Source="/ImageResurce/refreshIcon.png" Height="35"/>

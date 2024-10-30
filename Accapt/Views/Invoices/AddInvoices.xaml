@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Accapt.Views.Invoices"
         mc:Ignorable="d"
         Title="AddInvoices"  Height="600" Width="1010" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="NoResize">
-    <Grid>
+    <Grid Background="#191C1F">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
@@ -21,9 +21,9 @@
 
             <StackPanel Grid.Column="1">
 
-                <TextBlock Text=": نام مشتری" Style="{StaticResource LRTexBlock}" FontSize="15" Margin="0 15 30 0"/>
+                <TextBlock Text=": نام مشتری" Style="{StaticResource LRTexBlock}" FontSize="15" Margin="0 15 30 0" />
 
-                <ComboBox x:Name="txtCustomerName" Style="{StaticResource ComboBoxStyle}" Margin="0 5 5 0" IsEditable="True" KeyUp="txtCustomerName_KeyUp" />
+                <ComboBox x:Name="txtCustomerName" Style="{StaticResource ComboBoxStyle}" Margin="0 5 5 0" IsEditable="True" KeyUp="txtCustomerName_KeyUp" Background="Black" Foreground="Black"/>
 
                 <TextBlock Text=": تاریخ" Style="{StaticResource LRTexBlock}" FontSize="15" Margin="0 15 30 0"/>
 
@@ -38,7 +38,7 @@
                 <ComboBox x:Name="txtProductName" Style="{StaticResource ComboBoxStyle}" Margin="0 5 5 0" IsEditable="True" KeyUp="txtProductName_KeyUp"/>
 
                 <TextBlock Text=": تعداد کالا" Style="{StaticResource LRTexBlock}" FontSize="15" Margin="0 15 30 0"/>
-                <xctk:IntegerUpDown x:Name="txtProductCount" Height="25" Width="200" Background="WhiteSmoke" Foreground="Black" Margin="30 5 0 0" FontSize="13" HorizontalAlignment="Left" FlowDirection="RightToLeft" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="Dirooz FD" BorderBrush="#3a3a3a">
+                <xctk:IntegerUpDown x:Name="txtProductCount" Height="25" Width="200" Background="#191C1F" Foreground="WhiteSmoke" Margin="30 5 0 0" FontSize="13" HorizontalAlignment="Left" FlowDirection="RightToLeft" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="Dirooz FD" BorderBrush="#3a3a3a">
                     <xctk:IntegerUpDown.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="10"/>
@@ -47,7 +47,7 @@
                 </xctk:IntegerUpDown>
 
                 <TextBlock Text=":قیمت محصول" Style="{StaticResource LRTexBlock}" FontSize="15" Margin="0 5 30 0"/>
-                <xctk:IntegerUpDown Margin="30 5 0 0" x:Name="txtProductPrice" Height="25" Width="200" Background="WhiteSmoke" Foreground="Black"
+                <xctk:IntegerUpDown Margin="30 5 0 0" x:Name="txtProductPrice" Height="25" Width="200" Background="#191C1F" Foreground="WhiteSmoke"
 FontSize="13" HorizontalAlignment="Left" FlowDirection="RightToLeft"
 VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="Dirooz FD" BorderBrush="#3a3a3a">
                     <xctk:IntegerUpDown.Resources>
@@ -58,7 +58,7 @@ VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="
                 </xctk:IntegerUpDown>
 
                 <TextBlock Text=":تخفیف محصول" Style="{StaticResource LRTexBlock}" FontSize="15" Margin="0 5 30 0"/>
-                <xctk:IntegerUpDown Margin="30 5 0 0" x:Name="txtDiscount" Height="25" Width="200" Background="WhiteSmoke" Foreground="Black"
+                <xctk:IntegerUpDown Margin="30 5 0 0" x:Name="txtDiscount" Height="25" Width="200" Background="#191C1F" Foreground="WhiteSmoke"
 FontSize="13" HorizontalAlignment="Left" FlowDirection="RightToLeft"
 VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="Dirooz FD" BorderBrush="#3a3a3a">
                     <xctk:IntegerUpDown.Resources>
@@ -74,7 +74,7 @@ VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="
 
             <StackPanel>
                 <TextBlock Text=": مبلغ کل فاکتور" Style="{StaticResource LRTexBlock}" FontSize="15" Margin="0 15 30 0"/>
-                <xctk:IntegerUpDown Margin="30 5 0 0" x:Name="txtTotalAmount" Height="25" Width="200" Background="WhiteSmoke" Foreground="Black"
+                <xctk:IntegerUpDown Margin="30 5 0 0" x:Name="txtTotalAmount" Height="25" Width="200" Background="#191C1F" Foreground="WhiteSmoke"
   FontSize="13" HorizontalAlignment="Left" FlowDirection="RightToLeft"
   VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="Dirooz FD" BorderBrush="#3a3a3a">
                     <xctk:IntegerUpDown.Resources>
@@ -85,7 +85,7 @@ VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="
                 </xctk:IntegerUpDown>
 
                 <TextBlock Text=": مبلغ پرداخت شده" Style="{StaticResource LRTexBlock}" FontSize="15" Margin="0 5 30 0"/>
-                <xctk:IntegerUpDown x:Name="txtAmountPaid" Height="27" Width="200" Background="WhiteSmoke" Foreground="Black"
+                <xctk:IntegerUpDown x:Name="txtAmountPaid" Height="27" Width="200" Background="#191C1F" Foreground="WhiteSmoke"
 FontSize="13" HorizontalAlignment="Left" FlowDirection="RightToLeft"
 VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="Dirooz FD" BorderBrush="#3a3a3a" Margin="30 0 0 0">
                     <xctk:IntegerUpDown.Resources>
@@ -108,7 +108,7 @@ VerticalContentAlignment="Center" HorizontalContentAlignment="Left" FontFamily="
             <!--#region datagrid -->
 
             <StackPanel>
-                <DataGrid x:Name="addProducDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Margin="10,10,0,0" Height="449" Width="510" FontSize="11">
+                <DataGrid x:Name="addProducDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Margin="10,10,0,0" Height="449" Width="510" FontSize="11" Foreground="WhiteSmoke">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Binding="{Binding Id}" Header="#" IsReadOnly="True" CanUserResize="False" Width="auto"/>

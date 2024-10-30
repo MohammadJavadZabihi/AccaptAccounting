@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="AddProviderManagerWindow" Height="600" Width="500" WindowStartupLocation="CenterScreen">
     <Border CornerRadius="10">
-        <Grid Background="#6491DE">
+        <Grid Background="#191C1F">
             <TextBlock Text="ثبت سرویس کار جدید" Style="{StaticResource LRTexBlock}" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Margin="0 20 20 0" FontSize="40"/>
-            <Border Background="White" Margin="0,99,0,0" CornerRadius="60 60 0 0">
+            <Border Background="#151515" Margin="0,99,0,0" CornerRadius="60 60 0 0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="4*"/>
@@ -20,24 +20,24 @@
                         <StackPanel Grid.Column="1">
                             <TextBlock Text=": نام شخص" Style="{StaticResource LRTexBlock}" FontSize="18" Margin="0 20 20 0"/>
 
-                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Background="White" Foreground="Black" Margin="0 10 0 0" x:Name="txtProviderName"/>
+                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Foreground="WhiteSmoke" Margin="0 10 0 0" x:Name="txtProviderName"/>
 
                             <TextBlock Text=": رمز عبور" Style="{StaticResource LRTexBlock}" FontSize="18" Margin="0 20 20 0"/>
 
-                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Background="White" Foreground="Black" Margin="0 10 0 0" x:Name="txtPassword"/>
+                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Foreground="WhiteSmoke" Margin="0 10 0 0" x:Name="txtPassword"/>
 
                             <TextBlock Text=":بدهکار بستانکار " Style="{StaticResource LRTexBlock}" FontSize="18" Margin="0 20 20 0"/>
 
-                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Background="White" Foreground="Black" Margin="0 10 0 0" x:Name="txtCreditor"/>
+                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Foreground="WhiteSmoke" Margin="0 10 0 0" x:Name="txtCreditor"/>
 
                             <TextBlock Text=":مبلغ بدهکار بستانکاری " Style="{StaticResource LRTexBlock}" FontSize="18" Margin="0 20 20 0"/>
 
-                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Background="White" Foreground="Black" Margin="0 10 0 0" x:Name="txtAmount"/>
+                            <TextBox Style="{StaticResource LRTextBox}" Width="350" Height="30" Template="{StaticResource LRUserTextBox}" Foreground="WhiteSmoke" Margin="0 10 0 0" x:Name="txtAmount"/>
                         </StackPanel>
 
                     </Grid>
 
-                    <Button x:Name="btnSubmit" Grid.Row="1" Content="ثبت سرویس کار " Style="{StaticResource SubmitChek}" Margin="0 0 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnSubmit_Click" Background="#073d7f" Foreground="White"/>
+                    <Button x:Name="btnSubmit" Grid.Row="1" Content="ثبت سرویس کار " Style="{StaticResource SubmitChek}" Margin="0 0 0 20" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnSubmit_Click" Background="#7A5AF8" Foreground="White"/>
 
                 </Grid>
             </Border>

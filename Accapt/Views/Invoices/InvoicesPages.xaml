@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="730" d:DesignWidth="1080"
       Title="Invoices" Loaded="Page_Loaded" Background="Transparent">
-    <Border Background="#f1f1f1" CornerRadius="20">
+    <Border Background="#151515" CornerRadius="20">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -16,10 +16,8 @@
 
             <!--#region datagrid -->
 
-            <DataGrid x:Name="invoicesDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20">
+            <DataGrid x:Name="invoicesDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20" Foreground="WhiteSmoke">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn CanUserReorder="False" Width="auto">
-                    </DataGridCheckBoxColumn>
 
                     <DataGridTextColumn Binding="{Binding InvoiceId}" Header="#" IsReadOnly="True" CanUserResize="False" Width="auto"/>
 
@@ -46,12 +44,12 @@
                                             <Image Source="/ImageResurce/deletIcon.png"/>
                                         </Button.Content>
                                     </Button>
-                                    <Button x:Name="btnShoeDetails" Background="#00719A" Style="{StaticResource btnDeletandEditeSHoProduct}" Click="btnShoeDetails_Click">
+                                    <Button x:Name="btnShoeDetails" Background="#176886" Style="{StaticResource btnDeletandEditeSHoProduct}" Click="btnShoeDetails_Click">
                                         <Button.Content>
                                             <Image Source="/ImageResurce/DetailsIcons.png"/>
                                         </Button.Content>
                                     </Button>
-                                    <Button x:Name="btnEdite" Background="#00719A" Style="{StaticResource btnDeletandEditeSHoProduct}" Click="btnEdite_Click">
+                                    <Button x:Name="btnEdite" Background="#00719A" Style="{StaticResource btnDeletandEditeSHoProduct}" Click="btnEdite_Click" Margin="10 0 0 0">
                                         <Button.Content>
                                             <Image Source="/ImageResurce/EditeIcon.png"/>
                                         </Button.Content>
@@ -86,7 +84,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btnAddInoice" Style="{StaticResource EditeButtonProducPage}" Content="افزودن فاکتور" Width="150" HorizontalAlignment="Right" Background="#27503E" Foreground="White" Margin="20 0 0 0" Click="btnAddInoice_Click"/>
+                    <Button x:Name="btnAddInoice" Style="{StaticResource EditeButtonProducPage}" Content="افزودن فاکتور" Width="150" HorizontalAlignment="Right" Background="#7A5AF8" Foreground="White" Margin="20 0 0 0" Click="btnAddInoice_Click"/>
 
                     <Button x:Name="RefreshPage" Style="{StaticResource refeshButton}" Background="Transparent" HorizontalAlignment="Left" Foreground="White" Margin="20 0 0 0" Click="RefreshPage_Click">
                         <Image Source="/ImageResurce/refreshIcon.png" Height="35"/>

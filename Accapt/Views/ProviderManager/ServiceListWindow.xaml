@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Accapt.Views.ProviderManager"
         mc:Ignorable="d"
         Title="ServiceListWindow" Height="730" Width="1080" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
-    <Border Background="#f1f1f1">
+    <Border Background="#151515">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -15,10 +15,8 @@
 
             <!--#region datagrid -->
 
-            <DataGrid x:Name="serviceListDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20">
+            <DataGrid x:Name="serviceListDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20" Foreground="WhiteSmoke">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn CanUserReorder="False" Width="auto">
-                    </DataGridCheckBoxColumn>
 
                     <DataGridTextColumn Binding="{Binding CheckId}" Header="#" IsReadOnly="True" CanUserResize="False" Width="auto"/>
 
@@ -30,7 +28,7 @@
 
                     <DataGridTextColumn Binding="{Binding CustomerName}" Header="نام مشتری" IsReadOnly="True"  Width="*"/>
 
-                    <DataGridTextColumn Binding="{Binding IsDone}" Header="وصعیت انجام" IsReadOnly="True"  Width="*"/>
+                    <DataGridTextColumn Binding="{Binding IsDone}" Header="وضعیت انجام" IsReadOnly="True"  Width="*"/>
 
                     <DataGridTextColumn Binding="{Binding DateOfServiceForShow}" Header="تاریخ" IsReadOnly="True"  Width="*"/>
 
@@ -85,7 +83,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btnAddService" Style="{StaticResource EditeButtonProducPage}" Content="افزودن سرویس" Width="150" HorizontalAlignment="Right" Background="#27503E" Foreground="White" Margin="20 0 0 0" Click="btnAddService_Click"/>
+                    <Button x:Name="btnAddService" Style="{StaticResource EditeButtonProducPage}" Content="افزودن سرویس" Width="150" HorizontalAlignment="Right" Background="#7A5AF8" Foreground="White" Margin="20 0 0 0" Click="btnAddService_Click"/>
 
                     <Button x:Name="RefreshPage" Style="{StaticResource refeshButton}" Background="Transparent" HorizontalAlignment="Left" Foreground="White" Margin="20 0 0 0" Click="RefreshPage_Click">
                         <Image Source="/ImageResurce/refreshIcon.png" Height="35"/>

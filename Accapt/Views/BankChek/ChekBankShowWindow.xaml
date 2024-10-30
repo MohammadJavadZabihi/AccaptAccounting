@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Accapt.Views.BankChek"
         mc:Ignorable="d"
         Title="ChekBankShowWindow" Height="730" Width="1080" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="Transparent">
-    <Border Background="#f1f1f1">
+    <Border Background="#151515">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -15,7 +15,7 @@
 
             <!--#region datagrid -->
 
-            <DataGrid x:Name="chekDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20">
+            <DataGrid x:Name="chekDataGrid" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="1" Margin="20" Foreground="WhiteSmoke">
                 <DataGrid.Columns>
                     <DataGridCheckBoxColumn CanUserReorder="False" Width="auto">
                     </DataGridCheckBoxColumn>
@@ -50,7 +50,7 @@
                                             <Image Source="/ImageResurce/DetailsIcons.png"/>
                                         </Button.Content>
                                     </Button>
-                                    <Button x:Name="btnSubmitChek" Background="Green" Style="{StaticResource btnDeletandEditeSHoProduct}">
+                                    <Button x:Name="btnSubmitChek" Background="Green" Style="{StaticResource btnDeletandEditeSHoProduct}" Margin="10 0 0 0">
                                         <Button.Content>
                                             <Image Source="/ImageResurce/EditeIcon.png"/>
                                         </Button.Content>
@@ -85,7 +85,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btnAddInoice" Style="{StaticResource EditeButtonProducPage}" Content="ثبت چک" Width="150" HorizontalAlignment="Right" Background="#27503E" Foreground="White" Margin="20 0 0 0" Click="btnAddInoice_Click"/>
+                    <Button x:Name="btnAddInoice" Style="{StaticResource EditeButtonProducPage}" Content="ثبت چک" Width="150" HorizontalAlignment="Right" Background="#7A5AF8" Foreground="White" Margin="20 0 0 0" Click="btnAddInoice_Click"/>
 
                     <Button x:Name="RefreshPage" Style="{StaticResource refeshButton}" Background="Transparent" HorizontalAlignment="Left" Foreground="White" Margin="20 0 0 0" Click="RefreshPage_Click">
                         <Image Source="/ImageResurce/refreshIcon.png" Height="35"/>
