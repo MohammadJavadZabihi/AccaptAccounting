@@ -2,6 +2,8 @@
 using Accapt.Core.Servies.InterFace;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Manage.Internal;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,12 +21,18 @@ namespace Accapt.Api.Controllers
         private readonly IMapper _mapper;
         private readonly IUserServies _userServies;
         private readonly IAuthenticationJwtServies _authenticationJwtServies;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IEmailSender _emailSender;
         public UserController(IRegisterUserServies registerUserServies,
             ILoginUserServies loginUserServies,
             IFindUserServies findUserServies,
             IMapper mapper,
             IUserServies userServies,
-            IAuthenticationJwtServies authenticationJwtServies)
+            IAuthenticationJwtServies authenticationJwtServies,
+            UserManager<IdentityUser> userManager,
+            IEmailSender emailSender,
+            SignInManager<IdentityUser> signInManager)
         {
             _registerServies = registerUserServies ?? throw new ArgumentException(nameof(registerUserServies));
             _loginUserServies = loginUserServies ?? throw new AbandonedMutexException(nameof(loginUserServies));
@@ -32,6 +40,9 @@ namespace Accapt.Api.Controllers
             _mapper = mapper ?? throw new ArgumentException(nameof(mapper));
             _userServies = userServies ?? throw new ArgumentException(nameof(userServies));
             _authenticationJwtServies = authenticationJwtServies ?? throw new ArgumentException(nameof(authenticationJwtServies));
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
+            _emailSender = emailSender ?? throw new ArgumentException(nameof(emailSender));
+            _signInManager = signInManager ?? throw new ArgumentException(nameof(signInManager)); ;
         }
 
         #endregion
@@ -44,16 +55,52 @@ namespace Accapt.Api.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var resgiterUser = await _registerServies.RegisterUser(register);
+            var user = new IdentityUser
+            {
+                UserName = register.UserName,
+                Email = register.Email,
+                PhoneNumber = register.PhoneNumber,
+            };
+            
+            var registerResult = await _userManager.CreateAsync(user, register.Password);
 
-            if (register == null)
-                return BadRequest(resgiterUser.Message);
+            if(!registerResult.Succeeded)
+            {
+                foreach (var error in  registerResult.Errors)
+                {
+                    return BadRequest(error);
+                }
+            }
 
-            if (!resgiterUser.ISuucess)
-                return BadRequest(resgiterUser.Message);
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-            return Ok(resgiterUser);
+            var confirmationLink = Url.Action(nameof(ConfirmEmail), "User", new {userId = user.Id, token}, Request.Scheme);
 
+            var emailModel = new EmailViewModel(user.Email, "تایید حساب کاربری", confirmationLink);
+
+            await _emailSender.SendEmailAsync(emailModel);
+
+            return Ok(true);
+        }
+
+        #endregion
+
+        #region Confrim Email
+
+        [HttpGet("confirmemail")]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+                return BadRequest("کاربری یافت نشد");
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
+            if (result.Succeeded)
+                return Ok();
+            else
+                return BadRequest("خطای ثبت ایمیل");
         }
 
         #endregion
@@ -66,18 +113,33 @@ namespace Accapt.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var loginUserStatuce = await _loginUserServies.LoginUser(loginUser);
+            var user = await _userManager.FindByNameAsync(loginUser.UserName);
+            if (user == null)
+                return BadRequest("کاربری یافت نشد");
 
-            if (!loginUserStatuce.ISuucess)
-                return BadRequest(loginUserStatuce.Message);
+            if (!user.EmailConfirmed)
+                return Unauthorized();
 
-            var token = await _authenticationJwtServies.AuthenticatJwtToken(loginUser);
+            var result = await _signInManager.PasswordSignInAsync(user, loginUser.Password, true, false);
 
-            return Ok(new
+            if(result.Succeeded)
             {
-                Token = token,
-                LoginStatuce = loginUserStatuce
-            });
+                var token = await _authenticationJwtServies.AuthenticatJwtToken(user.Id, user.UserName);
+
+                return Ok(new
+                {
+                    Token = token,
+                    LoginStatuce = result
+                });
+            }
+            else
+            {
+                return BadRequest(new
+                {
+                    Token = "",
+                    LoginStatuce = ""
+                });
+            }
         }
 
         #endregion

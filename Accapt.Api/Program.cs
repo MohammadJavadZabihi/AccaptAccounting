@@ -1,14 +1,25 @@
 using Accapt.Core.Servies;
 using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
+using Accapt.DataLayer.ContextIdentoty;
 using Accapt.DataLayer.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+#region Microsoft Identity
+
+builder.Services.AddDbContext<ContextIdentity>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnectionDB")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ContextIdentity>();
+
+#endregion
 
 //dontForgot to use this for patch :)
 builder.Services.AddControllers(options =>
@@ -80,6 +91,8 @@ builder.Services.AddTransient<IEmployeeServies, EmployeeServies>();
 builder.Services.AddTransient<ISallaryAndCostsServiec, SallaryAndCostsServiec>();
 builder.Services.AddTransient<IProviderService, ProviderService>();
 builder.Services.AddTransient<IProviderServiceListS, ProviderServiceListS>();
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 #endregion

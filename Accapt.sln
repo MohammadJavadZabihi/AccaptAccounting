@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accapt.Api", "Accapt.Api\Ac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accapt.Core", "Accapt.Core\Accapt.Core.csproj", "{E1CF9E82-E9F2-45A9-A45F-0FDA05A116AD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Accapt.Mobile", "Accapt.Mobile\Accapt.Mobile.csproj", "{6BD7C23B-6960-4A3F-8E5F-8B341E1F1852}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Accapt.Mobile", "Accapt.Mobile\Accapt.Mobile.csproj", "{6BD7C23B-6960-4A3F-8E5F-8B341E1F1852}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateKeyApp", "GenerateKeyApp\GenerateKeyApp.csproj", "{DE2070D5-5B83-4EAF-BF70-ED27BCB06CAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{6BD7C23B-6960-4A3F-8E5F-8B341E1F1852}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BD7C23B-6960-4A3F-8E5F-8B341E1F1852}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6BD7C23B-6960-4A3F-8E5F-8B341E1F1852}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DE2070D5-5B83-4EAF-BF70-ED27BCB06CAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE2070D5-5B83-4EAF-BF70-ED27BCB06CAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE2070D5-5B83-4EAF-BF70-ED27BCB06CAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE2070D5-5B83-4EAF-BF70-ED27BCB06CAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

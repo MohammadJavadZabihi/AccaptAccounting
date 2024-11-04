@@ -1,28 +1,11 @@
 ﻿
 using Accapt.Core.DTOs;
-using Accapt.Core.Servies;
-using Accapt.Core.Servies.InterFace;
-using Accapt.Views.Account;
 using Accapt.Views.Loading;
 using Accapt.WpfServies;
 using ApiRequest.Net.CallApi;
 using System.Configuration;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Net;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace AccaptFullyVersion.App.Views
 {
@@ -31,6 +14,7 @@ namespace AccaptFullyVersion.App.Views
         private readonly MainWindow _mainWindow;
         private readonly CallApi _callApiServies;
         private string? url = ConfigurationManager.AppSettings["ApiURL"];
+        private string? _localUrl = ConfigurationManager.AppSettings["LocalHost"];
         public string userName;
         private int _click = 0;
         public LoginPage(MainWindow mainWindow)
@@ -67,7 +51,7 @@ namespace AccaptFullyVersion.App.Views
                             Password = txtPassword.Password
                         };
 
-                        var responesMessage = await _callApiServies.SendPostRequest<LoginResponseDTO>($"{url}/api/ManageUsers/Login", data);
+                        var responesMessage = await _callApiServies.SendPostRequest<LoginResponseDTO>($"{_localUrl}/api/ManageUsers/Login", data);
 
                         if (responesMessage.IsSuccess)
                         {
@@ -110,6 +94,10 @@ namespace AccaptFullyVersion.App.Views
                             else if (responesMessage.StatusCode == HttpStatusCode.InternalServerError)
                             {
                                 MessageBox.Show("درحال حاضر سرور دچار مشکلاتی است. لطفا چند دقیقه دیگر تلاش کنید", "خطا", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                            else if(responesMessage.StatusCode == HttpStatusCode.Unauthorized)
+                            {
+                                MessageBox.Show("حساب کاربری شما فعال نیست، لطفا ار طریق لینکی که به ایمیل شما فرستاده شده است حساب خود را فعال کنید و بعد دوباره امتحان کنید", "خطا", MessageBoxButton.OK, MessageBoxImage.Error);
                             }
                         }
                     }

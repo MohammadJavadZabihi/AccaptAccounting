@@ -90,6 +90,28 @@ public partial class SubmitPage : ContentPage
         {
             try
             {
+                int persentageForAyab = 40;
+                int persentageForServiec = 50;
+
+                double amount = 0;
+
+                double ayab = 0;
+                double serviceAmount = 0;
+
+                serviceAmount = Convert.ToDouble(txtServiceAmount.Text) * (1 - persentageForServiec / 100);
+
+                if (Convert.ToDouble(txtAyab.Text) <= 50)
+                {
+                    ayab = Convert.ToDouble(txtAyab.Text);
+                }
+                else
+                {
+                    ayab = Convert.ToDouble(txtAyab.Text) * (1 - persentageForAyab);
+                }
+
+                amount = serviceAmount + ayab;
+
+
                 var data = new
                 {
                     Address = _address,
@@ -97,7 +119,7 @@ public partial class SubmitPage : ContentPage
                     ServiceName = _customerName,
                     Date = DateTime.UtcNow.ToShortDateString(),
                     IsDone = "انجام شده",
-                    Amount = Convert.ToDouble(txtServiceAmount.Text) + Convert.ToDouble(txtAyab.Text),
+                    Amount = amount,
 
                 };
 

@@ -10,7 +10,7 @@ namespace AccaptFullyVersion.App.Views
     {
         private readonly MainWindow _mainWindow;
         private readonly CallApi _callApiServies;
-        private string? url = ConfigurationManager.AppSettings["ApiURL"];
+        private string? url = ConfigurationManager.AppSettings["LocalHost"];
         private int _click = 0;
         public RegisterPage(MainWindow mainWindow)
         {
@@ -63,7 +63,7 @@ namespace AccaptFullyVersion.App.Views
                         if (responesMessage.IsSuccess)
                         {
                             loading.Close();
-                            MessageBox.Show("ثبت نام با موفقیت انجام شد", "موفقیت", MessageBoxButton.OK, MessageBoxImage.Information);
+                            MessageBox.Show("ثبت نام با موفقیت انجام شد، لطفا برای فعال کردن حساب کاربری خود بر روی لینکی که برای شما ایمیل شده است کلیک فرمایید", "موفقیت", MessageBoxButton.OK, MessageBoxImage.Information);
                             LoginPage loginPage = new LoginPage(_mainWindow);
                             _click--;
                             loginPage.Visibility = Visibility.Visible;

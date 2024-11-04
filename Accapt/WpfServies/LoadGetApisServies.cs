@@ -16,7 +16,7 @@ namespace Accapt.WpfServies
     public class LoadGetApisServies
     {
         private readonly CallApi _callApi;
-        private string? url = ConfigurationManager.AppSettings["ApiURL"];
+        private string? url = ConfigurationManager.AppSettings["LocalHost"];
         private string? _localUrl = ConfigurationManager.AppSettings["LocalHost"];
         public LoadGetApisServies()
         {

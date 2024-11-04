@@ -22,15 +22,15 @@ namespace Accapt.Core.Servies
             _configuration = configuration ?? throw new ArgumentException(nameof(configuration));
         }
 
-        public async Task<string> AuthenticatJwtToken(LoginUserDTO userLogin)
+        public async Task<string> AuthenticatJwtToken(string userId, string userName)
         {
             var security = new SymmetricSecurityKey(
                 Encoding.ASCII.GetBytes(_configuration["Authentication:SecretForKey"]));
 
             var signingCredentials = new SigningCredentials(security, SecurityAlgorithms.HmacSha256);
             var claimsForToken = new List<Claim>();
-            claimsForToken.Add(new Claim("userName", userLogin.UserName.ToString()));
-            claimsForToken.Add(new Claim("userId", userLogin.UserId.ToString()));
+            claimsForToken.Add(new Claim("userName", userName));
+            claimsForToken.Add(new Claim("userId", userId));
 
             var jwtSecurityToke = new JwtSecurityToken(
                 _configuration["Authentication:Issuer"],
