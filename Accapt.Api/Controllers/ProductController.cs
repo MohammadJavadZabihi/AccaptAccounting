@@ -4,6 +4,7 @@ using Accapt.DataLayer.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,13 +20,19 @@ namespace Accapt.Api.Controllers
         private IProductServies _productServies;
         private IFindeProductServies _findeProductServies;
         private readonly IMapper _mapper;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IJwtHelper _jwtHelper;
         public ProductController(IProductServies productServies,
             IFindeProductServies findeProductServies,
-            IMapper mapper)
+            IMapper mapper,
+            UserManager<IdentityUser> userManager,
+            IJwtHelper jwtHelper)
         {
             _productServies = productServies ?? throw new ArgumentException(nameof(productServies));
             _findeProductServies = findeProductServies ?? throw new ArgumentException(nameof(findeProductServies));
             _mapper = mapper ?? throw new ArgumentException(nameof(mapper));
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
+            _jwtHelper = jwtHelper ?? throw new ArgumentException(nameof(jwtHelper));
         }
 
         #endregion
@@ -35,15 +42,24 @@ namespace Accapt.Api.Controllers
         [HttpPost("Add")]
         public async Task<IActionResult> AddProduct(AddProductDTO addProductDTO)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            var product = await _productServies.AddProduct(addProductDTO);
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            if (product == null)
-                return BadRequest("Null Exeption");
+            if(!string.IsNullOrEmpty(userId))
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            return Ok(addProductDTO);
+                var product = await _productServies.AddProduct(addProductDTO, userId);
+
+                if (product == null)
+                    return BadRequest("کاربری یافت نشد");
+
+                return Ok();
+            }
+
+            return Unauthorized("توکن نامعتبر است");
         }
 
         #endregion
@@ -53,28 +69,37 @@ namespace Accapt.Api.Controllers
         [HttpDelete("Delet")]
         public async Task<IActionResult> DeletProductByName(SingleProductNameDTO productName)
         {
-            if (!ModelState.IsValid || productName.ProductId == null)
-                return BadRequest(ModelState);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            var product = await _findeProductServies.FindeProduct(productName.ProductId, productName.UserId);
+            var userId = _jwtHelper?.GetUserIdFromToken(token);
 
-            if (product == null)
-                return BadRequest("null product");
+            if(!string.IsNullOrEmpty(userId))
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
 
-            var deletProduct = await _productServies.DeletProduct(product);
+                var product = await _findeProductServies.FindeProduct(userId, productName.UserId);
 
-            if (!deletProduct)
-                return BadRequest();
+                if (product == null)
+                    return BadRequest("محصولی یافت نشد");
 
-            return Ok(deletProduct);
+                var deletProduct = await _productServies.DeletProduct(product);
+
+                if (!deletProduct)
+                    return BadRequest();
+
+                return Ok(deletProduct);
+            }
+
+            return Unauthorized();
         }
 
         #endregion
 
         #region UpdateProduct
 
-        [HttpPatch("Update/{userId}/{productId}")]
-        public async Task<IActionResult> UpdateProduct(int productId, string userId, [FromBody] JsonPatchDocument<ProductUpdateDTO> patchDocument)
+        [HttpPatch("Update/{productId}")]
+        public async Task<IActionResult> UpdateProduct(int productId, ProductUpdateDTO productUpdateDTO)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

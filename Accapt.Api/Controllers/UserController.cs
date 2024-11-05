@@ -1,5 +1,6 @@
 ﻿using Accapt.Core.DTOs;
 using Accapt.Core.Servies.InterFace;
+using Accapt.DataLayer.Entities;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,34 +16,23 @@ namespace Accapt.Api.Controllers
     {
         #region Injection
 
-        private readonly IRegisterUserServies _registerServies;
-        private readonly ILoginUserServies _loginUserServies;
-        private readonly IFindUserServies _findUserServies;
-        private readonly IMapper _mapper;
-        private readonly IUserServies _userServies;
         private readonly IAuthenticationJwtServies _authenticationJwtServies;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IEmailSender _emailSender;
-        public UserController(IRegisterUserServies registerUserServies,
-            ILoginUserServies loginUserServies,
-            IFindUserServies findUserServies,
-            IMapper mapper,
-            IUserServies userServies,
-            IAuthenticationJwtServies authenticationJwtServies,
-            UserManager<IdentityUser> userManager,
-            IEmailSender emailSender,
-            SignInManager<IdentityUser> signInManager)
+        private readonly IJwtHelper _jwtHelper;
+        public UserController(IAuthenticationJwtServies authenticationJwtServies,
+                              UserManager<IdentityUser> userManager,
+                              IEmailSender emailSender,
+                              SignInManager<IdentityUser> signInManager,
+                              IJwtHelper jwtHelper)
+
         {
-            _registerServies = registerUserServies ?? throw new ArgumentException(nameof(registerUserServies));
-            _loginUserServies = loginUserServies ?? throw new AbandonedMutexException(nameof(loginUserServies));
-            _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
-            _mapper = mapper ?? throw new ArgumentException(nameof(mapper));
-            _userServies = userServies ?? throw new ArgumentException(nameof(userServies));
             _authenticationJwtServies = authenticationJwtServies ?? throw new ArgumentException(nameof(authenticationJwtServies));
             _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
             _emailSender = emailSender ?? throw new ArgumentException(nameof(emailSender));
-            _signInManager = signInManager ?? throw new ArgumentException(nameof(signInManager)); ;
+            _signInManager = signInManager ?? throw new ArgumentException(nameof(signInManager));
+            _jwtHelper = jwtHelper ?? throw new ArgumentException(nameof(jwtHelper));
         }
 
         #endregion
@@ -147,53 +137,109 @@ namespace Accapt.Api.Controllers
         #region Get Single User
 
         [HttpGet("GetSingle")]
-        public async Task<IActionResult> GetSingleUser(UserDTO userName)
-        {
-            if (userName == null)
-                return BadRequest("کاربری وجود ندارد");
-
-            var user = await _findUserServies.FindUserByUserName(userName.UserName);
-
-            if(user == null)
-                return NotFound();
-
-            return Ok(user);
-        }
-
-        #endregion
-
-        #region Update User
-
         [Authorize]
-        [HttpPatch("Update/{userName}")]
-        public async Task<IActionResult> UpdatedUser(string userName, [FromBody] JsonPatchDocument<UserUpdateDTO> patchDocument)
+        public async Task<IActionResult> GetSingleUser()
         {
-            if (patchDocument == null || !ModelState.IsValid)
-                return BadRequest(ModelState);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            var isExixstUser = await _findUserServies.IsExsistUserName(patchDocument.Operations[0].value.ToString());
+            if (!string.IsNullOrEmpty(token))
+            {
+                var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            if(isExixstUser)
-                return BadRequest("This User Name is not Avablable");
+                if(!string.IsNullOrEmpty(userId))
+                {
+                    var user = await _userManager.FindByIdAsync(userId);
 
-            var user = await _findUserServies.FindUserByUserName(userName);
+                    if (user != null)
+                        return Ok(new
+                        {
+                            UserName = user.UserName,
+                            Email = user.Email,
+                            PhoneNumber = user.PhoneNumber
+                        });
 
-            if (user == null)
-                return NotFound();
+                    return BadRequest("کاربری یافت نشد");
+                }
 
-            var usertToPatch = _mapper.Map<UserUpdateDTO>(user);
+                return Unauthorized();
+            }
 
-            patchDocument.ApplyTo(usertToPatch, ModelState);
-
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            _mapper.Map(usertToPatch, user);
-            await _userServies.SaveChanges();
-
-            return Ok(user);
+            return Unauthorized();
         }
 
         #endregion
+
+        //#region Update User
+
+        //[Authorize]
+        //[HttpPost("Update")]
+        //public async Task<IActionResult> UpdatedUser(UserUpdateDTO userUpdateDTO)
+        //{
+
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
+
+
+        //    var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+        //    if(!string.IsNullOrEmpty(token))
+        //    {
+        //        var userName = _jwtHelper.GetUserNameFromToken(token);
+        //        var userId = _jwtHelper.GetUserIdFromToken(token);
+
+        //        if(!string.IsNullOrEmpty(userId) )
+        //        {
+        //            var user = await _userManager.FindByIdAsync(userId);
+
+        //            if(user!= null)
+        //            {
+        //                user.EmailConfirmed = false;
+
+        //                var token = _userManager.C();
+
+        //                var statuceOfUpdate = await _userManager.UpdateAsync(user);
+
+        //                if(statuceOfUpdate.Succeeded)
+        //                {
+
+        //                }
+        //            }
+
+        //            return BadRequest("کاربری یافت نشد");
+        //        }
+
+        //        return Unauthorized();
+
+        //    }
+
+        //    return Unauthorized();
+
+        //    //if (patchDocument == null || !ModelState.IsValid)
+        //    //    return BadRequest(ModelState);
+
+        //    //var isExixstUser = await _findUserServies.IsExsistUserName(patchDocument.Operations[0].value.ToString());
+
+        //    //if(isExixstUser)
+        //    //    return BadRequest("This User Name is not Avablable");
+
+        //    //var user = await _findUserServies.FindUserByUserName(userName);
+
+        //    //if (user == null)
+        //    //    return NotFound();
+
+        //    //var usertToPatch = _mapper.Map<UserUpdateDTO>(user);
+
+        //    //patchDocument.ApplyTo(usertToPatch, ModelState);
+
+        //    //if (!ModelState.IsValid)
+        //    //    return BadRequest(ModelState);
+
+        //    //_mapper.Map(usertToPatch, user);
+        //    //await _userServies.SaveChanges();
+
+        //    //return Ok(user);
+        //}
+
+        //#endregion
     }
 }

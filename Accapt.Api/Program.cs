@@ -21,12 +21,16 @@ builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<Con
 
 #endregion
 
+#region Path dependenct
+
 //dontForgot to use this for patch :)
 builder.Services.AddControllers(options =>
 {
     options.ReturnHttpNotAcceptable = true;
 
 }).AddNewtonsoftJson();
+
+#endregion
 
 #region DbContext
 
@@ -92,6 +96,7 @@ builder.Services.AddTransient<ISallaryAndCostsServiec, SallaryAndCostsServiec>()
 builder.Services.AddTransient<IProviderService, ProviderService>();
 builder.Services.AddTransient<IProviderServiceListS, ProviderServiceListS>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.AddTransient<IJwtHelper, JwtHelper>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

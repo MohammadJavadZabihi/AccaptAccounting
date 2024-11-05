@@ -10,8 +10,6 @@ namespace Accapt.Core.DTOs
 {
     public class AddProductDTO
     {
-        public string UserName { get; set; } = string.Empty;
-
         [DisplayName("نام محصول")]
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(200, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]

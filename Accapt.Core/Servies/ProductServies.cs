@@ -2,6 +2,7 @@
 using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
 using Accapt.DataLayer.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,26 +17,26 @@ namespace Accapt.Core.Servies
         private readonly AccaptFContext _context;
         private readonly IFindUserServies _findUserServies;
         private readonly IFindeProductServies _findeProductServies;
+        private readonly UserManager<IdentityUser> _userManager;
         public ProductServies(AccaptFContext context,
             IFindUserServies findUserServies,
-            IFindeProductServies findeProductServies)
+            IFindeProductServies findeProductServies,
+            UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
             _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
             _findeProductServies = findeProductServies;
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
 
         }
-        public async Task<object?> AddProduct(AddProductDTO addProduct)
+        public async Task<object?> AddProduct(AddProductDTO addProduct, string userId)
         {
-            if (addProduct == null)
-                return "Null Exeption";
-
             try
             {
-                var user = await _findUserServies.FindUserByUserName(addProduct.UserName);
+                var user = await _userManager.FindByIdAsync(userId);
 
                 if (user == null)
-                    return "Cannot find the Main User";
+                    throw new KeyNotFoundException("کاربری یافت نشد");
 
                 Product product = new Product
                 {
@@ -44,20 +45,16 @@ namespace Accapt.Core.Servies
                     Price = addProduct.Price,
                     ProductCount = addProduct.ProductCount,
                     UserId = user.Id,
-                    Users = user
                 };
 
                 await _context.AddAsync(product);
                 await _context.SaveChangesAsync();
 
-
-
-
                 return product;
             }
             catch (Exception ex)
             {
-                return "Error Message is : " + ex.Message;
+                return null;
             }
         }
 
