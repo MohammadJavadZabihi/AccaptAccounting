@@ -2,6 +2,7 @@
 using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
 using Accapt.DataLayer.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,12 +19,15 @@ namespace Accapt.Core.Servies
         private readonly AccaptFContext _context;
         private readonly IFindUserServies _findUserServies;
         private readonly IFindInvoices _findInvoices;
+        private readonly UserManager<IdentityUser> _userManager;
         public AddBillanServies(AccaptFContext context,
             IFindUserServies findUserServies,
-            IFindInvoices findInvoices)
+            IFindInvoices findInvoices,
+            UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
             _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
         public async Task<BillanSummaryDTO?> AddBillan(string startBillan, string endBillan, string userId)
         {
@@ -32,7 +36,7 @@ namespace Accapt.Core.Servies
                 if (startBillan == null || endBillan == null)
                     throw new ArgumentNullException();
 
-                var user = await _findUserServies.FindUserById(userId);
+                var user = await _userManager.FindByIdAsync(userId);
 
                 if (user == null)
                     throw new Exception("Null user");
@@ -139,7 +143,7 @@ namespace Accapt.Core.Servies
             if(userId == null)
                 throw new ArgumentNullException("userId");
 
-            var user = await _findUserServies.FindUserById(userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
                 throw new Exception("Access Denied");

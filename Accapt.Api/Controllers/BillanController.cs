@@ -1,4 +1,5 @@
 ﻿using Accapt.Core.DTOs;
+using Accapt.Core.Servies;
 using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -11,31 +12,47 @@ namespace Accapt.Api.Controllers
     [Authorize]
     public class BillanController : ControllerBase
     {
+        #region Injection
+
         private readonly IAddBillanServies _billanServies;
         private readonly IDeletBillanServies _deletBillanServies;
+        private readonly IJwtHelper _jwtHelper;
 
         public BillanController(IAddBillanServies billanServies,
-            IDeletBillanServies deletBillan)
+            IDeletBillanServies deletBillan,
+            IJwtHelper jwtHelper)
         {
             _billanServies = billanServies ?? throw new ArgumentException(nameof(billanServies));
             _deletBillanServies = deletBillan ?? throw new ArgumentException(nameof(deletBillan));
+            _jwtHelper = jwtHelper ?? throw new ArgumentException(nameof(jwtHelper));
         }
+
+        #endregion
 
         #region Add Billan
 
         [HttpPost("Add")]
         public async Task<IActionResult> AddBillan(AddBillanDTO addBillanDTO)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var statuceOfAddBillan = await _billanServies.AddBillan(addBillanDTO.StartDate, addBillanDTO.EndDate
-                , addBillanDTO.UserId);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if(statuceOfAddBillan == null)
-                return BadRequest(statuceOfAddBillan);
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(statuceOfAddBillan);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var statuceOfAddBillan = await _billanServies.AddBillan(addBillanDTO.StartDate, addBillanDTO.EndDate
+                , userId);
+
+                if (statuceOfAddBillan == null)
+                    return BadRequest(statuceOfAddBillan);
+
+                return Ok(statuceOfAddBillan);
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -48,12 +65,21 @@ namespace Accapt.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var addBillan = await _deletBillanServies.DeletBillanHistory(billan);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if (!addBillan)
-                return BadRequest("Cannot Dele Billan History");
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(addBillan);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var addBillan = await _deletBillanServies.DeletBillanHistory(billan);
+
+                if (!addBillan)
+                    return BadRequest("Cannot Dele Billan History");
+
+                return Ok(addBillan);
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -61,20 +87,24 @@ namespace Accapt.Api.Controllers
         #region Get Incoming
 
         [HttpGet("Incoming")]
-        public async Task<IActionResult> GetIncoming([FromQuery] string userId, [FromQuery] string currentDtae,
+        public async Task<IActionResult> GetIncoming([FromQuery] string currentDtae,
             [FromQuery] string endDate)
         {
-            if (userId == null)
-                return BadRequest("شناسه مورد نظر شما خالی است");
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            var incoming = await _billanServies.GetIncomingForBillan(userId, currentDtae, endDate);
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var incoming = await _billanServies.GetIncomingForBillan(userId, currentDtae, endDate);
 
-            if (incoming == null)
-                return NotFound();
+                if (incoming == null)
+                    return NotFound();
 
-            return Ok(incoming);
+                return Ok(incoming);
+            }
+
+            return Unauthorized();
         }
 
         #endregion

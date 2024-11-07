@@ -1,6 +1,7 @@
 ﻿using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
 using Accapt.DataLayer.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Accapt.Core.Servies
@@ -9,11 +10,14 @@ namespace Accapt.Core.Servies
     {
         private readonly AccaptFContext _conetxt;
         private readonly IFindUserServies _findUserServies;
+        private readonly UserManager<IdentityUser> _userManager;
         public FindChekServies(AccaptFContext context,
-            IFindUserServies findUserServies)
+            IFindUserServies findUserServies,
+            UserManager<IdentityUser> userManager)
         {
             _conetxt = context ?? throw new ArgumentException(nameof(context));
             _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
         public async Task<Chek?> GetChekByCgekNumber(string chekNumber, string userId)
         {
@@ -24,7 +28,7 @@ namespace Accapt.Core.Servies
         {
             try
             {
-                var user = await _findUserServies.FindUserById(userId);
+                var user = await _userManager.FindByIdAsync(userId);
 
                 if(user == null)
                     throw new ArgumentNullException("Null User Account");

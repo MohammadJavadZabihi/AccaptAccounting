@@ -18,15 +18,18 @@ namespace Accapt.Api.Controllers
         private readonly IFindChekServies _findChekServies;
         private readonly IDeletChekServies _deletChekServies;
         private readonly IUpdateChek _updateChek;
+        private readonly IJwtHelper _jwtHelper;
         public ChekController(IAddChekServies addChekServies, 
             IFindChekServies findChekServies,
             IDeletChekServies deletChekServies,
-            IUpdateChek updateChek)
+            IUpdateChek updateChek,
+            IJwtHelper jwtHelper)
         {
             _addChekServies = addChekServies ?? throw new ArgumentException(nameof(addChekServies));
             _findChekServies = findChekServies ?? throw new ArgumentException(nameof(findChekServies));
             _deletChekServies = deletChekServies ?? throw new ArgumentException(nameof(deletChekServies));
             _updateChek = updateChek ?? throw new ArgumentException(nameof(updateChek));
+            _jwtHelper = jwtHelper ?? throw new ArgumentException(nameof(jwtHelper));   
         }
 
         #endregion
@@ -39,12 +42,21 @@ namespace Accapt.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var addBankChek = await _addChekServies.AddChek(addChekDTO);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if(addBankChek == null)
-                return BadRequest(addBankChek);
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(addBankChek);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var addBankChek = await _addChekServies.AddChek(addChekDTO, userId);
+
+                if (addBankChek == null)
+                    return BadRequest(addBankChek);
+
+                return Ok(addBankChek);
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -52,20 +64,29 @@ namespace Accapt.Api.Controllers
         #region GetAllChekBanks
 
         [HttpGet("GetAll")]
-        public async Task<IActionResult> GetAllCheks([FromQuery]string filter = "", [FromQuery]string userId = "", 
+        public async Task<IActionResult> GetAllCheks([FromQuery]string filter = "", 
             [FromQuery]int pageNumber = 1, [FromQuery]int pageSize = 0)
         {
-            var cheks = await _findChekServies.GetCheks(filter, userId, pageNumber, pageSize);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if(cheks == null)
-                return BadRequest(cheks);
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(new
+            if (!string.IsNullOrEmpty(userId))
             {
-                Cheks = cheks,
-                PageNumber = pageNumber,
-                PageSize = pageSize
-            });
+                var cheks = await _findChekServies.GetCheks(filter, userId, pageNumber, pageSize);
+
+                if (cheks == null)
+                    return BadRequest(cheks);
+
+                return Ok(new
+                {
+                    Cheks = cheks,
+                    PageNumber = pageNumber,
+                    PageSize = pageSize
+                });
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -73,17 +94,26 @@ namespace Accapt.Api.Controllers
         #region Delet Chek
 
         [HttpDelete("Delet")]
-        public async Task<IActionResult> DeletChek([FromQuery] string chekNumber, [FromQuery] string userId)
+        public async Task<IActionResult> DeletChek([FromQuery] string chekNumber)
         {
-            if (string.IsNullOrEmpty(chekNumber) || string.IsNullOrEmpty(userId))
+            if (string.IsNullOrEmpty(chekNumber))
                 return BadRequest("خالی بودن کاربر و چک");
 
-            var statuceOfDeletChek = await _deletChekServies.DeletChek(chekNumber, userId);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if (!statuceOfDeletChek)
-                return NotFound();
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(statuceOfDeletChek);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var statuceOfDeletChek = await _deletChekServies.DeletChek(chekNumber, userId);
+
+                if (!statuceOfDeletChek)
+                    return NotFound();
+
+                return Ok(statuceOfDeletChek);
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -96,12 +126,21 @@ namespace Accapt.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var cheUpdate = await _updateChek.UpdateChekAcc(chekUpdateDTO);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if (cheUpdate == null)
-                return NotFound();
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(cheUpdate);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var cheUpdate = await _updateChek.UpdateChekAcc(chekUpdateDTO, userId);
+
+                if (cheUpdate == null)
+                    return NotFound();
+
+                return Ok(cheUpdate);
+            }
+
+            return Unauthorized();
 
         }
 

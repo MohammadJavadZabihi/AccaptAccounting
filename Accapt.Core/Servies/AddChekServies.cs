@@ -3,6 +3,7 @@ using Accapt.Core.DTOs;
 using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
 using Accapt.DataLayer.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,22 +17,26 @@ namespace Accapt.Core.Servies
         private readonly AccaptFContext _context;
         private readonly IFindBankServies _findBankServies;
         private readonly IFindUserServies _findUserServies;
+        private readonly UserManager<IdentityUser> _userManager;
         public AddChekServies(AccaptFContext context,
             IFindBankServies findBankServies,
-            IFindUserServies findUserServies)
+            IFindUserServies findUserServies,
+            UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
             _findBankServies = findBankServies ?? throw new ArgumentException(nameof(findBankServies));
             _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
-        public async Task<SingleChekDTO?> AddChek(AddChekDTO addChekDTO)
+        public async Task<SingleChekDTO?> AddChek(AddChekDTO addChekDTO, string userId)
         {
             try
             {
                 if (addChekDTO != null)
                 {
-                    var bank = await _findBankServies.GetBankAccountByName(addChekDTO.ChekBankName, addChekDTO.UserId);
-                    var user = await _findUserServies.FindUserById(addChekDTO.UserId);
+                    var bank = await _findBankServies.GetBankAccountByName(addChekDTO.ChekBankName, userId);
+
+                    var user = await _userManager.FindByIdAsync(userId);
 
                     if (user == null)
                     {
@@ -52,8 +57,7 @@ namespace Accapt.Core.Servies
                             ChekPrice = addChekDTO.ChekPrice,
                             CurrentDate = addChekDTO.CurrentDate,
                             DueDate = addChekDTO.DueDate,
-                            Id = addChekDTO.UserId,
-                            User = user,
+                            Id = userId,
                             CurrentDateSearch = addChekDTO.CurrentDate.ToShortDateString(),
                             DueDateSearch = addChekDTO.DueDate.ToShortDateString(),
                             StatuceOfPaid = "در حال پردازش",

@@ -9,8 +9,6 @@ namespace Accapt.Core.DTOs
 {
     public class AddChekDTO
     {
-        public string UserId { get; set; }
-
         [Required]
         public string ChekNumber { get; set; }
 

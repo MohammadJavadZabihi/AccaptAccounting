@@ -10,6 +10,6 @@ namespace Accapt.Core.Servies.InterFace
 {
     public interface IUpdateChek
     {
-        Task<Chek?> UpdateChekAcc(ChekUpdateDTO chekUpdateDTO);
+        Task<Chek?> UpdateChekAcc(ChekUpdateDTO chekUpdateDTO, string userId);
     }
 }

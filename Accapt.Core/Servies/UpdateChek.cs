@@ -3,6 +3,7 @@ using Accapt.Core.DTOs;
 using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
 using Accapt.DataLayer.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,24 +17,27 @@ namespace Accapt.Core.Servies
         private readonly AccaptFContext _context;
         private readonly IFindUserServies _findUserServies;
         private readonly IFindChekServies _findChekServies;
+        private readonly UserManager<IdentityUser> _userManager;
         public UpdateChek(AccaptFContext context,
             IFindUserServies findUserServies,
-            IFindChekServies findChekServies)
+            IFindChekServies findChekServies,
+            UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
             _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
             _findChekServies = findChekServies ?? throw new ArgumentException(nameof(findChekServies));
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
 
         }
 
-        public async Task<Chek?> UpdateChekAcc(ChekUpdateDTO chekUpdateDTO)
+        public async Task<Chek?> UpdateChekAcc(ChekUpdateDTO chekUpdateDTO, string userId)
         {
-            var user = await _findUserServies.FindUserById(chekUpdateDTO.UserId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
                 throw new ArgumentNullException("Null User Ex");
 
-            var chek = await _findChekServies.GetChekByCgekNumber(chekUpdateDTO.ChekNumber, chekUpdateDTO.UserId);
+            var chek = await _findChekServies.GetChekByCgekNumber(chekUpdateDTO.ChekNumber, userId);
 
             if (chek == null)
                 throw new ArgumentNullException("Null Chek Ex");

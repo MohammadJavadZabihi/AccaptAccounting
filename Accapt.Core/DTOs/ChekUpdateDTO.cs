@@ -8,7 +8,6 @@ namespace Accapt.Core.DTOs
 {
     public class ChekUpdateDTO
     {
-        public string UserId { get; set; }
         public string ChekNumber { get; set; }
         public DateTime CurrentDate { get; set; }
         public DateTime DueDate { get; set; }

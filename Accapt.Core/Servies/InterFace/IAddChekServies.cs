@@ -10,6 +10,6 @@ namespace Accapt.Core.Servies.InterFace
 {
     public interface IAddChekServies
     {
-        Task<SingleChekDTO?> AddChek(AddChekDTO addChekDTO);
+        Task<SingleChekDTO?> AddChek(AddChekDTO addChekDTO, string userId);
     }
 }
