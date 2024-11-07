@@ -12,11 +12,18 @@ namespace Accapt.Api.Controllers
     [Authorize]
     public class DebtorCreditorController : ControllerBase
     {
+        #region Injection
+
         private readonly IDebtorCreditorsService _debtorCreditorsService;
-        public DebtorCreditorController(IDebtorCreditorsService debtorCreditorsService)
+        private readonly IJwtHelper _jwtHelper;
+        public DebtorCreditorController(IDebtorCreditorsService debtorCreditorsService, 
+            IJwtHelper jwtHelper)
         {
             _debtorCreditorsService = debtorCreditorsService ?? throw new ArgumentException(nameof(debtorCreditorsService));
+            _jwtHelper = jwtHelper ?? throw new ArgumentException(nameof(jwtHelper));
         }
+
+        #endregion
 
         #region Add DebtorCreditor
 
@@ -26,12 +33,22 @@ namespace Accapt.Api.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var addDebtorCreditor = await _debtorCreditorsService.AddDebtorCreditors(addDebtorCreditorsDTO);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if(addDebtorCreditor == null)
-                return BadRequest(addDebtorCreditor);
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(addDebtorCreditor);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var addDebtorCreditor = await _debtorCreditorsService.AddDebtorCreditors(addDebtorCreditorsDTO, userId);
+
+                if (addDebtorCreditor == null)
+                    return BadRequest(addDebtorCreditor);
+
+                return Ok(addDebtorCreditor);
+            }
+
+            return Unauthorized();
+
         }
 
         #endregion
@@ -44,12 +61,21 @@ namespace Accapt.Api.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var editeStatuce = await _debtorCreditorsService.EditeCreditors(editeCreditoDTO);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if(!editeStatuce)
-                return BadRequest(editeStatuce);
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(editeStatuce);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var editeStatuce = await _debtorCreditorsService.EditeCreditors(editeCreditoDTO, userId);
+
+                if (!editeStatuce)
+                    return BadRequest(editeStatuce);
+
+                return Ok(editeStatuce);
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -62,12 +88,21 @@ namespace Accapt.Api.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var statucOfDelet = await _debtorCreditorsService.DeletCreditors(creditorDTO);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if(!statucOfDelet) 
-                return BadRequest(statucOfDelet);
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(statucOfDelet);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var statucOfDelet = await _debtorCreditorsService.DeletCreditors(creditorDTO, userId);
+
+                if (!statucOfDelet)
+                    return BadRequest(statucOfDelet);
+
+                return Ok(statucOfDelet);
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -75,20 +110,29 @@ namespace Accapt.Api.Controllers
         #region GetAll DebtorCreditors
 
         [HttpGet("GetDebtorCreditors")]
-        public async Task<IActionResult> GetAll([FromQuery]int pageNumber = 1, [FromQuery]int pageSize = 0,
-                                             [FromQuery]string filter = "", [FromQuery]string userId = "")
+        public async Task<IActionResult> GetAll([FromQuery]int pageNumber = 1, [FromQuery]int pageSize = 0, [FromQuery]string filter = "")
         {
-            var debtorCreditors = await _debtorCreditorsService.GetAllDebtorCreditors(pageNumber, pageSize, filter, userId);
 
-            if (debtorCreditors == null)
-                return BadRequest(debtorCreditors);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            return Ok(new
+            var userId = _jwtHelper.GetUserIdFromToken(token);
+
+            if (!string.IsNullOrEmpty(userId))
             {
-                DebtorCreditors = debtorCreditors,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-            });
+                var debtorCreditors = await _debtorCreditorsService.GetAllDebtorCreditors(pageNumber, pageSize, filter, userId);
+
+                if (debtorCreditors == null)
+                    return BadRequest(debtorCreditors);
+
+                return Ok(new
+                {
+                    DebtorCreditors = debtorCreditors,
+                    PageNumber = pageNumber,
+                    PageSize = pageSize,
+                });
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -101,12 +145,21 @@ namespace Accapt.Api.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var statuceOfUpdate = await _debtorCreditorsService.IsPay(creditorDTO);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if(!statuceOfUpdate) 
-                return BadRequest(statuceOfUpdate);
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(statuceOfUpdate);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var statuceOfUpdate = await _debtorCreditorsService.IsPay(creditorDTO, userId);
+
+                if (!statuceOfUpdate)
+                    return BadRequest(statuceOfUpdate);
+
+                return Ok(statuceOfUpdate);
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -119,12 +172,22 @@ namespace Accapt.Api.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var debtOrCreditor = await _debtorCreditorsService.GetSingle(creditorDTO);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if (debtOrCreditor == null)
-                return BadRequest(debtOrCreditor);
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(debtOrCreditor);
+            if (!string.IsNullOrEmpty(userId))
+            {
+
+                var debtOrCreditor = await _debtorCreditorsService.GetSingle(creditorDTO, userId);
+
+                if (debtOrCreditor == null)
+                    return BadRequest(debtOrCreditor);
+
+                return Ok(debtOrCreditor);
+            }
+
+            return Unauthorized();
         }
 
         #endregion

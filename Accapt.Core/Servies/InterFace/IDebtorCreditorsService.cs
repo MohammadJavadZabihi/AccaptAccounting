@@ -10,12 +10,12 @@ namespace Accapt.Core.Servies.InterFace
 {
     public interface IDebtorCreditorsService
     {
-        Task<AddDebtorCreditorsDTO?> AddDebtorCreditors(AddDebtorCreditorsDTO addDebtorCreditorsDTO);
-        Task<bool> DeletCreditors(CreditorDTO creditorDTO);
-        Task<bool> EditeCreditors(EditeCreditoDTO creditorDTO);
-        Task<bool> IsPay(CreditorDTO creditorDTO);
+        Task<AddDebtorCreditorsDTO?> AddDebtorCreditors(AddDebtorCreditorsDTO addDebtorCreditorsDTO, string userId);
+        Task<bool> DeletCreditors(CreditorDTO creditorDTO, string userId);
+        Task<bool> EditeCreditors(EditeCreditoDTO creditorDTO, string userId);
+        Task<bool> IsPay(CreditorDTO creditorDTO, string userId);
         Task<IEnumerable<DebtorCreditor?>> GetAllDebtorCreditors(int pageNumber = 1, int pageSize = 0,
                                              string filter = "", string userId = "");
-        Task<DebtorCreditor?> GetSingle(CreditorDTO creditorDTO);
+        Task<DebtorCreditor?> GetSingle(CreditorDTO creditorDTO, string userId);
     }
 }

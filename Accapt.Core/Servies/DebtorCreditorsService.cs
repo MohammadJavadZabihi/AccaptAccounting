@@ -2,6 +2,7 @@
 using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
 using Accapt.DataLayer.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,15 +16,18 @@ namespace Accapt.Core.Servies
     {
         private readonly AccaptFContext _context;
         private readonly IFindUserServies _findUserServies;
+        private readonly UserManager<IdentityUser> _userManager;
         public DebtorCreditorsService(AccaptFContext context,
-            IFindUserServies findUserServies)
+            IFindUserServies findUserServies,
+            UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
             _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
-        public async Task<AddDebtorCreditorsDTO?> AddDebtorCreditors(AddDebtorCreditorsDTO addDebtorCreditorsDTO)
+        public async Task<AddDebtorCreditorsDTO?> AddDebtorCreditors(AddDebtorCreditorsDTO addDebtorCreditorsDTO, string userId)
         {
-            var user = await _findUserServies.FindUserById(addDebtorCreditorsDTO.UserId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
             {
@@ -38,7 +42,7 @@ namespace Accapt.Core.Servies
                 Desctiptions = addDebtorCreditorsDTO.Desctiptions,
                 PriceOfDebtorCreditor = addDebtorCreditorsDTO.PriceOfDebtorCreditor,
                 Statuce = addDebtorCreditorsDTO.Statuce,
-                UserId = addDebtorCreditorsDTO.UserId,
+                UserId = userId
             };
 
             await _context.DebtorCreditors.AddAsync(addDebtorCreditor);
@@ -47,9 +51,10 @@ namespace Accapt.Core.Servies
             return addDebtorCreditorsDTO;
         }
 
-        public async Task<bool> DeletCreditors(CreditorDTO creditorDTO)
+        public async Task<bool> DeletCreditors(CreditorDTO creditorDTO, string userId)
         {
-            var debtorCreditors = await _context.DebtorCreditors.FirstOrDefaultAsync(d => d.UserId == creditorDTO.UserId && d.DebtorCreditorID == creditorDTO.CreditorId);
+            var debtorCreditors = await _context.DebtorCreditors.FirstOrDefaultAsync(d => d.UserId == userId && 
+            d.DebtorCreditorID == creditorDTO.CreditorId);
 
             if (debtorCreditors == null)
                 return false;
@@ -60,9 +65,10 @@ namespace Accapt.Core.Servies
             return true;
         }
 
-        public async Task<bool> EditeCreditors(EditeCreditoDTO creditorDTO)
+        public async Task<bool> EditeCreditors(EditeCreditoDTO creditorDTO, string userId)
         {
-            var debtorCreditors = await _context.DebtorCreditors.FirstOrDefaultAsync(d => d.UserId == creditorDTO.UserId && d.DebtorCreditorID == creditorDTO.CreditorId);
+            var debtorCreditors = await _context.DebtorCreditors.FirstOrDefaultAsync(d => d.UserId == userId &&
+            d.DebtorCreditorID == creditorDTO.CreditorId);
 
             if (debtorCreditors == null)
                 return false;
@@ -86,7 +92,7 @@ namespace Accapt.Core.Servies
                 return null;
             }
 
-            var user = await _findUserServies.FindUserById(userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
             {
@@ -117,14 +123,14 @@ namespace Accapt.Core.Servies
             return await result.Skip(skip).Take(pageSize).ToListAsync();
         }
 
-        public async Task<DebtorCreditor?> GetSingle(CreditorDTO creditorDTO)
+        public async Task<DebtorCreditor?> GetSingle(CreditorDTO creditorDTO, string userId)
         {
-            return await _context.DebtorCreditors.FirstOrDefaultAsync(d => d.UserId == creditorDTO.UserId && d.DebtorCreditorID == creditorDTO.CreditorId);
+            return await _context.DebtorCreditors.FirstOrDefaultAsync(d => d.UserId == userId && d.DebtorCreditorID == creditorDTO.CreditorId);
         }
 
-        public async Task<bool> IsPay(CreditorDTO creditorDTO)
+        public async Task<bool> IsPay(CreditorDTO creditorDTO, string userId)
         {
-            var debtorCreditors = await _context.DebtorCreditors.FirstOrDefaultAsync(d => d.UserId == creditorDTO.UserId && d.DebtorCreditorID == creditorDTO.CreditorId);
+            var debtorCreditors = await _context.DebtorCreditors.FirstOrDefaultAsync(d => d.UserId == userId && d.DebtorCreditorID == creditorDTO.CreditorId);
 
             if (debtorCreditors == null)
                 return false;

@@ -11,8 +11,5 @@ namespace Accapt.Core.DTOs
     {
         [Required]
         public int CreditorId { get; set; }
-
-        [Required]
-        public string UserId { get; set; }  
     }
 }

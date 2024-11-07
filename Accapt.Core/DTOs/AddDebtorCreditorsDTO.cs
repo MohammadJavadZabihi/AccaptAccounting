@@ -9,7 +9,6 @@ namespace Accapt.Core.DTOs
 {
     public class AddDebtorCreditorsDTO
     {
-        public string UserId { get; set; }
 
         [Required]
         [MaxLength(200)]
