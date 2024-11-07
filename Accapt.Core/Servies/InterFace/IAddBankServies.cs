@@ -10,6 +10,6 @@ namespace Accapt.Core.Servies.InterFace
 {
     public interface IAddBankServies
     {
-        Task<AddBankDTO?> AddBank(AddBankDTO addBankDTOcs);
+        Task<AddBankDTO?> AddBank(AddBankDTO addBankDTOcs ,string userId);
     }
 }

@@ -12,6 +12,6 @@ namespace Accapt.Core.Servies.InterFace
     {
         Task<Product?> FindeProduct(string productName, string userId);
         Task<Product?> FindeProduct(int productId, string userId);
-        Task<bool> IsExistProduct(ChekIsExistProduct chekIsExistProduct);
+        Task<bool> IsExistProduct(ChekIsExistProduct chekIsExistProduct, string userId);
     }
 }

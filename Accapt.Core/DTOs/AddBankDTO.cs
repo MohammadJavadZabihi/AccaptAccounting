@@ -8,8 +8,6 @@ namespace Accapt.Core.DTOs
 {
     public class AddBankDTO
     {
-        public string Id { get; set; }
-
         public string BankName { get; set; }
         public string BankBranch { get; set; }
         public string BankAddress { get; set; }

@@ -120,7 +120,7 @@ namespace Accapt.Core.Servies
         {
             try
             {
-                var user = await _findUserServies.FindUserById(userId);
+                var user = await _userManager.FindByIdAsync(userId);
 
                 if (user == null)
                     return null;
@@ -156,6 +156,27 @@ namespace Accapt.Core.Servies
         public async Task Save()
         {
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> Updateproduct(Product product, ProductUpdateDTO productUpdateDTO)
+        {
+            try
+            {
+                product.ProductName = productUpdateDTO.Productname;
+                product.ProductCount = productUpdateDTO.ProductCount;
+                product.Price = productUpdateDTO.Price;
+                product.Description = productUpdateDTO.Description;
+
+                _context.products.Update(product);
+
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException(ex.Message);
+            }
         }
     }
 }

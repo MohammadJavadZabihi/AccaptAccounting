@@ -29,9 +29,9 @@ namespace Accapt.Core.Servies
             return await _context.products.FirstOrDefaultAsync(p => p.ProductId == productId && p.UserId == userId);
         }
 
-        public async Task<bool> IsExistProduct(ChekIsExistProduct chekIsExistProduct)
+        public async Task<bool> IsExistProduct(ChekIsExistProduct chekIsExistProduct, string userId)
         {
-            return await _context.products.AnyAsync(p => p.ProductName == chekIsExistProduct.ProductName && p.UserId == chekIsExistProduct.UserId);
+            return await _context.products.AnyAsync(p => p.ProductName == chekIsExistProduct.ProductName && p.UserId == userId);
         }
     }
 }

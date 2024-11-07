@@ -13,6 +13,7 @@ namespace Accapt.Api.Controllers
     [Route("api/MangeProduct")]
     [ApiController]
     [Authorize]
+
     public class ProductController : ControllerBase
     {
         #region Injection
@@ -78,7 +79,7 @@ namespace Accapt.Api.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest(ModelState);
 
-                var product = await _findeProductServies.FindeProduct(userId, productName.UserId);
+                var product = await _findeProductServies.FindeProduct(productName.ProductId, userId);
 
                 if (product == null)
                     return BadRequest("محصولی یافت نشد");
@@ -104,22 +105,27 @@ namespace Accapt.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var product = await _findeProductServies.FindeProduct(productId, userId);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if (product == null)
-                return NotFound();
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            var productToPatch = _mapper.Map<ProductUpdateDTO>(product);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var product = await _findeProductServies.FindeProduct(productId, userId);
 
-            patchDocument.ApplyTo(productToPatch, ModelState);
+                if (product == null)
+                    return BadRequest("محصولی یافت نشد");
 
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+                var statuceOfUpdate = await _productServies.Updateproduct(product, productUpdateDTO);
 
-            _mapper.Map(productToPatch, product);
-            await _productServies.Save();
+                if (!statuceOfUpdate)
+                    return BadRequest("خطا در به روز رسانی محصول");
 
-            return Ok(product);
+                return Ok(statuceOfUpdate);
+
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -128,37 +134,52 @@ namespace Accapt.Api.Controllers
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllProducts([FromQuery] int pageNumber, [FromQuery] int pageSize,
-            [FromQuery]string filter = "", [FromQuery] string userId = "")
+            [FromQuery]string filter = "")
         {
-            var product = await _productServies.GetProducts(pageNumber, pageSize, filter, userId);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if (product == null)
-                return NotFound();
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(new
+            if(!string.IsNullOrEmpty(userId))
             {
-                Products = product,
-                PageNumber = pageNumber,    
-                PageSize = pageSize
-            });
+                var product = await _productServies.GetProducts(pageNumber, pageSize, filter, userId);
+
+                return Ok(new
+                {
+                    Products = product,
+                    PageNumber = pageNumber,
+                    PageSize = pageSize
+                });
+            }
+
+            return Unauthorized();
         }
 
         #endregion
 
         #region GetSingleProduct
 
-        [HttpGet("GetSingle/{userId}/{productId}")]
-        public async Task<IActionResult> GetSingleProduct(int productId, string userId)
+        [HttpGet("GetSingle/{productId}")]
+        public async Task<IActionResult> GetSingleProduct(int productId)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var product = await _findeProductServies.FindeProduct(productId, userId);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if (product == null)
-                return NotFound();
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(product);
+            if(!string.IsNullOrEmpty(userId))
+            {
+                var product = await _findeProductServies.FindeProduct(productId, userId);
+
+                if (product == null)
+                    return BadRequest("محصولی یافت نشد");
+
+                return Ok(product);
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -171,9 +192,18 @@ namespace Accapt.Api.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var isExistProduct = await _findeProductServies.IsExistProduct(chekIsExistProduct);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            return Ok(isExistProduct);
+            var userId = _jwtHelper.GetUserIdFromToken(token);
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var isExistProduct = await _findeProductServies.IsExistProduct(chekIsExistProduct, userId);
+
+                return Ok(isExistProduct);
+            }
+
+            return Unauthorized();
         }
 
         #endregion

@@ -3,6 +3,7 @@ using Accapt.Core.Servies.InterFace;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Schema;
 
 namespace Accapt.Api.Controllers
 {
@@ -16,13 +17,16 @@ namespace Accapt.Api.Controllers
         private readonly IAddBankServies _addBankServies;
         private readonly IDeletBankAccount _deletBankAccount;
         private readonly IGetBanckAccountServies _getBanckAccountServies;
+        private readonly IJwtHelper _jwtHelper;
         public BankController(IAddBankServies addBankServies, 
             IDeletBankAccount deletBankAccount,
-            IGetBanckAccountServies getBanckAccountServies)
+            IGetBanckAccountServies getBanckAccountServies,
+            IJwtHelper jwtHelper)
         {
             _addBankServies = addBankServies ?? throw new ArgumentException(nameof(addBankServies));
             _deletBankAccount = deletBankAccount ?? throw new ArgumentException(nameof(deletBankAccount));
             _getBanckAccountServies = getBanckAccountServies ?? throw new ArgumentException(nameof(getBanckAccountServies));
+            _jwtHelper = jwtHelper;
         }
 
         #endregion
@@ -35,12 +39,21 @@ namespace Accapt.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var statuceOfAddBandAccount = await _addBankServies.AddBank(addBank);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if (statuceOfAddBandAccount == null)
-                return BadRequest(statuceOfAddBandAccount);
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(statuceOfAddBandAccount);
+            if(!string.IsNullOrEmpty(userId))
+            {
+                var statuceOfAddBandAccount = await _addBankServies.AddBank(addBank, userId);
+
+                if (statuceOfAddBandAccount == null)
+                    return BadRequest(statuceOfAddBandAccount);
+
+                return Ok(statuceOfAddBandAccount);
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -48,17 +61,27 @@ namespace Accapt.Api.Controllers
         #region DeletBankAccount
 
         [HttpDelete("Delet")]
-        public async Task<IActionResult> DeletBankAccount([FromQuery]int bankId, [FromQuery]string userId)
+        public async Task<IActionResult> DeletBankAccount([FromQuery]int bankId)
         {
-            if (bankId == 0 || string.IsNullOrEmpty(userId))
+            if (bankId == 0)
                 return BadRequest("null exception");
 
-            var deletStatuce = await _deletBankAccount.DeletBankAccount(bankId, userId);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if (!deletStatuce)
-                return NotFound();
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(deletStatuce);
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var deletStatuce = await _deletBankAccount.DeletBankAccount(bankId, userId);
+
+                if (!deletStatuce)
+                    return BadRequest("حساب بانکی یافت نشد");
+
+                return Ok(deletStatuce);
+            }
+
+            return Unauthorized();
+
         }
 
         #endregion
@@ -67,19 +90,29 @@ namespace Accapt.Api.Controllers
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAllBankAccount([FromQuery] int pageNumber, [FromQuery] int pageSize,
-            [FromQuery] string filter = "", [FromQuery] string userId = "")
+            [FromQuery] string filter = "")
         {
-            var getBankAccount = await _getBanckAccountServies.GetAllBankAccount(pageNumber, pageSize, filter, userId);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if(getBankAccount == null)
-                return NotFound();
+            var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(new
+            if (!string.IsNullOrEmpty(userId))
             {
-                BankAccounts = getBankAccount,
-                PageNumber = pageNumber,
-                PageSize = pageSize
-            });
+                var getBankAccount = await _getBanckAccountServies.GetAllBankAccount(pageNumber, pageSize, filter, userId);
+
+                if (getBankAccount == null)
+                    return NotFound();
+
+                return Ok(new
+                {
+                    BankAccounts = getBankAccount,
+                    PageNumber = pageNumber,
+                    PageSize = pageSize
+                });
+            }
+
+            return Unauthorized();
+                
         }
 
         #endregion

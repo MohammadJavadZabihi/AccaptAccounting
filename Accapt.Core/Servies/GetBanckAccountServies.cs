@@ -1,6 +1,7 @@
 ﻿using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
 using Accapt.DataLayer.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,11 +15,14 @@ namespace Accapt.Core.Servies
     {
         private readonly AccaptFContext _context;
         private readonly IFindUserServies _findUserServies;
+        private readonly UserManager<IdentityUser> _userManager;
         public GetBanckAccountServies(AccaptFContext context, 
-            IFindUserServies findUserServies)
+            IFindUserServies findUserServies,
+            UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
         public async Task<IEnumerable<BankT?>> GetAllBankAccount(int pageNumber = 1, int pageSize = 0,
             string filter = "", string userId = "")
@@ -26,7 +30,7 @@ namespace Accapt.Core.Servies
             if(string.IsNullOrEmpty(userId))
                 throw new ArgumentNullException(nameof(userId));
 
-            var user = await _findUserServies.FindUserById(userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
                 throw new Exception("Null Exception");

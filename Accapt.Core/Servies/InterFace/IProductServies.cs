@@ -11,6 +11,7 @@ namespace Accapt.Core.Servies.InterFace
     public interface IProductServies
     {
         Task<object?> AddProduct(AddProductDTO addProduct, string userId);
+        Task<bool> Updateproduct(Product product, ProductUpdateDTO productUpdateDTO);
         Task<bool> DeletProduct(Product product);
         Task<bool> AddProductCount(int productCount, string productName, string userId);
         Task<bool> decrisesProductCount(int productCount, string productName, string userId);

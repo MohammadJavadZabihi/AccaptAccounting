@@ -12,9 +12,5 @@ namespace Accapt.Core.DTOs
         [Required]
         [MaxLength(200)]
         public string ProductName { get; set; }
-        
-        [Required]
-        [MaxLength(200)]
-        public string UserId { get; set; }
     }
 }
