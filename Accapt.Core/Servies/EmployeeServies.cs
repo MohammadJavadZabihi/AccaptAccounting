@@ -2,6 +2,7 @@
 using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
 using Accapt.DataLayer.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,18 +16,21 @@ namespace Accapt.Core.Servies
     {
         private readonly AccaptFContext _context;
         private readonly IFindUserServies _findUserServies;
-        public EmployeeServies(AccaptFContext context, IFindUserServies findUserServies)
+        private readonly UserManager<IdentityUser> _userManager;
+        public EmployeeServies(AccaptFContext context, 
+            IFindUserServies findUserServies,
+            UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
             _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
-
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
 
-        public async Task<bool> AddEmployee(AddEmployeeDTO epmloyee)
+        public async Task<bool> AddEmployee(AddEmployeeDTO epmloyee, string userId)
         {
             if(epmloyee != null)
             {
-                var user = await _findUserServies.FindUserById(epmloyee.UserId);
+                var user = await _userManager.FindByIdAsync(userId);
 
                 if(user != null)
                 {
@@ -37,7 +41,6 @@ namespace Accapt.Core.Servies
                         EmployeeRoll = epmloyee.EmployeeRoll,
                         EpmloyeeName = epmloyee.EpmloyeeName,
                         UserId = user.Id,
-                        Users = user
                     };
 
                     await _context.Employees.AddAsync(addEmployee);
@@ -47,7 +50,7 @@ namespace Accapt.Core.Servies
                     {
                         EmployeeDeatailsCount = epmloyee.EmployeeDeatailsCount,
                         EpmloyeeId = addEmployee.EpmloyeeId,
-                        UserId = epmloyee.UserId,
+                        UserId = userId,
                         EmployeeDeatailsName = epmloyee.EmployeeDeatailsName,
                         PriceOfEmployeDeatails = epmloyee.PriceOfEmployeDeatails,
                         Epmloyee = addEmployee

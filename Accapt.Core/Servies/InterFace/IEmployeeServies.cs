@@ -10,7 +10,7 @@ namespace Accapt.Core.Servies.InterFace
 {
     public interface IEmployeeServies
     {
-        Task<bool> AddEmployee(AddEmployeeDTO epmloyee);
+        Task<bool> AddEmployee(AddEmployeeDTO epmloyee, string userId);
         Task<bool> DeletEmployee(DeletEmployeeDTO deletEpmloyee);
         Task<IEnumerable<Epmloyee>> GetEmployeeList(int pageNumber = 1, int pageSize = 0,
             string filter = "", string userId = "");

@@ -14,8 +14,6 @@ namespace Accapt.Core.DTOs
         [MaxLength(200)]
         public string EpmloyeeName { get; set; }
 
-        public string UserId { get; set; }
-
         [Required]
         [MaxLength(200)]
         public string EmployeeRoll { get; set; }

@@ -96,7 +96,6 @@ namespace Accapt.Core.Servies
                                 Price = invoiceDetails.ProductPrice,
                                 ProductCount = invoiceDetails.ProductCount,
                                 Productname = invoiceDetails.ProductName,
-                                UserName = user.UserName
                             };
 
                             var addProduc = await _productServies.AddProduct(addProductDTO);
