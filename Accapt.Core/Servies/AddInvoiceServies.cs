@@ -2,6 +2,7 @@
 using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
 using Accapt.DataLayer.Entities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +17,18 @@ namespace Accapt.Core.Servies
         private readonly IFindUserServies _findUserServies;
         private readonly IProductServies _productServies;
         private readonly IFindPepolServies _findPepolServies;
+        private readonly UserManager<IdentityUser> _userManager;
         public AddInvoiceServies(AccaptFContext context, 
             IFindUserServies findUserServies, 
             IProductServies productServies, 
-            IFindPepolServies findPepolServies)
+            IFindPepolServies findPepolServies,
+            UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
             _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
             _productServies = productServies ?? throw new ArgumentException(nameof(productServies));
-            _findPepolServies = findPepolServies ?? throw new ArgumentException(nameof(findPepolServies)); ;
+            _findPepolServies = findPepolServies ?? throw new ArgumentException(nameof(findPepolServies));
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
         public async Task<AddInvoicesDTO?> AddInvoice(AddInvoicesDTO invoice)
         {
@@ -55,7 +59,7 @@ namespace Accapt.Core.Servies
                     isSell = true;
                 }
 
-                var user = await _findUserServies.FindUserById(invoice.UserId);
+                var user = await _userManager.FindByIdAsync(invoice.UserId);
 
                 foreach (var item in invoice.InvoiceDetails)
                 {
@@ -69,7 +73,6 @@ namespace Accapt.Core.Servies
                         ProductName = item.ProductName,
                         ProductPrice = (int)item.ProductPrice,
                         ProductTotalPrice = (int)item.ProductTotalPrice,
-                        Users = user,
                     };
 
                     if (isSell)
@@ -98,7 +101,7 @@ namespace Accapt.Core.Servies
                                 Productname = invoiceDetails.ProductName,
                             };
 
-                            var addProduc = await _productServies.AddProduct(addProductDTO);
+                            var addProduc = await _productServies.AddProduct(addProductDTO, user.Id);
                         }
                     }
 

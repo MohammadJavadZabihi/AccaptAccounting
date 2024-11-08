@@ -51,7 +51,7 @@ namespace AccaptFullyVersion.App.Views
                             Password = txtPassword.Password
                         };
 
-                        var responesMessage = await _callApiServies.SendPostRequest<LoginResponseDTO>($"{_localUrl}/api/ManageUsers/Login", data);
+                        var responesMessage = await _callApiServies.SendPostRequest<LoginResponseDTO>($"{url}/api/ManageUsers/Login", data);
 
                         if (responesMessage.IsSuccess)
                         {
