@@ -18,9 +18,6 @@ namespace Accapt.Core.DTOs
 
         public string TypeOfInvoice { get; set; } = string.Empty;
 
-        [Required]
-        public string UserId { get; set; } = string.Empty;
-
         public decimal TotalPrice { get; set; }
 
         [Required]

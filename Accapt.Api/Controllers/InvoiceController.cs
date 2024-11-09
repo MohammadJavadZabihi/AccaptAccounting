@@ -4,6 +4,7 @@ using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Accapt.Api.Controllers
@@ -20,18 +21,23 @@ namespace Accapt.Api.Controllers
         private readonly IDeletInvoices _deletInvoices;
         private readonly IEditeInvoices _editeInvoices;
         private readonly IFindInvoices _findInvoices;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IJwtHelper _jwtHelper;
         public InvoiceController(IAddInvoiceServies addInvoiceServies,
             IGetInovices getInovices,
             IDeletInvoices deletInvoices,
             IEditeInvoices editeInvoices,
-            IFindInvoices findInvoices)
+            IFindInvoices findInvoices,
+            UserManager<IdentityUser> userManager,
+            IJwtHelper jwtHelper)
         {
             _addInvoiceServies = addInvoiceServies ?? throw new ArgumentException(nameof(addInvoiceServies));
             _getInovices = getInovices ?? throw new ArgumentException(nameof(getInovices));
             _deletInvoices = deletInvoices ?? throw new ArgumentException(nameof(deletInvoices));
             _editeInvoices = editeInvoices ?? throw new ArgumentException(nameof(editeInvoices));
             _findInvoices = findInvoices ?? throw new ArgumentException(nameof(findInvoices));
-
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
+            _jwtHelper = jwtHelper ?? throw new ArgumentException(nameof(jwtHelper));
         }
 
         #endregion
@@ -44,15 +50,30 @@ namespace Accapt.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var addInvoice = await _addInvoiceServies.AddInvoice(addInvoicesDTO);
-            if(addInvoice == null)
-                return BadRequest(addInvoice);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            return Ok(new
+            if(!string.IsNullOrEmpty(token))
             {
-                Statuce = true,
-                Invoice = addInvoice
-            });
+                var userId = _jwtHelper.GetUserIdFromToken(token);
+
+                if(!string.IsNullOrEmpty(userId))
+                {
+                    var addInvoice = await _addInvoiceServies.AddInvoice(addInvoicesDTO, userId);
+
+                    if (addInvoice == null)
+                        return BadRequest(addInvoice);
+
+                    return Ok(new
+                    {
+                        Statuce = true,
+                        Invoice = addInvoice
+                    });
+                }
+
+                return BadRequest("توکن نامعتبر است");
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -61,56 +82,78 @@ namespace Accapt.Api.Controllers
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetInvoices([FromQuery] int pageNumber, [FromQuery] int pageSize,
-            [FromQuery] string filter = "", [FromQuery] string userId = "")
+            [FromQuery] string filter = "")
         {
-            if (string.IsNullOrEmpty(userId))
-                return BadRequest("Null Exeption");
 
-            var invExist = await _getInovices.GetAllInvoice(pageNumber, pageSize, filter, userId);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if (invExist.Count() == 0 || invExist == null)
-                return NotFound("No Invoice for get");
-
-            return Ok(new
+            if (!string.IsNullOrEmpty(token))
             {
-                Invoices = invExist,
-                PageNumber = pageNumber,
-                PageSize = pageSize
-            }); 
+                var userId = _jwtHelper.GetUserIdFromToken(token);
+
+                if(!string.IsNullOrEmpty(userId))
+                {
+                    var invExist = await _getInovices.GetAllInvoice(pageNumber, pageSize, filter, userId);
+
+                    return Ok(new
+                    {
+                        Invoices = invExist,
+                        PageNumber = pageNumber,
+                        PageSize = pageSize
+                    });
+                }
+
+                return BadRequest("کاربری یافت نشد");
+            }
+
+            return Unauthorized();
         }
         #endregion
 
         #region Get InvoicesDetails
 
         [HttpGet("GetDetails")]
-        public async Task<IActionResult> GetInvoicesDetails([FromQuery]string userId, [FromQuery]int inoviceId)
+        public async Task<IActionResult> GetInvoicesDetails([FromQuery]int inoviceId)
         {
-            if (string.IsNullOrEmpty(userId))
-                return BadRequest("Null Exeption");
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            var invExist = await _getInovices.GetInvoiceDetails(userId, inoviceId);
+            if (!string.IsNullOrEmpty(token))
+            {
+                var userId = _jwtHelper.GetUserIdFromToken(token);
+                var invExist = await _getInovices.GetInvoiceDetails(userId, inoviceId);
 
-            if (invExist == null)
-                return NotFound("No Invoice for get");
+                if (invExist == null)
+                    return NotFound("No Invoice for get");
 
-            return Ok(invExist);
+                return Ok(invExist);
+            }
+
+            return Unauthorized();
         }
         #endregion
 
         #region Delet Invoice
 
         [HttpDelete("Delet")]
-        public async Task<IActionResult> DeletInvoices([FromQuery]int invoiceId, [FromQuery]string userId)
+        public async Task<IActionResult> DeletInvoices([FromQuery]int invoiceId)
         {
             if(invoiceId <= 0) 
                 return NotFound();
 
-            var deleInvoicesStatuce = await _deletInvoices.DeletInvoice(invoiceId, userId);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if(!deleInvoicesStatuce)
-                return BadRequest("Somthing Wrong!!");
+            if (!string.IsNullOrEmpty(token))
+            {
+                var userId = _jwtHelper.GetUserIdFromToken(token);
+                var deleInvoicesStatuce = await _deletInvoices.DeletInvoice(invoiceId, userId);
 
-            return Ok(deleInvoicesStatuce);
+                if (!deleInvoicesStatuce)
+                    return BadRequest("Somthing Wrong!!");
+
+                return Ok(deleInvoicesStatuce);
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -123,12 +166,20 @@ namespace Accapt.Api.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var updinv = await _editeInvoices.UpdateInvoice(dTO);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if (!updinv)
-                return BadRequest("عملیات موفق آمیز نبود");
+            if (!string.IsNullOrEmpty(token))
+            {
+                var userId = _jwtHelper.GetUserIdFromToken(token);
+                var updinv = await _editeInvoices.UpdateInvoice(dTO, userId);
 
-            return Ok(updinv);
+                if (!updinv)
+                    return BadRequest("عملیات موفق آمیز نبود");
+
+                return Ok(updinv);
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -136,17 +187,26 @@ namespace Accapt.Api.Controllers
         #region Get Single Invoice
 
         [HttpGet("GetSingle")]
-        public async Task<IActionResult> GetSingleInvoices([FromQuery] int invoiceId, [FromQuery] string userId)
+        public async Task<IActionResult> GetSingleInvoices([FromQuery] int invoiceId)
         {
-            if(invoiceId == 0 || string.IsNullOrEmpty(userId))
+            if(invoiceId == 0)
                 return NotFound();
 
-            var inv = await _findInvoices.FindInvoiceById(invoiceId, userId);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if(inv == null)
-                return NotFound();
+            if (!string.IsNullOrEmpty(token))
+            {
+                var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(inv);
+                var inv = await _findInvoices.FindInvoiceById(invoiceId, userId);
+
+                if (inv == null)
+                    return NotFound();
+
+                return Ok(inv);
+            }
+
+            return Unauthorized();
         }
 
         #endregion

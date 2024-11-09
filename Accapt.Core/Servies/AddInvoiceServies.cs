@@ -30,7 +30,7 @@ namespace Accapt.Core.Servies
             _findPepolServies = findPepolServies ?? throw new ArgumentException(nameof(findPepolServies));
             _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
-        public async Task<AddInvoicesDTO?> AddInvoice(AddInvoicesDTO invoice)
+        public async Task<AddInvoicesDTO?> AddInvoice(AddInvoicesDTO invoice, string userId)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace Accapt.Core.Servies
                     CreditorStatuce = invoice.CreditorStatuce,
                     DateOfSubmitInvoice = invoice.DateOfSubmitInvoice,
                     Description = invoice.Description,
-                    Id = invoice.UserId,
+                    Id = userId,
                     InvoiceName = invoice.InvoiceName,
                     TotalPrice = invoice.TotalPrice,
                     TypeOfInvoice = invoice.TypeOfInvoice,
@@ -59,14 +59,14 @@ namespace Accapt.Core.Servies
                     isSell = true;
                 }
 
-                var user = await _userManager.FindByIdAsync(invoice.UserId);
+                var user = await _userManager.FindByIdAsync(userId);
 
                 foreach (var item in invoice.InvoiceDetails)
                 {
                     InvoiceDetails invoiceDetails = new InvoiceDetails
                     {
                         Discount = (int)item.Discount,
-                        Id = invoice.UserId,
+                        Id = userId,
                         InvoiceId = addInvoice.InvoiceId,
                         Invoices = addInvoice,
                         ProductCount = (int)item.ProductCount,
@@ -78,7 +78,7 @@ namespace Accapt.Core.Servies
                     if (isSell)
                     {
                         var product = await _productServies.decrisesProductCount(invoiceDetails.ProductCount, invoiceDetails.ProductName
-                                      ,invoice.UserId);
+                                      ,userId);
 
                         if(!product)
                         {
@@ -88,7 +88,7 @@ namespace Accapt.Core.Servies
                     else
                     {
                         var product = await _productServies.AddProductCount(invoiceDetails.ProductCount, invoiceDetails.ProductName
-                                      ,invoice.UserId);
+                                      ,userId);
 
                         if(!product)
                         {
@@ -120,7 +120,7 @@ namespace Accapt.Core.Servies
                     debtorCreditor.DateOfPurchaseForShow = invoice.DateOfSubmitInvoice.ToShortDateString();
                     debtorCreditor.Desctiptions = "ندارد";
                     debtorCreditor.Statuce = "بدهکار";
-                    debtorCreditor.UserId = invoice.UserId;
+                    debtorCreditor.UserId = userId;
 
                     await _context.DebtorCreditors.AddAsync(debtorCreditor);
                 }
@@ -136,7 +136,7 @@ namespace Accapt.Core.Servies
                     debtorCreditor.DateOfPurchaseForShow = invoice.DateOfSubmitInvoice.ToShortDateString();
                     debtorCreditor.Desctiptions = "ندارد";
                     debtorCreditor.Statuce = "بستانکار";
-                    debtorCreditor.UserId = invoice.UserId;
+                    debtorCreditor.UserId = userId;
 
 
                     await _context.DebtorCreditors.AddAsync(debtorCreditor);

@@ -8,7 +8,6 @@ namespace Accapt.Core.DTOs
 {
     public class UpdateInvoiceDTO
     {
-        public string UserId { get; set; }
         public int InvoiceId { get; set; }
         public string InvoiceName { get; set; }
         public decimal AmountPaide { get; set; }

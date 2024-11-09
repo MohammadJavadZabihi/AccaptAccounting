@@ -10,6 +10,6 @@ namespace Accapt.Core.Servies.InterFace
 {
     public interface IAddInvoiceServies
     {
-        Task<AddInvoicesDTO?> AddInvoice(AddInvoicesDTO addInvoicesDTO);
+        Task<AddInvoicesDTO?> AddInvoice(AddInvoicesDTO addInvoicesDTO, string userId);
     }
 }

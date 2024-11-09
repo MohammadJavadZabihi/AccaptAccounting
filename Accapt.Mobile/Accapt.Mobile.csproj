@@ -103,4 +103,6 @@
 	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	</PropertyGroup>
 
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionAccaptMobileHideInfoBar="True" /></VisualStudio></ProjectExtensions>
+
 </Project>

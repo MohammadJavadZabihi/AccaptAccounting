@@ -9,6 +9,6 @@ namespace Accapt.Core.Servies.InterFace
 {
     public interface IEditeInvoices
     {
-        Task<bool> UpdateInvoice(UpdateInvoiceDTO dto);
+        Task<bool> UpdateInvoice(UpdateInvoiceDTO dto, string userId);
     }
 }

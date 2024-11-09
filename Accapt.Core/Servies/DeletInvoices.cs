@@ -1,5 +1,6 @@
 ﻿using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,16 @@ namespace Accapt.Core.Servies
         private readonly AccaptFContext _context;
         private readonly IFindInvoices _findInvoices;
         private readonly IFindPepolServies _findPepolServies;
+        private readonly UserManager<IdentityUser> _userManager;
         public DeletInvoices(AccaptFContext context,
             IFindInvoices findInvoices,
-            IFindPepolServies findPepolServies)
+            IFindPepolServies findPepolServies,
+            UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
             _findInvoices = findInvoices ?? throw new ArgumentException(nameof(findInvoices));
             _findPepolServies = findPepolServies ?? throw new ArgumentException(nameof(findPepolServies));
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
 
         public async Task<bool> DeletInvoice(int invoiceId, string userId)

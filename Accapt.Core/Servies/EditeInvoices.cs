@@ -1,6 +1,7 @@
 ﻿using Accapt.Core.DTOs;
 using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -16,31 +17,34 @@ namespace Accapt.Core.Servies
         private readonly IFindUserServies _findUserServies;
         private readonly IFindInvoices _findInvoices;
         private readonly IFindPepolServies _findPepolServies;
+        private readonly UserManager<IdentityUser> _userManager;
         public EditeInvoices(AccaptFContext context,
             IFindUserServies findUserServies,
             IFindInvoices findInvoices,
-            IFindPepolServies findPepolServies)
+            IFindPepolServies findPepolServies,
+            UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _findUserServies = findUserServies ?? throw new ArgumentNullException(nameof(findUserServies));
             _findInvoices = findInvoices ?? throw new ArgumentNullException(nameof(findInvoices));
             _findPepolServies = findPepolServies ?? throw new ArgumentException(nameof(findPepolServies));
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
-        public async Task<bool> UpdateInvoice(UpdateInvoiceDTO dto)
+        public async Task<bool> UpdateInvoice(UpdateInvoiceDTO dto, string userId)
         {
             try
             {
-                if (dto.InvoiceId == 0 || string.IsNullOrEmpty(dto.UserId))
+                if (dto.InvoiceId == 0 || string.IsNullOrEmpty(userId))
                 {
                     throw new Exception("Null userId adn invoiceId");
                 }
 
-                var user = await _findUserServies.FindUserById(dto.UserId);
+                var user = await _userManager.FindByIdAsync(userId);
 
                 if (user == null)
-                    throw new ArgumentNullException($"{dto.UserId} is not a user");
+                    throw new ArgumentNullException($"{userId} is not a user");
 
-                var inv = await _findInvoices.FindInvoiceById(dto.InvoiceId, dto.UserId);
+                var inv = await _findInvoices.FindInvoiceById(dto.InvoiceId, userId);
 
                 if (inv == null)
                     throw new ArgumentNullException($"{dto.InvoiceId} is no a invoice");
@@ -49,23 +53,6 @@ namespace Accapt.Core.Servies
                 inv.AmountPaid = dto.AmountPaide;
 
                 _context.Update(inv);
-
-
-                //var pepo = await _findPepolServies.GetPepoleByName(dto.InvoiceName, dto.UserId);
-
-                //if (pepo != null)
-                //{
-                //    pepo.PriceOfDebtorCreditor -= dto.AmountPaide;
-
-                //    if (pepo.PriceOfDebtorCreditor > 0)
-                //        pepo.DebtorCreditor = "بدهکار";
-                //    else if (pepo.PriceOfDebtorCreditor == 0)
-                //        pepo.DebtorCreditor = "هیچکدام";
-                //    else
-                //        pepo.DebtorCreditor = "بستانکار";
-
-                //    _context.People.Update(pepo);
-                //}
 
                 await _context.SaveChangesAsync();
 

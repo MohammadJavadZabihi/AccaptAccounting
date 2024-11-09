@@ -90,23 +90,23 @@ public partial class SubmitPage : ContentPage
         {
             try
             {
-                int persentageForAyab = 40;
-                int persentageForServiec = 50;
+                double persentageForAyab = 0.6;
+                double persentageForServiec = 0.5;
 
                 double amount = 0;
 
                 double ayab = 0;
                 double serviceAmount = 0;
 
-                serviceAmount = Convert.ToDouble(txtServiceAmount.Text) * (1 - persentageForServiec / 100);
+                serviceAmount = Convert.ToDouble(txtServiceAmount.Text) * persentageForServiec;
 
-                if (Convert.ToDouble(txtAyab.Text) <= 50)
+                if (Convert.ToDouble(txtAyab.Text) <= 50000)
                 {
                     ayab = Convert.ToDouble(txtAyab.Text);
                 }
                 else
                 {
-                    ayab = Convert.ToDouble(txtAyab.Text) * (1 - persentageForAyab);
+                    ayab = Convert.ToDouble(txtAyab.Text) * persentageForAyab;
                 }
 
                 amount = serviceAmount + ayab;
@@ -143,7 +143,7 @@ public partial class SubmitPage : ContentPage
                     ProductTotalPrice = Convert.ToInt32(txtAyab.Text)
                 };
 
-                invoiceDetailsList.Add(invoiceDetailsDTO);
+                invoiceDetailsList.Add(invoiceDetailsDTO2);
 
                 TotalPrice += Convert.ToDecimal(txtServiceAmount.Text) + Convert.ToDecimal(txtAyab.Text);
 
