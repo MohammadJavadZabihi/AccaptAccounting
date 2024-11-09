@@ -3,6 +3,7 @@ using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Accapt.Api.Controllers
@@ -13,11 +14,17 @@ namespace Accapt.Api.Controllers
     public class SalaryAndCostsController : ControllerBase
     {
         private readonly ISallaryAndCostsServiec _sallaryAndCostsServiec;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IJwtHelper _jwtHelper;
 
-        public SalaryAndCostsController(ISallaryAndCostsServiec sallaryAndCostsServiec)
+        public SalaryAndCostsController(ISallaryAndCostsServiec sallaryAndCostsServiec,
+            UserManager<IdentityUser> userManager,
+            IJwtHelper jwtHelper)
         {
             _sallaryAndCostsServiec = sallaryAndCostsServiec ?? 
                 throw new ArgumentException(nameof(sallaryAndCostsServiec));
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            _jwtHelper = jwtHelper ?? throw new ArgumentNullException(nameof(jwtHelper));
         }
 
         #region Add Sallary
@@ -28,30 +35,49 @@ namespace Accapt.Api.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var statuceOfAddSallary = await _sallaryAndCostsServiec.AddNewSallaryAndCosts(addSallaryAndCostsDTO);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if(!statuceOfAddSallary)
-                return BadRequest(statuceOfAddSallary);
+            if (!string.IsNullOrEmpty(token))
+            {
+                var userId = _jwtHelper.GetUserIdFromToken(token);
+                var statuceOfAddSallary = await _sallaryAndCostsServiec.
+                    AddNewSallaryAndCosts(addSallaryAndCostsDTO, userId);
 
-            return Ok(statuceOfAddSallary);
+                if (!statuceOfAddSallary)
+                    return BadRequest(statuceOfAddSallary);
+
+                return Ok(statuceOfAddSallary);
+            }
+
+            return Unauthorized();
+
         }
 
         #endregion
 
         #region Delet Sallary
 
-        [HttpDelete("DeletSallary/{userName}/{sallaryId}")]
-        public async Task<IActionResult> Delet(string userName, int sallaryId)
+        [HttpDelete("DeletSallary/{sallaryId}")]
+        public async Task<IActionResult> Delet(int sallaryId)
         {
-            if (userName == null || sallaryId == 0)
+            if (sallaryId == 0)
                 return BadRequest("Null Exeption");
 
-            var statuceOfDeletSallary = await _sallaryAndCostsServiec.DeletSallaryAndCosts(sallaryId, userName);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if(!statuceOfDeletSallary)
-                return NotFound();
+            if (!string.IsNullOrEmpty(token))
+            {
+                var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(statuceOfDeletSallary);
+                var statuceOfDeletSallary = await _sallaryAndCostsServiec.DeletSallaryAndCosts(sallaryId, userId);
+
+                if (!statuceOfDeletSallary)
+                    return NotFound();
+
+                return Ok(statuceOfDeletSallary);
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -64,13 +90,22 @@ namespace Accapt.Api.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var statucOfEditeSallary = await _sallaryAndCostsServiec.EditeSallaryAndCosts(editeSllaryAndCostsDTO);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if(!statucOfEditeSallary)
-                return NotFound();
+            if (!string.IsNullOrEmpty(token))
+            {
+                var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(statucOfEditeSallary);
+                var statucOfEditeSallary = await _sallaryAndCostsServiec.
+                    EditeSallaryAndCosts(editeSllaryAndCostsDTO, userId);
 
+                if (!statucOfEditeSallary)
+                    return NotFound();
+
+                return Ok(statucOfEditeSallary);
+            }
+
+            return Unauthorized();
         }
 
         #endregion
@@ -79,38 +114,52 @@ namespace Accapt.Api.Controllers
 
         [HttpGet("GetAllSallary")]
         public async Task<IActionResult> GetAll([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 0,
-                                                [FromQuery] string filter = "",[FromQuery]string userId = "")
+                                                [FromQuery] string filter = "")
         {
-            if (userId == null)
-                return BadRequest("Null User");
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            var sallaryAndCosts = await _sallaryAndCostsServiec.GetAllSallaryAndCosts(pageSize, pageNumber, 
-                                                                                      filter, userId);
-
-            return Ok(new
+            if (!string.IsNullOrEmpty(token))
             {
-                SallaryAndCosts = sallaryAndCosts,
-                PageNumber = pageNumber,
-                PageSize = pageSize
-            });
+                var userId = _jwtHelper.GetUserIdFromToken(token);
+
+                var sallaryAndCosts = await _sallaryAndCostsServiec.
+                    GetAllSallaryAndCosts(pageSize, pageNumber,filter, userId);
+                return Ok(new
+                {
+                    SallaryAndCosts = sallaryAndCosts,
+                    PageNumber = pageNumber,
+                    PageSize = pageSize
+                });
+            }
+
+            return Unauthorized();
         }
 
         #endregion
 
         #region Get Single
 
-        [HttpGet("GetSingle/{userId}/{sallaryId}")]
-        public async Task<IActionResult> GetSingle(int sallaryId, string userId)
+        [HttpGet("GetSingle/{sallaryId}")]
+        public async Task<IActionResult> GetSingle(int sallaryId)
         {
-            if (userId == null || sallaryId == 0)
+            if (sallaryId == 0)
                 return BadRequest("Null Exeption");
 
-            var sallary = await _sallaryAndCostsServiec.FindSallaryAndCostsById(sallaryId, userId);
+            var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
-            if(sallary == null)
-                return NotFound();
+            if (!string.IsNullOrEmpty(token))
+            {
+                var userId = _jwtHelper.GetUserIdFromToken(token);
 
-            return Ok(sallary);
+                var sallary = await _sallaryAndCostsServiec.FindSallaryAndCostsById(sallaryId, userId);
+
+                if (sallary == null)
+                    return NotFound();
+
+                return Ok(sallary);
+            }
+
+            return Unauthorized();
         }
 
         #endregion

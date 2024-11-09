@@ -10,7 +10,6 @@ namespace Accapt.Core.DTOs
     public class EditeSllaryAndCostsDTO
     {
         public int SallaryId { get; set; }
-        public string UserId { get; set; }
 
         [MaxLength(200)]
         [Required]

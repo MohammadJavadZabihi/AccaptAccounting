@@ -9,8 +9,6 @@ namespace Accapt.Core.DTOs
 {
     public class AddSallaryAndCostsDTO
     {
-        public string UserId { get; set; }
-
         [MaxLength(200)]
         [Required]
         public string SallaryAndCostsName { get; set; }

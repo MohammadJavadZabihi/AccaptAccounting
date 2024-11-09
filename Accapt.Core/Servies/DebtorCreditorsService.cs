@@ -108,7 +108,8 @@ namespace Accapt.Core.Servies
 
             if (!string.IsNullOrEmpty(filter))
             {
-                result = result.Where(d => d.CustomerName == filter || d.Statuce == filter || d.DateOfPurchaseForShow == filter);
+                result = result.Where(d => d.CustomerName.Contains(filter) || d.Statuce.Contains(filter) 
+                || d.DateOfPurchaseForShow.Contains(filter));
 
                 if (result.Count() <= 0)
                 {

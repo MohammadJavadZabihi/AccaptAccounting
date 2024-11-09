@@ -10,8 +10,8 @@ namespace Accapt.Core.Servies.InterFace
 {
     public interface ISallaryAndCostsServiec
     {
-        Task<bool> AddNewSallaryAndCosts(AddSallaryAndCostsDTO addSallaryAndCostsDTO);
-        Task<bool> EditeSallaryAndCosts(EditeSllaryAndCostsDTO editeSallaryAndCostsDTO);
+        Task<bool> AddNewSallaryAndCosts(AddSallaryAndCostsDTO addSallaryAndCostsDTO, string userId);
+        Task<bool> EditeSallaryAndCosts(EditeSllaryAndCostsDTO editeSallaryAndCostsDTO, string userId);
         Task<bool> DeletSallaryAndCosts(int sallaryId, string userId);
         Task<SallaryAndCosts?> FindSallaryAndCostsById(int sallryId, string userId);
         Task<bool> IsExistSallaryWithName(string sallaryName, string userId);

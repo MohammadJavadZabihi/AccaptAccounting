@@ -2,6 +2,7 @@
 using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
 using Accapt.DataLayer.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,17 +16,19 @@ namespace Accapt.Core.Servies
     {
         private readonly AccaptFContext _context;
         private readonly IFindUserServies _findUserServies;
+        private readonly UserManager<IdentityUser> _userManager;
         public SallaryAndCostsServiec(AccaptFContext context,
-            IFindUserServies findUserServies)
+            IFindUserServies findUserServies,
+            UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
             _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
-        public async Task<bool> AddNewSallaryAndCosts(AddSallaryAndCostsDTO addSallaryAndCostsDTO)
+        public async Task<bool> AddNewSallaryAndCosts(AddSallaryAndCostsDTO addSallaryAndCostsDTO, string userId)
         {
-            var user = await _findUserServies.FindUserById(addSallaryAndCostsDTO.UserId);
-            var isExistSallary = await IsExistSallaryWithName(addSallaryAndCostsDTO.SallaryAndCostsName,
-                addSallaryAndCostsDTO.UserId);
+            var user = await _userManager.FindByIdAsync(userId);
+            var isExistSallary = await IsExistSallaryWithName(addSallaryAndCostsDTO.SallaryAndCostsName, userId);
 
             if (user != null && isExistSallary == false)
             {
@@ -37,7 +40,6 @@ namespace Accapt.Core.Servies
                     PriceOfSallaryAndCosts = addSallaryAndCostsDTO.PriceOfSallaryAndCosts,
                     SallaryAndCostsName = addSallaryAndCostsDTO.SallaryAndCostsName,
                     UserId = user.Id,
-                    User = user,
                 };
 
                 await _context.SallaryAndCosts.AddAsync(sallaryAndCosts);
@@ -51,7 +53,7 @@ namespace Accapt.Core.Servies
 
         public async Task<bool> DeletSallaryAndCosts(int sallaryId, string userId)
         {
-            var user = await _findUserServies.FindUserById(userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (user != null)
             {
@@ -71,10 +73,9 @@ namespace Accapt.Core.Servies
             return false;
         }
 
-        public async Task<bool> EditeSallaryAndCosts(EditeSllaryAndCostsDTO editeSallaryAndCostsDTO)
+        public async Task<bool> EditeSallaryAndCosts(EditeSllaryAndCostsDTO editeSallaryAndCostsDTO, string userId)
         {
-            var sallary = await FindSallaryAndCostsById(editeSallaryAndCostsDTO.SallaryId, 
-                editeSallaryAndCostsDTO.UserId);
+            var sallary = await FindSallaryAndCostsById(editeSallaryAndCostsDTO.SallaryId, userId);
 
             if (sallary != null)
             {
@@ -83,7 +84,7 @@ namespace Accapt.Core.Servies
                 sallary.Descriptions = editeSallaryAndCostsDTO.Descriptions;
                 sallary.DateOfSubmitForShow = editeSallaryAndCostsDTO.DateOfSubmitForShow;
                 sallary.DateOfSubmit = Convert.ToDateTime(editeSallaryAndCostsDTO.DateOfSubmitForShow);
-                sallary.UserId = editeSallaryAndCostsDTO.UserId;
+                sallary.UserId = userId;
 
                 _context.SallaryAndCosts.Update(sallary);
                 await _context.SaveChangesAsync();
@@ -103,7 +104,7 @@ namespace Accapt.Core.Servies
 
         public async Task<IEnumerable<SallaryAndCosts?>> GetAllSallaryAndCosts(int pageSize = 0, int pageNumber = 0, string filter = "", string userId = "")
         {
-            var user = await _findUserServies.FindUserById(userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
                 throw new ArgumentNullException(nameof(user));
