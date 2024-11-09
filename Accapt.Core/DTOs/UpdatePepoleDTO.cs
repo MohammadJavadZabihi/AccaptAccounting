@@ -9,7 +9,6 @@ namespace Accapt.Core.DTOs
 {
     public class UpdatePepoleDTO
     {
-        public string Id { get; set; }
 
         [Required(ErrorMessage ="لطفا نام را وارد کنید")]
         [MaxLength(200)]

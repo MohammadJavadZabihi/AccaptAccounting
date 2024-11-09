@@ -3,6 +3,7 @@ using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
 using Accapt.DataLayer.Entities;
 using AccaptFullyVersion.Core.Generator;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,48 +18,50 @@ namespace Accapt.Core.Servies
         private readonly AccaptFContext _context;
         private readonly IFindUserServies _findUserServies;
         private readonly IFindPepolServies _findPepolServies;
+        private readonly UserManager<IdentityUser> _userManager;
         public PepoleServies(AccaptFContext context,
             IFindUserServies findUserServies,
-            IFindPepolServies findPepolServies)
+            IFindPepolServies findPepolServies,
+            UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
             _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
             _findPepolServies = findPepolServies ?? throw new ArgumentException(nameof(findPepolServies));
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
 
         }
 
-        public async Task<AddPepolDTO?> AddPepole(AddPepolDTO pepole)
+        public async Task<AddPepolDTO?> AddPepole(AddPepolDTO pepole, string userId)
         {
             try
             {
                 if (pepole == null)
                     throw new ArgumentNullException();
 
-                var user = await _findUserServies.FindUserById(pepole.Id);
+                var user = await _userManager.FindByIdAsync(userId);
 
                 if (user == null)
                     throw new Exception("Null User");
 
                 var generateId = NameGenerator.GenerateUniqCode();
 
-                var pepo = await _findPepolServies.IsExixstPepoleById(generateId, pepole.Id);
+                var pepo = await _findPepolServies.IsExixstPepoleById(generateId, userId);
 
                 while (pepo)
                 {
                     generateId = NameGenerator.GenerateUniqCode();
 
-                    pepo = await _findPepolServies.IsExixstPepoleById(generateId, pepole.Id);
+                    pepo = await _findPepolServies.IsExixstPepoleById(generateId, userId);
                 }
 
                 Pepole addPepo = new Pepole
                 {
                     PepoId = generateId,
                     Address = pepole.Address,
-                    Id = pepole.Id,
+                    Id = userId,
                     PepoName = pepole.PepoName,
                     PepoType = pepole.PepoType,
                     PhoneNumber = pepole.PhoneNumber,
-                    User = user,
                     PepoCode = pepole.PepoCode
                 };
 
@@ -143,7 +146,7 @@ namespace Accapt.Core.Servies
             if (string.IsNullOrEmpty(userId))
                 throw new ArgumentNullException();
 
-            var userExixst = await _findUserServies.FindUserById(userId);
+            var userExixst = await _userManager.FindByIdAsync(userId);
 
             if (userExixst == null)
                 throw new ArgumentNullException();
@@ -172,14 +175,14 @@ namespace Accapt.Core.Servies
             return await result.Skip(skip).Take(pageSize).ToListAsync();
         }
 
-        public async Task<bool> UpdatePepole(UpdatePepoleDTO updatePepoleDTO, string pepolName)
+        public async Task<bool> UpdatePepole(UpdatePepoleDTO updatePepoleDTO, string pepolName, string userId)
         {
             try
             {
                 if (updatePepoleDTO == null)
                     throw new ArgumentNullException();
 
-                var pepoExist = await _findPepolServies.GetPepoleByName(pepolName, updatePepoleDTO.Id);
+                var pepoExist = await _findPepolServies.GetPepoleByName(pepolName, userId);
 
                 if (pepoExist == null)
                     return false;

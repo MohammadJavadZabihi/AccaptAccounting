@@ -12,9 +12,5 @@ namespace Accapt.Core.DTOs
         [Required]
         [MaxLength(200)]
         public string PeronName { get; set; }
-
-        [Required]
-        [MaxLength(200)]
-        public string UserId { get; set; }
     }
 }

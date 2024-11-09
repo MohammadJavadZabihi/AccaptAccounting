@@ -9,7 +9,6 @@ namespace Accapt.Core.DTOs
 {
     public class AddPepolDTO
     {
-        public string Id { get; set; }
 
         [Required]
         [MaxLength(200)]

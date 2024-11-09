@@ -12,10 +12,10 @@ namespace Accapt.Core.Servies.InterFace
     {
         Task<IEnumerable<Pepole?>> GetPepole(int pageNumber = 1, int pageSize = 0,
             string filter = "", string userId = "");
-        Task<AddPepolDTO?> AddPepole(AddPepolDTO pepole);
+        Task<AddPepolDTO?> AddPepole(AddPepolDTO pepole, string userId);
         Task<bool> DeletPepole(Pepole pepole);
         Task<bool> DeletPepole(string pepoId, string userId);
         Task<bool> DeletPepoleByName(string pepoName, string userId);
-        Task<bool> UpdatePepole(UpdatePepoleDTO updatePepoleDTO, string pepolName);
+        Task<bool> UpdatePepole(UpdatePepoleDTO updatePepoleDTO, string pepolName, string userId);
     }
 }
