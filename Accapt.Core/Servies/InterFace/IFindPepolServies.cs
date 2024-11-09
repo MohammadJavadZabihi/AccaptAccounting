@@ -9,7 +9,7 @@ namespace Accapt.Core.Servies.InterFace
 {
     public interface IFindPepolServies
     {
-        Task<Pepole?> GetPepoleByName(string userName, string userId);
+        Task<Pepole?> GetPepoleByName(string userName, string pepoleCode, string userId);
         Task<Pepole?> GetPepoleById(string pepoId, string userId);
         Task<bool> IsExixstPepoleById(string pepoId, string userId);
         Task<bool> IsExistPepole(string pepoName, string userId);

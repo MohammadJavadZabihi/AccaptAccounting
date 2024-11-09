@@ -15,7 +15,7 @@ namespace Accapt.Core.Servies.InterFace
         Task<AddPepolDTO?> AddPepole(AddPepolDTO pepole, string userId);
         Task<bool> DeletPepole(Pepole pepole);
         Task<bool> DeletPepole(string pepoId, string userId);
-        Task<bool> DeletPepoleByName(string pepoName, string userId);
-        Task<bool> UpdatePepole(UpdatePepoleDTO updatePepoleDTO, string pepolName, string userId);
+        Task<bool> DeletPepoleByName(string pepoName, string pepolCode, string userId);
+        Task<bool> UpdatePepole(UpdatePepoleDTO updatePepoleDTO, string pepolName, string pepolCode, string userId);
     }
 }

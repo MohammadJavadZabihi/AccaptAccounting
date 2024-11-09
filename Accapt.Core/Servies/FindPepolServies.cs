@@ -22,9 +22,10 @@ namespace Accapt.Core.Servies
             return await _context.People.FirstOrDefaultAsync(p => p.PepoName == pepoName && p.Id == userId);
         }
 
-        public async Task<Pepole?> GetPepoleByName(string userName, string userId)
+        public async Task<Pepole?> GetPepoleByName(string userName, string pepoleCode, string userId)
         {
-            return await _context.People.FirstOrDefaultAsync(p => p.PepoName == userName && p.Id == userId);
+            return await _context.People.FirstOrDefaultAsync(p => p.PepoName == userName && 
+            p.Id == userId && p.PepoCode == pepoleCode);
         }
 
         public async Task<bool> IsExistPepole(string pepoName, string userId)

@@ -43,6 +43,13 @@ namespace Accapt.Core.Servies
                 if (user == null)
                     throw new Exception("Null User");
 
+                var isExistPepo = await _findPepolServies.GetPepoleByName(pepole.PepoName, pepole.PepoCode, userId);
+
+                if (isExistPepo != null)
+                {
+                    return null;
+                }
+
                 var generateId = NameGenerator.GenerateUniqCode();
 
                 var pepo = await _findPepolServies.IsExixstPepoleById(generateId, userId);
@@ -117,14 +124,14 @@ namespace Accapt.Core.Servies
             }
         }
 
-        public async Task<bool> DeletPepoleByName(string pepoName, string userId)
+        public async Task<bool> DeletPepoleByName(string pepoName, string pepolCode, string userId)
         {
             if (string.IsNullOrEmpty(pepoName) || string.IsNullOrEmpty(userId))
                 throw new ArgumentNullException();
 
             try
             {
-                var findPeop = await _findPepolServies.GetPepoleByName(pepoName, userId);
+                var findPeop = await _findPepolServies.GetPepoleByName(pepoName, pepolCode, userId);
 
                 if (findPeop == null)
                     throw new ArgumentNullException();
@@ -175,14 +182,15 @@ namespace Accapt.Core.Servies
             return await result.Skip(skip).Take(pageSize).ToListAsync();
         }
 
-        public async Task<bool> UpdatePepole(UpdatePepoleDTO updatePepoleDTO, string pepolName, string userId)
+        public async Task<bool> UpdatePepole(UpdatePepoleDTO updatePepoleDTO, string pepolName,
+            string pepolCode, string userId)
         {
             try
             {
                 if (updatePepoleDTO == null)
                     throw new ArgumentNullException();
 
-                var pepoExist = await _findPepolServies.GetPepoleByName(pepolName, userId);
+                var pepoExist = await _findPepolServies.GetPepoleByName(pepolName, pepolCode,userId);
 
                 if (pepoExist == null)
                     return false;

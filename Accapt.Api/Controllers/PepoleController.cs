@@ -49,7 +49,7 @@ namespace Accapt.Api.Controllers
                 var addPepo = await _pepoleServies.AddPepole(pepole, userId);
 
                 if (addPepo == null)
-                    return BadRequest("Null Exeption");
+                    return BadRequest("کاربر وجود دارد");
 
                 return Ok(addPepo);
             }
@@ -62,7 +62,7 @@ namespace Accapt.Api.Controllers
         #region DeletPepole
 
         [HttpDelete("Delet")]
-        public async Task<IActionResult> RemovePepole([FromQuery]string pepoName)
+        public async Task<IActionResult> RemovePepole([FromQuery]string pepoName, [FromQuery] string pepolCode)
         {
             if (string.IsNullOrEmpty(pepoName))
                 return BadRequest("Null Exeption");
@@ -73,7 +73,7 @@ namespace Accapt.Api.Controllers
             if (!string.IsNullOrEmpty(token))
             {
                 var userId = _jwtHelper.GetUserIdFromToken(token);
-                var addPepo = await _pepoleServies.DeletPepoleByName(pepoName, userId);
+                var addPepo = await _pepoleServies.DeletPepoleByName(pepoName, pepolCode, userId);
 
                 if (!addPepo)
                     return BadRequest("Somthing Wrong!!");
@@ -117,8 +117,9 @@ namespace Accapt.Api.Controllers
 
         #region UpdatePepole
 
-        [HttpPut("Update/{pepolName}")]
-        public async Task<IActionResult> UpdatedSinglePepole(UpdatePepoleDTO uPdatePepole, string pepolName)
+        [HttpPut("Update/{pepolName}/{pepolCode}")]
+        public async Task<IActionResult> UpdatedSinglePepole(UpdatePepoleDTO uPdatePepole, string pepolName, 
+            string pepolCode)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -129,7 +130,7 @@ namespace Accapt.Api.Controllers
             {
                 var userId = _jwtHelper.GetUserIdFromToken(token);
 
-                var statuceOfUpdatePepo = await _pepoleServies.UpdatePepole(uPdatePepole, pepolName, userId);
+                var statuceOfUpdatePepo = await _pepoleServies.UpdatePepole(uPdatePepole, pepolName, pepolCode ,userId);
 
                 if (!statuceOfUpdatePepo)
                     return BadRequest(statuceOfUpdatePepo);
@@ -144,8 +145,8 @@ namespace Accapt.Api.Controllers
 
         #region GetSinglePepole
 
-        [HttpGet("GetSingle/{pepoName}")]
-        public async Task<IActionResult> GetSinglePepole(string pepoName)
+        [HttpGet("GetSingle/{pepoName}/{pepolCode}")]
+        public async Task<IActionResult> GetSinglePepole(string pepoName, string pepolCode)
         {
             if (string.IsNullOrEmpty(pepoName))
                 return BadRequest("شناسه کاربر یافت نشد");
@@ -156,10 +157,10 @@ namespace Accapt.Api.Controllers
             {
                 var userId = _jwtHelper.GetUserIdFromToken(token);
 
-                var pepo = await _findPepolServies.GetPepoleByName(pepoName, userId);
+                var pepo = await _findPepolServies.GetPepoleByName(pepoName, pepolCode, userId);
 
                 if (pepo == null)
-                    return NotFound(pepoName);
+                    return NotFound("کاربر یافت نشد");
 
                 return Ok(pepo);
             }
