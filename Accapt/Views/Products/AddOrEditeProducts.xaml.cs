@@ -135,7 +135,6 @@ namespace Accapt.Views.Products
                         {
                             var data = new
                             {
-                                UserName = UserSession.Instance.Username,
                                 Productname = txtProductName.Text,
                                 Price = Convert.ToDecimal(txtproductPrice.Text),
                                 ProductCount = Convert.ToInt32(txtProductCount.Text),

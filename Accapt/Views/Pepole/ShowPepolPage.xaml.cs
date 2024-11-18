@@ -93,7 +93,8 @@ namespace Accapt.Views.Pepole
                     if (MessageBox.Show("آیا از حذف ایتم انتخوابی مطمعئن هستید؟", "اطمینان", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
                         var pepoName = pepo.PepoName;
-                        var responseMessage = await _callApi.SendDeletRequest<bool>($"{url}/api/PepoleManger/Delet?pepoName={pepoName}&userId={UserSession.Instance.UserId}", jwt: UserSession.Instance.JwtToken);
+                        var pepoCode = pepo.PepoCode;
+                        var responseMessage = await _callApi.SendDeletRequest<bool>($"{url}/api/PepoleManger/Delet?pepoName={pepoName}&pepolCode={pepoCode}", jwt: UserSession.Instance.JwtToken);
                         if (responseMessage.IsSuccess)
                         {
                             MessageBox.Show("محصول انتخوابی با موفقیت حذف شد", "موفقیت", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -129,11 +130,12 @@ namespace Accapt.Views.Pepole
             if (pepoleDataGrid.SelectedItem is Accapt.DataLayer.Entities.Pepole pepo)
             {
                 var pepoName = pepo.PepoName;
+                var pepolCode = pepo.PepoCode;
 
                 if (pepoName != null)
                 {
                     var responseMessage = await _callApi.SendGetRequest<Accapt.DataLayer.Entities.Pepole?>
-                        ($"{url}/api/PepoleManger/GetSingle/{UserSession.Instance.UserId}/{pepoName}", jwt: UserSession.Instance.JwtToken);
+                        ($"{url}/api/PepoleManger/GetSingle/{pepoName}/{pepolCode}", jwt: UserSession.Instance.JwtToken);
 
                     if (responseMessage.IsSuccess)
                     {
@@ -169,8 +171,10 @@ namespace Accapt.Views.Pepole
                 if (pepoleDataGrid.SelectedItem is Accapt.DataLayer.Entities.Pepole pepo)
                 {
                     var pepoName = pepo.PepoName;
+                    var pepolCode = pepo.PepoCode;
+
                     var responseMessage = await _callApi.SendGetRequest<Accapt.DataLayer.Entities.Pepole?>
-                       ($"{url}/api/PepoleManger/GetSingle/{UserSession.Instance.UserId}/{pepoName}", jwt: UserSession.Instance.JwtToken);
+                       ($"{url}/api/PepoleManger/GetSingle/{pepoName}/{pepolCode}", jwt: UserSession.Instance.JwtToken);
 
                     if (responseMessage.IsSuccess)
                     {

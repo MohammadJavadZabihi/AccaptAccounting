@@ -1,24 +1,10 @@
 ﻿using Accapt.Core.DTOs;
-using Accapt.DataLayer.Entities;
 using Accapt.Views.Loading;
 using Accapt.WpfServies;
 using ApiRequest.Net.CallApi;
-using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Drawing.Drawing2D;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Accapt.Views.Pepole
 {
@@ -65,7 +51,7 @@ namespace Accapt.Views.Pepole
                             PepoCode = txtPepoCode.Text
                         };
 
-                        var responseMessage = await _callApi.SendPutRequest<bool>($"{url}/api/PepoleManger/Update/{_pepolName}", dataForUpdate, UserSession.Instance.JwtToken);
+                        var responseMessage = await _callApi.SendPutRequest<bool>($"{url}/api/PepoleManger/Update/{_pepolName}/{_pepole.PepoCode}", dataForUpdate, UserSession.Instance.JwtToken);
 
                         loadingWindow.Close();
 
@@ -103,7 +89,6 @@ namespace Accapt.Views.Pepole
 
                         var dataForAddNew = new
                         {
-                            Id = UserSession.Instance.UserId,
                             PepoName = txtPepoName.Text,
                             PhoneNumber = txtPhoneNumber.Text,
                             Address = txtAddress.Text,

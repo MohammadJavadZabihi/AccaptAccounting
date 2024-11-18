@@ -46,7 +46,7 @@ namespace Accapt.Views.Account
                 {
                     userName = UserSession.Instance.Username
                 };
-                var user = await _callApi.SendGetRequest<GetSingleUserDTO>($"{url}/api/ManageUsers/GetSingle", data2);
+                var user = await _callApi.SendGetRequest<GetSingleUserDTO>($"{url}/api/ManageUsers/GetSingle", jwt:UserSession.Instance.JwtToken);
 
                 if (user.IsSuccess)
                 {

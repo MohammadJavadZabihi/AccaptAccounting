@@ -56,7 +56,7 @@ public partial class SubmitPage : ContentPage
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", ProviderSesstions.Instance.Token);
 
             var responseMessage = await client.GetAsync(
-                $"https://accaptacounting.ir/api/MangeProduct/GetAll?pageNumber=1&pageSize=20&filter={searchEntry.Text}&userId=ee28b85504c24ad08df08226645eb710");
+                $"https://accaptacounting.ir/api/MangeProduct/GetAll?pageNumber=1&pageSize=800&filter={searchEntry.Text}");
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -67,9 +67,12 @@ public partial class SubmitPage : ContentPage
                 {
                     productPicker.Items.Clear();
 
-                    foreach (var item in responseData.Products)
+                    if(responseData.Products != null)
                     {
-                        productPicker.Items.Add(item.ProductName);
+                        foreach (var item in responseData.Products)
+                        {
+                            productPicker.Items.Add(item.ProductName);
+                        }
                     }
                 });
             }
