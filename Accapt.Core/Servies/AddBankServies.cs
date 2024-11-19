@@ -16,16 +16,13 @@ namespace Accapt.Core.Servies
 
         private readonly AccaptFContext _context;
         private readonly IFindBankServies _findBankServies;
-        private readonly IFindUserServies _findUserServies;
         private readonly UserManager<IdentityUser> _userManager;
         public AddBankServies(AccaptFContext context, 
             IFindBankServies findBankServies,
-            IFindUserServies findUserServies,
             UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
             _findBankServies = findBankServies ?? throw new ArgumentException(nameof(findBankServies));
-            _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
             _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
 

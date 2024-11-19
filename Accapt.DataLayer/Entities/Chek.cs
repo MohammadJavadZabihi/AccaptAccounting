@@ -29,7 +29,6 @@ namespace Accapt.DataLayer.Entities
         public decimal ChekPrice { get; set; }
 
         [Required]
-        [ForeignKey("Users")]
         public string Id { get; set; }
 
         [Required]
@@ -55,9 +54,6 @@ namespace Accapt.DataLayer.Entities
         public string TypeOfChek { get; set; }
 
         #region Realations
-
-        [JsonIgnore]
-        public Users User { get; set; }
 
         public BankT Bank { get; set; }
 

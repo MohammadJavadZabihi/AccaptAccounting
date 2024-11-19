@@ -21,11 +21,13 @@ namespace Accapt.Api.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly IJwtHelper _jwtHelper;
+        private readonly IConfiguration _config;
         public UserController(IAuthenticationJwtServies authenticationJwtServies,
                               UserManager<IdentityUser> userManager,
                               IEmailSender emailSender,
                               SignInManager<IdentityUser> signInManager,
-                              IJwtHelper jwtHelper)
+                              IJwtHelper jwtHelper,
+                              IConfiguration configuration)
 
         {
             _authenticationJwtServies = authenticationJwtServies ?? throw new ArgumentException(nameof(authenticationJwtServies));
@@ -33,6 +35,7 @@ namespace Accapt.Api.Controllers
             _emailSender = emailSender ?? throw new ArgumentException(nameof(emailSender));
             _signInManager = signInManager ?? throw new ArgumentException(nameof(signInManager));
             _jwtHelper = jwtHelper ?? throw new ArgumentException(nameof(jwtHelper));
+            _config = configuration ?? throw new ArgumentException(nameof(configuration));
         }
 
         #endregion
@@ -64,7 +67,9 @@ namespace Accapt.Api.Controllers
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
-            var confirmationLink = Url.Action(nameof(ConfirmEmail), "User", new {userId = user.Id, token}, Request.Scheme);
+            var domin = _config["AppSettings:Domain"];
+
+            var confirmationLink = Url.Action(nameof(ConfirmEmail), "User", new {userId = user.Id, token} ,protocol:"https" ,host : domin) ;
 
             var emailModel = new EmailViewModel(user.Email, "تایید حساب کاربری", confirmationLink);
 

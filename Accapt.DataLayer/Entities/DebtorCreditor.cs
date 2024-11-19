@@ -20,7 +20,6 @@ namespace Accapt.DataLayer.Entities
         public int DebtorCreditorID { get; set; }
 
         [Required]
-        [ForeignKey("Users")]
         public string UserId { get; set; }
 
         [Required]
@@ -43,12 +42,5 @@ namespace Accapt.DataLayer.Entities
 
         [MaxLength(800)]
         public string Desctiptions { get; set; }
-
-        #region Relations
-
-        [JsonIgnore]
-        public Users User { get; set; }  
-
-        #endregion
     }
 }

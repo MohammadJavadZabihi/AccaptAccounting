@@ -118,7 +118,7 @@ namespace Accapt.Views.Products
                 {
                     int productId = product.ProductId;
 
-                    var responseMessage = await _calApiServies.SendGetRequest<Product?>($"{url}/api/MangeProduct/GetSingle/{UserSession.Instance.UserId}/{productId}", jwt: UserSession.Instance.JwtToken);
+                    var responseMessage = await _calApiServies.SendGetRequest<Product?>($"{url}/api/MangeProduct/GetSingle/{productId}", jwt: UserSession.Instance.JwtToken);
 
                     if (responseMessage.IsSuccess)
                     {

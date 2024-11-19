@@ -19,7 +19,6 @@ namespace Accapt.DataLayer.Entities
         public int ProviderWorkId { get; set; }
 
         [Required]
-        [ForeignKey("Users")]
         public string Id { get; set; }
 
         [Required]
@@ -57,8 +56,6 @@ namespace Accapt.DataLayer.Entities
         public string Descriptions { get; set; }
 
         #region Realtions
-
-        public Users User { get; set; }
         public ServiceProvider ServiceProvider { get; set; }
         public IEnumerable<VisibleService> VisibleServices { get; set; }    
 

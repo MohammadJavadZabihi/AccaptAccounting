@@ -9,14 +9,11 @@ namespace Accapt.Core.Servies
     public class FindChekServies : IFindChekServies
     {
         private readonly AccaptFContext _conetxt;
-        private readonly IFindUserServies _findUserServies;
         private readonly UserManager<IdentityUser> _userManager;
         public FindChekServies(AccaptFContext context,
-            IFindUserServies findUserServies,
             UserManager<IdentityUser> userManager)
         {
             _conetxt = context ?? throw new ArgumentException(nameof(context));
-            _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
             _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
         public async Task<Chek?> GetChekByCgekNumber(string chekNumber, string userId)

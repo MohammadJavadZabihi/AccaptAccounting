@@ -101,7 +101,7 @@ namespace Accapt.Views.SalaryandCosts
                 if (sallaryDataGrid.SelectedItem is SallaryAndCosts sallary)
                 {
                     int sallaryId = sallary.SallaryAndCostsId;
-                    var responseMessage = await _callApi.SendDeletRequest<bool>($"{_url}/api/SalaryAndCostsManager/DeletSallary/{UserSession.Instance.UserId}/{sallaryId}", jwt: UserSession.Instance.JwtToken);
+                    var responseMessage = await _callApi.SendDeletRequest<bool>($"{_url}/api/SalaryAndCostsManager/DeletSallary/{sallaryId}", jwt: UserSession.Instance.JwtToken);
                     loadingWindow.Close();
 
                     if (responseMessage.IsSuccess)
@@ -126,7 +126,7 @@ namespace Accapt.Views.SalaryandCosts
                 int sallaryId = sallary.SallaryAndCostsId;
 
                 var respnoseMessage = await _callApi.SendGetRequest<SallaryAndCosts?>(
-                    $"{_url}/api/SalaryAndCostsManager/GetSingle/{UserSession.Instance.UserId}/{sallaryId}", jwt: UserSession.Instance.JwtToken);
+                    $"{_url}/api/SalaryAndCostsManager/GetSingle/{sallaryId}", jwt: UserSession.Instance.JwtToken);
 
                 if (respnoseMessage.IsSuccess)
                 {

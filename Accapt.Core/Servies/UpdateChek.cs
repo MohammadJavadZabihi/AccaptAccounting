@@ -15,16 +15,13 @@ namespace Accapt.Core.Servies
     public class UpdateChek : IUpdateChek
     {
         private readonly AccaptFContext _context;
-        private readonly IFindUserServies _findUserServies;
         private readonly IFindChekServies _findChekServies;
         private readonly UserManager<IdentityUser> _userManager;
         public UpdateChek(AccaptFContext context,
-            IFindUserServies findUserServies,
             IFindChekServies findChekServies,
             UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
-            _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
             _findChekServies = findChekServies ?? throw new ArgumentException(nameof(findChekServies));
             _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
 

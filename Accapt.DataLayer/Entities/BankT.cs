@@ -37,12 +37,9 @@ namespace Accapt.DataLayer.Entities
         public bool HaseCheck { get; set; }
 
         [Required]
-        [ForeignKey("Users")]
         public string Id { get; set; }
 
         #region Realations
-
-        public Users User { get; set; }
         public IEnumerable<Chek> Cheks { get; set; }
 
         #endregion

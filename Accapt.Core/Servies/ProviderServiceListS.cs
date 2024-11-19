@@ -14,14 +14,11 @@ namespace Accapt.Core.Servies
 {
     public class ProviderServiceListS : IProviderServiceListS
     {
-        private readonly IFindUserServies _findUserServies;
         private readonly AccaptFContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-        public ProviderServiceListS(IFindUserServies findUserServies,
-            AccaptFContext context,
+        public ProviderServiceListS(AccaptFContext context,
             UserManager<IdentityUser> userManager)
         {
-            _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
             _context = context ?? throw new ArgumentException(nameof(context));
             _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }

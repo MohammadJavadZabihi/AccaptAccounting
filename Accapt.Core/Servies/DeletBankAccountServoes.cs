@@ -13,14 +13,11 @@ namespace Accapt.Core.Servies
     public class BankAccountServies : IDeletBankAccount
     {
         private readonly AccaptFContext _conntext;
-        private readonly IFindUserServies _finduserServies;
         private readonly UserManager<IdentityUser> _userManager;
         public BankAccountServies(AccaptFContext context,
-            IFindUserServies findUserServies,
             UserManager<IdentityUser> userManager)
         {
             _conntext = context ?? throw new ArgumentNullException(nameof(context));
-            _finduserServies = findUserServies ?? throw new ArgumentNullException(nameof(findUserServies));
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
         public async Task<bool> DeletBankAccount(int bankId, string userId)

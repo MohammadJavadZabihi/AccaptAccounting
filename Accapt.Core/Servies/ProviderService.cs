@@ -3,6 +3,7 @@ using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
 using Accapt.DataLayer.Entities;
 using AccaptFullyVersion.Core.Secutiry;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,18 +15,18 @@ namespace Accapt.Core.Servies
 {
     public class ProviderService : IProviderService
     {
-        private readonly IFindUserServies _userServies;
         private readonly AccaptFContext _context;
-        public ProviderService(IFindUserServies userServies,
-            AccaptFContext context)
+        private readonly UserManager<IdentityUser> _userManager;
+        public ProviderService(AccaptFContext context,
+            UserManager<IdentityUser> userManager)
         {
-            _userServies = userServies ?? throw new ArgumentException(nameof(context));
             _context = context ?? throw new ArgumentException(nameof(context));
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
 
         public async Task<bool> Add(AddServiceProviderDTO addServiceProviderDTO)
         {
-            var user = await _userServies.FindUserById(addServiceProviderDTO.UserId);
+            var user = await _userManager.FindByIdAsync(addServiceProviderDTO.UserId);
 
             if (user == null)
                 return false;
@@ -47,7 +48,7 @@ namespace Accapt.Core.Servies
 
         public async Task<IEnumerable<ServiceProvider?>> GetAll(int pageNumber = 1, int pageSize = 0, string filter = "", string userId = "")
         {
-            var user = await _userServies.FindUserById(userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
                 return null;
@@ -104,7 +105,7 @@ namespace Accapt.Core.Servies
 
         public async Task<bool> Remove(int providerId, string userId)
         {
-            var user = await _userServies.FindUserById(userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
                 return false;
@@ -122,7 +123,7 @@ namespace Accapt.Core.Servies
 
         public async Task<bool> Update(int providerId, string userId, string currentPassword, string newPassword)
         {
-            var user = await _userServies.FindUserById(userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
                 return false;

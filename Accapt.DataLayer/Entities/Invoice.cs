@@ -24,7 +24,6 @@ namespace Accapt.DataLayer.Entities
         public string InvoiceName { get; set; }
 
         [Required]
-        [ForeignKey("Users")]
         public string Id { get; set; }
 
         [Required]
@@ -51,9 +50,6 @@ namespace Accapt.DataLayer.Entities
 
 
         #region Realtion
-
-        [JsonIgnore]
-        public Users Users { get; set; }
         public IEnumerable<InvoiceDetails> InvoiceDetails { get; set; }
 
         #endregion

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -19,7 +20,6 @@ namespace Accapt.DataLayer.Entities
         [Key]
         public int SallaryAndCostsId { get; set; }
 
-        [ForeignKey("Users")]
         public string UserId { get; set; }
 
         [MaxLength(200)]
@@ -37,13 +37,5 @@ namespace Accapt.DataLayer.Entities
 
         [MaxLength(1000)]
         public string Descriptions { get; set; }
-
-
-        #region Realtions 
-
-        [JsonIgnore]
-        public Users User { get; set; }
-
-        #endregion
     }
 }

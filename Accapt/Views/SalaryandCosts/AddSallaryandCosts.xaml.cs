@@ -35,7 +35,6 @@ namespace Accapt.Views.SalaryandCosts
                     {
                         var data = new
                         {
-                            UserId = UserSession.Instance.UserId,
                             SallaryAndCostsName = txtName.Text,
                             PriceOfSallaryAndCosts = Convert.ToDouble(txtPrice.Text),
                             DateOfSubmitForShow = txtDate.Text,

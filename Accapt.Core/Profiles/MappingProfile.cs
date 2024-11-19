@@ -15,10 +15,6 @@ namespace Accapt.Core.Profiles
         {
             CreateMap<Product, ProductUpdateDTO>();
             CreateMap<ProductUpdateDTO, Product>();
-            CreateMap<UserDTO, Users>();
-            CreateMap<Users, UserDTO>();
-            CreateMap<Users, UserUpdateDTO>();
-            CreateMap<UserUpdateDTO, Users>();
         }
     }
 }

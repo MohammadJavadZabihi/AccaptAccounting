@@ -26,7 +26,6 @@ namespace Accapt.DataLayer.Entities
         public string ProductName { get; set; }
 
         [Required]
-        [ForeignKey("Users")]
         public string Id { get; set; }
 
         [Required]
@@ -43,8 +42,6 @@ namespace Accapt.DataLayer.Entities
 
 
         #region Realation
-
-        public Users Users { get; set; }
         public Invoice Invoices { get; set; }
 
         #endregion

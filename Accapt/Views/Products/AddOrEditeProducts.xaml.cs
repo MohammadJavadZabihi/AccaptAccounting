@@ -84,16 +84,17 @@ namespace Accapt.Views.Products
                         if (!string.IsNullOrEmpty(txtProductName.Text) ||
                             !string.IsNullOrEmpty(txtproductPrice.Text) || !string.IsNullOrEmpty(txtProductCount.Text))
                         {
-                            var data = new[]
+                            var data = new
                             {
-                                new { op = "replace", path = "ProductName", value = txtProductName.Text },
-                                new { op = "replace", path = "Description", value = txtDescriptions.Text },
-                                new { op = "replace", path = "Price", value = txtproductPrice.Text },
-                                new { op = "replace", path = "ProductCount", value = txtProductCount.Text },
+                                Productname = txtProductName.Text,
+                                Description = txtDescriptions.Text,
+                                Price = Convert.ToDecimal(txtproductPrice.Text),
+                                CatrgoryId = 1,
+                                ProductCount = Convert.ToInt32(txtProductCount.Text),
                             };
 
-                            var responseMessage = await _callApi.SendPatchRequest<Product?>
-                                ($"{url}/api/MangeProduct/Update/{UserSession.Instance.UserId}/{producId}", data, UserSession.Instance.JwtToken);
+                            var responseMessage = await _callApi.SendPutRequest<bool>
+                                ($"{url}/api/MangeProduct/Update/{producId}", data, UserSession.Instance.JwtToken);
 
                             loadingWindow.Close();
 
@@ -141,12 +142,12 @@ namespace Accapt.Views.Products
                                 Description = txtDescriptions.Text
                             };
 
-                            var responseMessage = await _callApi.SendPostRequest<AddProductDTO?>
+                            var responseMessage = await _callApi.SendPostRequest<object?>
                                 ($"{url}/api/MangeProduct/Add", data, UserSession.Instance.JwtToken);
 
                             loadingWindow.Close();
 
-                            if (responseMessage.IsSuccess)
+                            if (responseMessage.StatusCode == HttpStatusCode.OK)
                             {
                                 _click++;
                                 MessageBox.Show("کالا با موفقیت ثبت شد", "موفق", MessageBoxButton.OK, MessageBoxImage.Information);

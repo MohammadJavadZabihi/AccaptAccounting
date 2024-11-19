@@ -23,7 +23,6 @@ namespace Accapt.DataLayer.Entities
         [MaxLength(200)]
         public string EpmloyeeName { get; set; }
 
-        [ForeignKey("Users")]
         public string UserId { get; set; }
 
         [Required]
@@ -41,7 +40,6 @@ namespace Accapt.DataLayer.Entities
 
         [JsonIgnore]
         public IEnumerable<EmployeeDeatails> EmployeeDeatails { get; set; }
-        public Users Users { get; set; }
 
         #endregion
     }

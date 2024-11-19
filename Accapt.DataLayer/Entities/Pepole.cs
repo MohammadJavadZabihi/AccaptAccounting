@@ -19,7 +19,6 @@ namespace Accapt.DataLayer.Entities
         [Key]
         public string PepoId { get; set; }
 
-        [ForeignKey("Users")]
         public string Id { get; set; }
 
         [Required]
@@ -42,11 +41,5 @@ namespace Accapt.DataLayer.Entities
         [MaxLength(50)]
         public string PepoType { get; set; }
 
-        #region Realation
-
-        [JsonIgnore]
-        public Users User { get; set; }
-
-        #endregion
     }
 }

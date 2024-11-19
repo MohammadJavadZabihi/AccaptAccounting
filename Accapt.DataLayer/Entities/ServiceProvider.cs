@@ -19,7 +19,6 @@ namespace Accapt.DataLayer.Entities
         [Key]
         public int ServiceProviderId { get; set; }
 
-        [ForeignKey("Users")]
         [Required]
         public string Id { get; set; }
 
@@ -40,8 +39,6 @@ namespace Accapt.DataLayer.Entities
         public double AmountOfCreditor { get; set; }
 
         #region Realtions
-
-        public Users Users { get; set; }
         public IEnumerable<ProviderServiceList> ProviderServiceLists { get; set; }
 
         #endregion

@@ -99,7 +99,7 @@ namespace Accapt.Api.Controllers
 
         #region UpdateProduct
 
-        [HttpPatch("Update/{productId}")]
+        [HttpPut("Update/{productId}")]
         public async Task<IActionResult> UpdateProduct(int productId, ProductUpdateDTO productUpdateDTO)
         {
             if (!ModelState.IsValid)

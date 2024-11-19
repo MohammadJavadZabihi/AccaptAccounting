@@ -20,7 +20,6 @@ namespace Accapt.DataLayer.Entities
         public int ProductId { get; set; }
 
         [Required]
-        [ForeignKey("Users")]
         public string UserId { get; set; }
 
         [Required]
@@ -36,13 +35,5 @@ namespace Accapt.DataLayer.Entities
         [Required]
         [MaxLength(800)]
         public string Description { get; set; }
-
-
-        #region realations
-
-        [JsonIgnore]
-        public Users Users { get; set; }
-
-        #endregion
     }
 }

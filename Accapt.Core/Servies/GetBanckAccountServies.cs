@@ -14,14 +14,11 @@ namespace Accapt.Core.Servies
     public class GetBanckAccountServies : IGetBanckAccountServies
     {
         private readonly AccaptFContext _context;
-        private readonly IFindUserServies _findUserServies;
         private readonly UserManager<IdentityUser> _userManager;
         public GetBanckAccountServies(AccaptFContext context, 
-            IFindUserServies findUserServies,
             UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
         }
         public async Task<IEnumerable<BankT?>> GetAllBankAccount(int pageNumber = 1, int pageSize = 0,

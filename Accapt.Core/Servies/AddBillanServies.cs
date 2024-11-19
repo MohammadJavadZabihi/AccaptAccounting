@@ -17,16 +17,13 @@ namespace Accapt.Core.Servies
     public class AddBillanServies : IAddBillanServies
     {
         private readonly AccaptFContext _context;
-        private readonly IFindUserServies _findUserServies;
         private readonly IFindInvoices _findInvoices;
         private readonly UserManager<IdentityUser> _userManager;
         public AddBillanServies(AccaptFContext context,
-            IFindUserServies findUserServies,
             IFindInvoices findInvoices,
             UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
-            _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
             _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
         public async Task<BillanSummaryDTO?> AddBillan(string startBillan, string endBillan, string userId)

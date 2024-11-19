@@ -66,9 +66,6 @@ builder.Services.AddAuthentication(options =>
 
 #region IOC
 
-builder.Services.AddTransient<IRegisterUserServies, RegisterUserServies>();
-builder.Services.AddTransient<IFindUserServies, FindeUserServies>();
-builder.Services.AddTransient<ILoginUserServies, LoginUserServies>();
 builder.Services.AddTransient<IUserServies, UserServies>();
 builder.Services.AddTransient<IAuthenticationJwtServies, AuthenticationJwtServies>();
 builder.Services.AddTransient<IProductServies, ProductServies>();

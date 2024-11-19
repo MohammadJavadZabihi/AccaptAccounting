@@ -14,18 +14,15 @@ namespace Accapt.Core.Servies
     public class EditeInvoices : IEditeInvoices
     {
         private readonly AccaptFContext _context;
-        private readonly IFindUserServies _findUserServies;
         private readonly IFindInvoices _findInvoices;
         private readonly IFindPepolServies _findPepolServies;
         private readonly UserManager<IdentityUser> _userManager;
         public EditeInvoices(AccaptFContext context,
-            IFindUserServies findUserServies,
             IFindInvoices findInvoices,
             IFindPepolServies findPepolServies,
             UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
-            _findUserServies = findUserServies ?? throw new ArgumentNullException(nameof(findUserServies));
             _findInvoices = findInvoices ?? throw new ArgumentNullException(nameof(findInvoices));
             _findPepolServies = findPepolServies ?? throw new ArgumentException(nameof(findPepolServies));
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));

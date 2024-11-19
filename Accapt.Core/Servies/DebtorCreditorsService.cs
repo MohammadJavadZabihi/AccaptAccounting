@@ -15,14 +15,11 @@ namespace Accapt.Core.Servies
     public class DebtorCreditorsService : IDebtorCreditorsService
     {
         private readonly AccaptFContext _context;
-        private readonly IFindUserServies _findUserServies;
         private readonly UserManager<IdentityUser> _userManager;
         public DebtorCreditorsService(AccaptFContext context,
-            IFindUserServies findUserServies,
             UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
-            _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
             _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
         public async Task<AddDebtorCreditorsDTO?> AddDebtorCreditors(AddDebtorCreditorsDTO addDebtorCreditorsDTO, string userId)

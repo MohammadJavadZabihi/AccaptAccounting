@@ -1,6 +1,7 @@
 ﻿using Accapt.Core.Servies.InterFace;
 using Accapt.DataLayer.Context;
 using Accapt.DataLayer.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,11 +14,12 @@ namespace Accapt.Core.Servies
     public class GetInovices : IGetInovices
     {
         private readonly AccaptFContext _context;
-        private readonly IFindUserServies _findUserServies;
-        public GetInovices(AccaptFContext context, IFindUserServies findUserServies)
+        private readonly UserManager<IdentityUser> _userManager;
+        public GetInovices(AccaptFContext context,
+            UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
-            _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
+            _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
 
             public async Task<IEnumerable<Invoice?>> GetAllInvoice(int pageNumber = 1, int pageSize = 0,
@@ -25,7 +27,7 @@ namespace Accapt.Core.Servies
         {
             try
             {
-                var user = await _findUserServies.FindUserById(userId);
+                var user = await _userManager.FindByIdAsync(userId);
 
                 if (user == null)
                     throw new ArgumentNullException(nameof(user));

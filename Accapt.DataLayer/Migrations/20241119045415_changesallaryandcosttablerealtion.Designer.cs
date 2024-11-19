@@ -4,6 +4,7 @@ using Accapt.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Accapt.DataLayer.Migrations
 {
     [DbContext(typeof(AccaptFContext))]
-    partial class AccaptFContextModelSnapshot : ModelSnapshot
+    [Migration("20241119045415_changesallaryandcosttablerealtion")]
+    partial class changesallaryandcosttablerealtion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +60,12 @@ namespace Accapt.DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("BankId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Banks");
                 });
@@ -80,7 +88,7 @@ namespace Accapt.DataLayer.Migrations
 
                     b.Property<string>("Id")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("NegtiveBillan")
                         .HasColumnType("decimal(18,2)");
@@ -100,6 +108,8 @@ namespace Accapt.DataLayer.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("BillanId");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("Billans");
                 });
@@ -157,9 +167,14 @@ namespace Accapt.DataLayer.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("CheckId");
 
                     b.HasIndex("BankId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Cheks");
                 });
@@ -200,9 +215,11 @@ namespace Accapt.DataLayer.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("DebtorCreditorID");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("DebtorCreditors");
                 });
@@ -234,9 +251,14 @@ namespace Accapt.DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("EmployeeDeatailsId");
 
                     b.HasIndex("EpmloyeeId");
+
+                    b.HasIndex("UsersId");
 
                     b.ToTable("EmployeeDeatails");
                 });
@@ -269,9 +291,11 @@ namespace Accapt.DataLayer.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("EpmloyeeId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Employees");
                 });
@@ -300,7 +324,7 @@ namespace Accapt.DataLayer.Migrations
 
                     b.Property<string>("Id")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("InvoiceName")
                         .IsRequired()
@@ -320,6 +344,8 @@ namespace Accapt.DataLayer.Migrations
 
                     b.HasKey("InvoiceId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("Invoices");
                 });
 
@@ -336,7 +362,7 @@ namespace Accapt.DataLayer.Migrations
 
                     b.Property<string>("Id")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("InvoiceId")
                         .HasColumnType("int");
@@ -356,6 +382,8 @@ namespace Accapt.DataLayer.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("InvoiceDetailsId");
+
+                    b.HasIndex("Id");
 
                     b.HasIndex("InvoiceId");
 
@@ -396,7 +424,12 @@ namespace Accapt.DataLayer.Migrations
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("PepoId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("People");
                 });
@@ -427,9 +460,11 @@ namespace Accapt.DataLayer.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ProductId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("products");
                 });
@@ -485,9 +520,14 @@ namespace Accapt.DataLayer.Migrations
                     b.Property<double>("TotalAmount")
                         .HasColumnType("float");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("ProviderWorkId");
 
                     b.HasIndex("ServiceProviderId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("ProviderServiceLists");
                 });
@@ -525,7 +565,12 @@ namespace Accapt.DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UsersId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("SallaryAndCostsId");
+
+                    b.HasIndex("UsersId");
 
                     b.ToTable("SallaryAndCosts");
                 });
@@ -544,7 +589,7 @@ namespace Accapt.DataLayer.Migrations
 
                     b.Property<string>("Id")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("IsCreditor")
                         .IsRequired()
@@ -563,7 +608,61 @@ namespace Accapt.DataLayer.Migrations
 
                     b.HasKey("ServiceProviderId");
 
+                    b.HasIndex("Id");
+
                     b.ToTable("ServiceProviders");
+                });
+
+            modelBuilder.Entity("Accapt.DataLayer.Entities.Users", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("ExpireAccessDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("RealFullName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("RegisterDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("VerifyCode")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Accapt.DataLayer.Entities.VisibleService", b =>
@@ -615,11 +714,36 @@ namespace Accapt.DataLayer.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("VisibleServiceId");
 
                     b.HasIndex("ProviderWorkId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("VisibleServices");
+                });
+
+            modelBuilder.Entity("Accapt.DataLayer.Entities.BankT", b =>
+                {
+                    b.HasOne("Accapt.DataLayer.Entities.Users", "User")
+                        .WithMany("Banks")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Accapt.DataLayer.Entities.Billan", b =>
+                {
+                    b.HasOne("Accapt.DataLayer.Entities.Users", "Users")
+                        .WithMany("Billans")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Accapt.DataLayer.Entities.Chek", b =>
@@ -630,7 +754,24 @@ namespace Accapt.DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Accapt.DataLayer.Entities.Users", "User")
+                        .WithMany("Cheks")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("Bank");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Accapt.DataLayer.Entities.DebtorCreditor", b =>
+                {
+                    b.HasOne("Accapt.DataLayer.Entities.Users", "User")
+                        .WithMany("DebtorCreditors")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Accapt.DataLayer.Entities.EmployeeDeatails", b =>
@@ -641,11 +782,43 @@ namespace Accapt.DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Accapt.DataLayer.Entities.Users", null)
+                        .WithMany("EmployeeDeatails")
+                        .HasForeignKey("UsersId");
+
                     b.Navigation("Epmloyee");
+                });
+
+            modelBuilder.Entity("Accapt.DataLayer.Entities.Epmloyee", b =>
+                {
+                    b.HasOne("Accapt.DataLayer.Entities.Users", "Users")
+                        .WithMany("Employees")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Accapt.DataLayer.Entities.Invoice", b =>
+                {
+                    b.HasOne("Accapt.DataLayer.Entities.Users", "Users")
+                        .WithMany("Invoices")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Accapt.DataLayer.Entities.InvoiceDetails", b =>
                 {
+                    b.HasOne("Accapt.DataLayer.Entities.Users", "Users")
+                        .WithMany("InvoiceDetails")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Accapt.DataLayer.Entities.Invoice", "Invoices")
                         .WithMany("InvoiceDetails")
                         .HasForeignKey("InvoiceId")
@@ -653,6 +826,28 @@ namespace Accapt.DataLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("Invoices");
+
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("Accapt.DataLayer.Entities.Pepole", b =>
+                {
+                    b.HasOne("Accapt.DataLayer.Entities.Users", "User")
+                        .WithMany("Pepoles")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Accapt.DataLayer.Entities.Product", b =>
+                {
+                    b.HasOne("Accapt.DataLayer.Entities.Users", "Users")
+                        .WithMany("Products")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Accapt.DataLayer.Entities.ProviderServiceList", b =>
@@ -663,7 +858,31 @@ namespace Accapt.DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Accapt.DataLayer.Entities.Users", "User")
+                        .WithMany("ProviderServiceLists")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("ServiceProvider");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Accapt.DataLayer.Entities.SallaryAndCosts", b =>
+                {
+                    b.HasOne("Accapt.DataLayer.Entities.Users", null)
+                        .WithMany("SallaryAndCosts")
+                        .HasForeignKey("UsersId");
+                });
+
+            modelBuilder.Entity("Accapt.DataLayer.Entities.ServiceProvider", b =>
+                {
+                    b.HasOne("Accapt.DataLayer.Entities.Users", "Users")
+                        .WithMany("ServiceProviders")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Accapt.DataLayer.Entities.VisibleService", b =>
@@ -674,7 +893,13 @@ namespace Accapt.DataLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Accapt.DataLayer.Entities.Users", "User")
+                        .WithMany("VisibleServices")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("ProviderServiceList");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Accapt.DataLayer.Entities.BankT", b =>
@@ -700,6 +925,37 @@ namespace Accapt.DataLayer.Migrations
             modelBuilder.Entity("Accapt.DataLayer.Entities.ServiceProvider", b =>
                 {
                     b.Navigation("ProviderServiceLists");
+                });
+
+            modelBuilder.Entity("Accapt.DataLayer.Entities.Users", b =>
+                {
+                    b.Navigation("Banks");
+
+                    b.Navigation("Billans");
+
+                    b.Navigation("Cheks");
+
+                    b.Navigation("DebtorCreditors");
+
+                    b.Navigation("EmployeeDeatails");
+
+                    b.Navigation("Employees");
+
+                    b.Navigation("InvoiceDetails");
+
+                    b.Navigation("Invoices");
+
+                    b.Navigation("Pepoles");
+
+                    b.Navigation("Products");
+
+                    b.Navigation("ProviderServiceLists");
+
+                    b.Navigation("SallaryAndCosts");
+
+                    b.Navigation("ServiceProviders");
+
+                    b.Navigation("VisibleServices");
                 });
 #pragma warning restore 612, 618
         }

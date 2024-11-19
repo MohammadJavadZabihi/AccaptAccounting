@@ -8,7 +8,7 @@ namespace Accapt.Api.Controllers
 {
     [Route("api/ProviderMnager")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ServiceProviderController : ControllerBase
     {
         private readonly IProviderService _providerService;

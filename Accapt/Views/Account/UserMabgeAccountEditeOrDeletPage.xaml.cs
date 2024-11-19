@@ -93,7 +93,7 @@ namespace Accapt.Views.Account
                     {
                         loading.Show();
 
-                        var responeMessage = await _callApi.SendPatchRequest<DataLayer.Entities.Users>
+                        var responeMessage = await _callApi.SendPatchRequest<object>
                             ($"{url}/api/ManageUsers/Update/{UserSession.Instance.Username}", data, UserSession.Instance.JwtToken);
 
                         _click--;

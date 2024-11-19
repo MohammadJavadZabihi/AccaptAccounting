@@ -15,14 +15,11 @@ namespace Accapt.Core.Servies
     public class EmployeeServies : IEmployeeServies
     {
         private readonly AccaptFContext _context;
-        private readonly IFindUserServies _findUserServies;
         private readonly UserManager<IdentityUser> _userManager;
         public EmployeeServies(AccaptFContext context, 
-            IFindUserServies findUserServies,
             UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
-            _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
             _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
 
@@ -71,7 +68,7 @@ namespace Accapt.Core.Servies
         {
             if(deletEpmloyee != null)
             {
-                var user = await _findUserServies.FindUserById(deletEpmloyee.UserId);
+                var user = await _userManager.FindByIdAsync(deletEpmloyee.UserId);
 
                 if(user != null )
                 {

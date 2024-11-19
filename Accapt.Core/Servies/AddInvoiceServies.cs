@@ -14,18 +14,15 @@ namespace Accapt.Core.Servies
     public class AddInvoiceServies : IAddInvoiceServies
     {
         private readonly AccaptFContext _context;
-        private readonly IFindUserServies _findUserServies;
         private readonly IProductServies _productServies;
         private readonly IFindPepolServies _findPepolServies;
         private readonly UserManager<IdentityUser> _userManager;
         public AddInvoiceServies(AccaptFContext context, 
-            IFindUserServies findUserServies, 
             IProductServies productServies, 
             IFindPepolServies findPepolServies,
             UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
-            _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
             _productServies = productServies ?? throw new ArgumentException(nameof(productServies));
             _findPepolServies = findPepolServies ?? throw new ArgumentException(nameof(findPepolServies));
             _userManager = userManager ?? throw new ArgumentException(nameof(userManager));

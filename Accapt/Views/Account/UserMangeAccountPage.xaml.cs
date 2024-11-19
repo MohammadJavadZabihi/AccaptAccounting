@@ -47,6 +47,7 @@ namespace Accapt.Views.Account
                     userName = UserSession.Instance.Username
                 };
                 var user = await _callApi.SendGetRequest<GetSingleUserDTO>($"{url}/api/ManageUsers/GetSingle", jwt:UserSession.Instance.JwtToken);
+                loading.Close();
 
                 if (user.IsSuccess)
                 {
@@ -56,12 +57,10 @@ namespace Accapt.Views.Account
                     lblFullName.Text = data.RealFullName;
                     lblUserName.Text = data.UserName;
                     lblPhoneNumber.Text = data.PhoneNumber;
-                    loading.Close();
                 }
                 else
                 {
                     MessageBox.Show("خطا در نمایش اطلاعات کاربر", "خطا", MessageBoxButton.OK, MessageBoxImage.Error);
-                    loading.Close();
                     lblWelcomUser.Text = "خطا در نمایش اطلاعات کاربر";
                     lblEmail.Text = "خطا در نمایش اطلاعات کاربر";
                     lblFullName.Text = "خطا در نمایش اطلاعات کاربر";

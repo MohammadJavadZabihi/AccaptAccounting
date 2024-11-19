@@ -20,7 +20,6 @@ namespace Accapt.DataLayer.Entities
         public int BillanId { get; set; }
 
         [Required]
-        [ForeignKey("Users")]
         public string Id { get; set; }
 
         [Required]
@@ -45,11 +44,5 @@ namespace Accapt.DataLayer.Entities
 
         [Required]
         public decimal TotoalBillan { get; set; }
-
-        #region realtions
-
-        public Users Users { get; set; }
-
-        #endregion
     }
 }

@@ -15,14 +15,11 @@ namespace Accapt.Core.Servies
     public class SallaryAndCostsServiec : ISallaryAndCostsServiec
     {
         private readonly AccaptFContext _context;
-        private readonly IFindUserServies _findUserServies;
         private readonly UserManager<IdentityUser> _userManager;
         public SallaryAndCostsServiec(AccaptFContext context,
-            IFindUserServies findUserServies,
             UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
-            _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
             _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
         }
         public async Task<bool> AddNewSallaryAndCosts(AddSallaryAndCostsDTO addSallaryAndCostsDTO, string userId)

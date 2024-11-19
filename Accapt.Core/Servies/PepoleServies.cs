@@ -16,16 +16,13 @@ namespace Accapt.Core.Servies
     public class PepoleServies : IPepoleServies
     {
         private readonly AccaptFContext _context;
-        private readonly IFindUserServies _findUserServies;
         private readonly IFindPepolServies _findPepolServies;
         private readonly UserManager<IdentityUser> _userManager;
         public PepoleServies(AccaptFContext context,
-            IFindUserServies findUserServies,
             IFindPepolServies findPepolServies,
             UserManager<IdentityUser> userManager)
         {
             _context = context ?? throw new ArgumentException(nameof(context));
-            _findUserServies = findUserServies ?? throw new ArgumentException(nameof(findUserServies));
             _findPepolServies = findPepolServies ?? throw new ArgumentException(nameof(findPepolServies));
             _userManager = userManager ?? throw new ArgumentException(nameof(userManager));
 
