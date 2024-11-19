@@ -6,6 +6,7 @@ using ApiRequest.Net.CallApi;
 using System.Configuration;
 using System.Windows;
 using System.Net;
+using System.Reflection;
 
 namespace AccaptFullyVersion.App.Views
 {
@@ -17,6 +18,7 @@ namespace AccaptFullyVersion.App.Views
         private string? _localUrl = ConfigurationManager.AppSettings["LocalHost"];
         public string userName;
         private int _click = 0;
+        string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
         public LoginPage(MainWindow mainWindow)
         {
             InitializeComponent();
