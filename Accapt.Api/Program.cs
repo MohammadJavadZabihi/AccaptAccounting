@@ -94,6 +94,7 @@ builder.Services.AddTransient<IProviderService, ProviderService>();
 builder.Services.AddTransient<IProviderServiceListS, ProviderServiceListS>();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddTransient<IJwtHelper, JwtHelper>();
+builder.Services.AddTransient<IUpdateClientService, UpdateClientService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

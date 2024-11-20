@@ -18,7 +18,8 @@ namespace AccaptFullyVersion.App.Views
         private string? _localUrl = ConfigurationManager.AppSettings["LocalHost"];
         public string userName;
         private int _click = 0;
-        string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+        public string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
         public LoginPage(MainWindow mainWindow)
         {
             InitializeComponent();
@@ -127,6 +128,11 @@ namespace AccaptFullyVersion.App.Views
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var responseMessage = await _callApiServies.SendGetRequest<ReturnCheckUpdateDTO>($"{url}/api/ClientUpdate");
         }
     }
 }

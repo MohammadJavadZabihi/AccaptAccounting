@@ -77,5 +77,11 @@ namespace Accapt.DataLayer.Context
         public DbSet<VisibleService> VisibleServices { get; set; }
 
         #endregion
+
+        #region Updat Client
+
+        public DbSet<ClientUpdate> ClientUpdates { get; set; }
+
+        #endregion
     }
 }

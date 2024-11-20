@@ -58,7 +58,6 @@
 
 	<ItemGroup>
 		<None Remove="Resources\Fonts\Vazir-Bold-FD-WOL.ttf" />
-		<None Remove="Resources\Images\Login_and_Register_Icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
