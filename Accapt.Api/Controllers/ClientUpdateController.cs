@@ -15,13 +15,13 @@ namespace Accapt.Api.Controllers
             _updateClientService = updateClientService ?? throw new ArgumentException(nameof(updateClientService));
         }
 
-        [HttpGet("Check/{currentVersio}")]
-        public async Task<IActionResult> ChekUpdate(string currentVersio)
+        [HttpGet("Check/{currentVersion}")]
+        public async Task<IActionResult> ChekUpdate(string currentVersion)
         {
-            if (string.IsNullOrEmpty(currentVersio))
+            if (string.IsNullOrEmpty(currentVersion))
                 return BadRequest();
 
-            var updateClient = await _updateClientService.CehckUpdate(currentVersio);
+            var updateClient = await _updateClientService.CehckUpdate(currentVersion);
 
             if (updateClient == null)
                 return NotFound();

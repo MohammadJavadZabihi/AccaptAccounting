@@ -135,7 +135,7 @@ namespace AccaptFullyVersion.App.Views
         {
             this.Visibility = Visibility.Hidden;
 
-            var responseMessage = await _callApiServies.SendGetRequest<ReturnCheckUpdateDTO>($"{url}/api/ClientUpdate/Check/{currentVersion}");
+            var responseMessage = await _callApiServies.SendGetRequest<ReturnCheckUpdateDTO>($"{_localUrl}/api/ClientUpdate/Check/{currentVersion}");
 
             if (responseMessage.IsSuccess)
             {

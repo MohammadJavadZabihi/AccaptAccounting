@@ -31,7 +31,7 @@
                         <TextBlock x:Name="txtVersion" Text="ورژن جدید" Style="{StaticResource LRTexBlock}" Width="280" HorizontalAlignment="Center" FontWeight="SemiBold" TextAlignment="Center"/>
                         <TextBlock x:Name="txtReleasNote" Text="ورژن جدید" Style="{StaticResource LRTexBlock}" Width="270" FontSize="15" FontWeight="Normal" Height="141" TextWrapping="Wrap" TextAlignment="Right"/>
 
-                        <Button x:Name="btnDownload" Style="{StaticResource LRButton}" Margin="0 40 0 0" Content="ورود" Height="33" Click="btnDownload_Click">
+                        <Button x:Name="btnDownload" Style="{StaticResource LRButton}" Margin="0 40 0 0" Content="دانلود نسخه جدید" Height="33" Click="btnDownload_Click">
                             <Button.Background>
                                 <LinearGradientBrush>
                                     <LinearGradientBrush.GradientStops>
