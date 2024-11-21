@@ -22,7 +22,7 @@ namespace Accapt.Core.Servies
 
         public async Task<bool> AddNewUpdate(AddUpdateClientDTO addUpdateClientDTO)
         {
-            var client = await _context.ClientUpdates.FirstOrDefaultAsync(c => c.Version == addUpdateClientDTO.OldVersion);
+            var client = await _context.ClientUpdates.FirstOrDefaultAsync(c => c.Id == addUpdateClientDTO.Id);
 
             if (client == null)
                 return false;
@@ -40,12 +40,12 @@ namespace Accapt.Core.Servies
 
         public async Task<ClientUpdate> CehckUpdate(string version)
         {
-            var client = await _context.ClientUpdates.FirstOrDefaultAsync(c => c.Version == version);
+            var client = await _context.ClientUpdates.AnyAsync(c => c.Version == version);
 
-            if (client == null)
+            if (client)
                 return null;
 
-            return client;
+            return await _context.ClientUpdates.FirstOrDefaultAsync(c => c.Id == 1);
         }
     }
 }

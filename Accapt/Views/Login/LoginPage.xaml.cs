@@ -7,6 +7,7 @@ using System.Configuration;
 using System.Windows;
 using System.Net;
 using System.Reflection;
+using Accapt.Views.UpdateClient;
 
 namespace AccaptFullyVersion.App.Views
 {
@@ -132,7 +133,21 @@ namespace AccaptFullyVersion.App.Views
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var responseMessage = await _callApiServies.SendGetRequest<ReturnCheckUpdateDTO>($"{url}/api/ClientUpdate");
+            this.Visibility = Visibility.Hidden;
+
+            var responseMessage = await _callApiServies.SendGetRequest<ReturnCheckUpdateDTO>($"{url}/api/ClientUpdate/Check/{currentVersion}");
+
+            if (responseMessage.IsSuccess)
+            {
+                UpdateClientWindow updateClientWindow = new UpdateClientWindow();
+
+                updateClientWindow.LoadData(responseMessage.Data.Version, responseMessage.Data.Note,
+                    responseMessage.Data.IsMandetory, responseMessage.Data.Downnload);
+
+                updateClientWindow.ShowDialog();
+            }
+
+            this.Visibility = Visibility.Visible;
         }
     }
 }

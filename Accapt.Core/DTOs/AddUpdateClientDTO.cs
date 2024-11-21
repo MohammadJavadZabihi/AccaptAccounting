@@ -9,7 +9,7 @@ namespace Accapt.Core.DTOs
     public class AddUpdateClientDTO
     {
 
-        public string OldVersion { get; set; }
+        public int Id { get; set; }
         public string Version { get; set; }
         public bool IsMandetory { get; set; }
         public string Note { get; set; }

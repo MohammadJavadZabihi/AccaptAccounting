@@ -1,4 +1,5 @@
-﻿using Accapt.Core.Servies.InterFace;
+﻿using Accapt.Core.DTOs;
+using Accapt.Core.Servies.InterFace;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +15,7 @@ namespace Accapt.Api.Controllers
             _updateClientService = updateClientService ?? throw new ArgumentException(nameof(updateClientService));
         }
 
-        [HttpGet("{currentVersio}")]
+        [HttpGet("Check/{currentVersio}")]
         public async Task<IActionResult> ChekUpdate(string currentVersio)
         {
             if (string.IsNullOrEmpty(currentVersio))
@@ -32,6 +33,20 @@ namespace Accapt.Api.Controllers
                 Note = updateClient.RealeseNote,
                 IsMandetory = updateClient.IsMandentory
             });
+        }
+
+        [HttpPost("Add")]
+        public async Task<IActionResult> UpdateClient(AddUpdateClientDTO addUpdateClientDTO)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var updateStatuce = await _updateClientService.AddNewUpdate(addUpdateClientDTO);
+
+            if(!updateStatuce)
+                return BadRequest(updateStatuce);
+
+            return Ok(updateStatuce);
         }
     }
 }
