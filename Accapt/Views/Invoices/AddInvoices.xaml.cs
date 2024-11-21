@@ -5,6 +5,7 @@ using Accapt.Views.Pepole;
 using Accapt.Views.Products;
 using Accapt.WpfServies;
 using ApiRequest.Net.CallApi;
+using Mohsen.PersianDateControls;
 using System.Configuration;
 using System.Net;
 using System.Windows;
@@ -242,110 +243,117 @@ namespace Accapt.Views.Invoices
 
         private async void btnSubmitInvoice_Click(object sender, RoutedEventArgs e)
         {
-            if (_click == 0)
+            try
             {
-                if (MessageBox.Show("آیا از ثبت فاکتور خود مطمئن هستید؟", "اطمینان", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if (_click == 0)
                 {
-                    _click++;
-                    if (txtTotalAmount.Value == 0 || string.IsNullOrEmpty(txtCustomerName.Text))
+                    if (MessageBox.Show("آیا از ثبت فاکتور خود مطمئن هستید؟", "اطمینان", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
-                        _click--;
-                        MessageBox.Show("باید محصولی را وارد کنید و باید نوع فاکتور انتخوابی معلوم باشد", "خطا", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    else
-                    {
-                        var dataForIsExistPerson = new
+                        _click++;
+                        if (txtTotalAmount.Value == 0 || string.IsNullOrEmpty(txtCustomerName.Text))
                         {
-                            PeronName = txtCustomerName.Text,
-                            UserId = UserSession.Instance.UserId
-                        };
-
-                        LoadingWindow loadingWindow = new LoadingWindow();
-                        loadingWindow.Show();
-
-                        var responseMessage = await _callApi.SendPostRequest<bool>($"{url}/api/PepoleManger/IsExistPerson", dataForIsExistPerson, UserSession.Instance.JwtToken);
-
-                        loadingWindow.Close();
-
-                        if (responseMessage.IsSuccess)
+                            _click--;
+                            MessageBox.Show("باید محصولی را وارد کنید و باید نوع فاکتور انتخوابی معلوم باشد", "خطا", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        else
                         {
-                            if (responseMessage.Data == false)
+                            var dataForIsExistPerson = new
                             {
-                                if (MessageBox.Show("شخص مورد نظر شما در قسمت اشخاص وجود ندارد, ایا مایل هستید که او را به قسمت اشخاص خود اضافه کنید؟", "هشدار",
-                                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                                PeronName = txtCustomerName.Text,
+                                UserId = UserSession.Instance.UserId
+                            };
+
+                            LoadingWindow loadingWindow = new LoadingWindow();
+                            loadingWindow.Show();
+
+                            var responseMessage = await _callApi.SendPostRequest<bool>($"{url}/api/PepoleManger/IsExistPerson", dataForIsExistPerson, UserSession.Instance.JwtToken);
+
+                            loadingWindow.Close();
+
+                            if (responseMessage.IsSuccess)
+                            {
+                                if (responseMessage.Data == false)
                                 {
-                                    AddOrEditePepleWindow addOrEditePepleWindow = new AddOrEditePepleWindow();
-                                    addOrEditePepleWindow.txtPepoName.Text = txtCustomerName.Text;
-                                    addOrEditePepleWindow.ShowDialog();
+                                    if (MessageBox.Show("شخص مورد نظر شما در قسمت اشخاص وجود ندارد, ایا مایل هستید که او را به قسمت اشخاص خود اضافه کنید؟", "هشدار",
+                                        MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                                    {
+                                        AddOrEditePepleWindow addOrEditePepleWindow = new AddOrEditePepleWindow();
+                                        addOrEditePepleWindow.txtPepoName.Text = txtCustomerName.Text;
+                                        addOrEditePepleWindow.ShowDialog();
+                                    }
                                 }
                             }
-                        }
 
-                        bool creditorStatuce = false;
+                            bool creditorStatuce = false;
 
-                        if (txtAmountPaid.Value == txtTotalAmount.Value)
-                            creditorStatuce = false;
-                        else
-                            creditorStatuce = true;
-
-
-                        IEnumerable<InvoiceDetailsDTO> invoiceDetailsList = addProducDataGrid.Items.Cast<InvoiceDetailsDTO>();
-
-                        var data = new
-                        {
-                            InvoiceName = txtCustomerName.Text,
-                            CreditorStatuce = creditorStatuce,
-                            TypeOfInvoice = typeOfInvoice,
-                            UserId = UserSession.Instance.UserId,
-                            TotalPrice = Convert.ToDecimal(txtTotalAmount.Value),
-                            AmountPaid = Convert.ToDecimal(txtAmountPaid.Value),
-                            TotalDiscount = 0,
-                            DateOfSubmitInvoice = Convert.ToDateTime(txtDate.Text),
-                            Description = txtDescriptions.Text,
-                            InvoiceDetails = invoiceDetailsList,
-                            NextDateVisit = Convert.ToDateTime(txtNextDate.Text),
-                            PepolName = txtCustomerName.Text,
-                        };
-
-                        var reponseMessage = await _callApi.SendPostRequest<AddInvoiceReturnApiDTO?>($"{url}/api/InvoiceManger/Add", data, UserSession.Instance.JwtToken);
+                            if (txtAmountPaid.Value == txtTotalAmount.Value)
+                                creditorStatuce = false;
+                            else
+                                creditorStatuce = true;
 
 
-                        if (reponseMessage.IsSuccess)
-                        {
-                            _click--;
-                            MessageBox.Show("فاکتور شما با موفقیت ثبت شد", "پیام", MessageBoxButton.OK, MessageBoxImage.Information);
-                            txtProductCount.Value = 0;
-                            txtProductName.Text = "";
-                            txtDiscount.Value = 0;
-                            txtProductPrice.Value = 0;
-                            txtDescriptions.Text = "";
-                            txtCustomerName.Text = "";
-                            txtTotalAmount.Value = 0;
-                            txtAmountPaid.Value = 0;
-                            addProducDataGrid.Items.Clear();
-                        }
-                        else if (responseMessage.StatusCode == null)
-                        {
-                            _click--;
-                            MessageBox.Show($"لطفا اتصال خود را به اینترنت بررسی کنید و دوباره تلاش کنید", "خطا", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                        else if (responseMessage.StatusCode == HttpStatusCode.Unauthorized)
-                        {
-                            _click--;
-                            MessageBox.Show($"خطای احراز حویت", "خطا", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                        else if (responseMessage.StatusCode == HttpStatusCode.BadRequest)
-                        {
-                            _click--;
-                            MessageBox.Show($"لطفا در ارسال اطلاعات دقت فرمایید", "خطا", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                        else if (responseMessage.StatusCode == HttpStatusCode.InternalServerError)
-                        {
-                            _click--;
-                            MessageBox.Show($"خطا از طرف سرور, لطفا بعدا دوباره تلاش کنید", "خطا", MessageBoxButton.OK, MessageBoxImage.Error);
+                            IEnumerable<InvoiceDetailsDTO> invoiceDetailsList = addProducDataGrid.Items.Cast<InvoiceDetailsDTO>();
+
+                            var data = new
+                            {
+                                InvoiceName = txtCustomerName.Text,
+                                CreditorStatuce = creditorStatuce,
+                                TypeOfInvoice = typeOfInvoice,
+                                UserId = UserSession.Instance.UserId,
+                                TotalPrice = Convert.ToDecimal(txtTotalAmount.Value),
+                                AmountPaid = Convert.ToDecimal(txtAmountPaid.Value),
+                                TotalDiscount = 0,
+                                DateOfSubmitInvoice = Convert.ToDateTime(txtDate.Text),
+                                Description = txtDescriptions.Text,
+                                InvoiceDetails = invoiceDetailsList,
+                                NextDateVisit = Convert.ToDateTime(txtNextDate.Text),
+                                PepolName = txtCustomerName.Text,
+                            };
+
+                            var reponseMessage = await _callApi.SendPostRequest<AddInvoiceReturnApiDTO?>($"{url}/api/InvoiceManger/Add", data, UserSession.Instance.JwtToken);
+
+
+                            if (reponseMessage.IsSuccess)
+                            {
+                                _click--;
+                                MessageBox.Show("فاکتور شما با موفقیت ثبت شد", "پیام", MessageBoxButton.OK, MessageBoxImage.Information);
+                                txtProductCount.Value = 0;
+                                txtProductName.Text = "";
+                                txtDiscount.Value = 0;
+                                txtProductPrice.Value = 0;
+                                txtDescriptions.Text = "";
+                                txtCustomerName.Text = "";
+                                txtTotalAmount.Value = 0;
+                                txtAmountPaid.Value = 0;
+                                addProducDataGrid.Items.Clear();
+                            }
+                            else if (responseMessage.StatusCode == null)
+                            {
+                                _click--;
+                                MessageBox.Show($"لطفا اتصال خود را به اینترنت بررسی کنید و دوباره تلاش کنید", "خطا", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                            else if (responseMessage.StatusCode == HttpStatusCode.Unauthorized)
+                            {
+                                _click--;
+                                MessageBox.Show($"خطای احراز حویت", "خطا", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                            else if (responseMessage.StatusCode == HttpStatusCode.BadRequest)
+                            {
+                                _click--;
+                                MessageBox.Show($"لطفا در ارسال اطلاعات دقت فرمایید", "خطا", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                            else if (responseMessage.StatusCode == HttpStatusCode.InternalServerError)
+                            {
+                                _click--;
+                                MessageBox.Show($"خطا از طرف سرور, لطفا بعدا دوباره تلاش کنید", "خطا", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"خطای ناشناخته : {ex.Message}", "خطا", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
